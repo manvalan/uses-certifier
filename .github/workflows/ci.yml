@@ -15,7 +15,7 @@ jobs:
       - run: pytest -q
 
   self-certify:
-    # Il certificatore deve superare le proprie regole.
+    # The certifier must pass its own rules.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,8 +26,8 @@ jobs:
         with:
           path: uses_certifier
           min-level: gold
-          # Provvisorio: le regole sono ancora nella PR manvalan/uses-rules#1.
-          # Tornare a "main" quando quella PR è unita.
+          # Temporary: the rules still live in manvalan/uses-rules#1.
+          # Switch back to "main" once that pull request is merged.
           rules-ref: claude/certificatore-v1
       - uses: actions/upload-artifact@v4
         with:

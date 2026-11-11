@@ -1,4 +1,4 @@
-"""Configurazione del progetto da certificare (.uses-certifier.yaml)."""
+"""Configuration of the project being certified (.uses-certifier.yaml)."""
 from dataclasses import dataclass, field, replace
 from fnmatch import fnmatch
 from pathlib import Path
@@ -14,7 +14,7 @@ DEFAULT_EXCLUDE = [
 
 @dataclass
 class ProjectConfig:
-    """Scelte del progetto: ruleset, esclusioni, soglie e livello minimo."""
+    """Project choices: rulesets, exclusions, thresholds, minimum level."""
 
     rulesets: list = field(default_factory=list)
     exclude: list = field(default_factory=list)
@@ -23,17 +23,17 @@ class ProjectConfig:
     rules_path: str = ""
 
     def is_excluded(self, relpath):
-        """Vero se il percorso relativo corrisponde a un'esclusione."""
+        """True when the relative path matches an exclusion."""
         patterns = DEFAULT_EXCLUDE + self.exclude
         return any(fnmatch(relpath, pattern) for pattern in patterns)
 
     def apply_overrides(self, rules):
-        """Applica le modifiche alle regole indicate per id."""
+        """Apply the per-id rule changes."""
         return [replace(r, **self.overrides.get(r.id, {})) for r in rules]
 
 
 def load(root, explicit=None):
-    """Legge la configurazione del progetto, se presente."""
+    """Read the project configuration, when present."""
     path = Path(explicit) if explicit else Path(root) / FILENAME
     if not path.is_file():
         return ProjectConfig()

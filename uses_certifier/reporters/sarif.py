@@ -1,4 +1,4 @@
-"""Uscita SARIF 2.1.0 per GitHub code scanning e gli IDE."""
+"""SARIF 2.1.0 output for GitHub code scanning and IDEs."""
 import json
 
 from .. import __version__
@@ -8,9 +8,9 @@ SCHEMA = "https://json.schemastore.org/sarif-2.1.0.json"
 
 
 def render(cert, select=None):
-    """Documento SARIF con una voce per violazione non soppressa.
+    """SARIF document with one result per unsuppressed violation.
 
-    Il filtro select è accettato per uniformità ed è ignorato.
+    The select filter is accepted for uniformity and ignored.
     """
     run = {
         "tool": {"driver": {
@@ -26,7 +26,7 @@ def render(cert, select=None):
 
 
 def _rule(rule):
-    """Descrizione SARIF di una regola."""
+    """SARIF description of a rule."""
     return {"id": rule.id, "name": rule.name,
             "shortDescription": {"text": rule.title},
             "fullDescription": {"text": rule.rationale or rule.title},
@@ -34,12 +34,12 @@ def _rule(rule):
 
 
 def _result(module, violation):
-    """Voce SARIF di una violazione."""
+    """SARIF result of a violation."""
     location = {"physicalLocation": {
         "artifactLocation": {"uri": module.qualname},
         "region": {"startLine": violation.line},
     }}
-    message = (f"{violation.title}: misurato {violation.value}, soglia "
+    message = (f"{violation.title}: measured {violation.value}, threshold "
                f"{violation.operator} {violation.threshold}")
     return {"ruleId": violation.rule_id,
             "level": LEVELS[violation.severity],

@@ -1,21 +1,24 @@
 name: USES Certifier
-description: Bollina metodi, classi e sorgenti secondo le regole di uses-rules
+description: Stamps methods, classes and source files using the uses-rules rules
 inputs:
   path:
-    description: Cartella o file da certificare
+    description: Folder or file to certify
     default: "."
   min-level:
-    description: Livello minimo richiesto (gold, silver, bronze)
+    description: Minimum required level (gold, silver, bronze)
     default: ""
   rules-ref:
-    description: Branch, tag o commit di manvalan/uses-rules
+    description: Branch, tag or commit of manvalan/uses-rules
     default: main
+  key:
+    description: Secret key that signs the stamps (pass a repository secret)
+    default: ""
   token:
-    description: Token con accesso in lettura a manvalan/uses-rules
+    description: Token with read access to manvalan/uses-rules
     default: ${{ github.token }}
 outputs:
   certificate:
-    description: Percorso del certificato JSON
+    description: Path of the JSON certificate
     value: uses-certificate.json
 runs:
   using: composite
@@ -31,6 +34,7 @@ runs:
     - shell: bash
       env:
         MIN_LEVEL: ${{ inputs.min-level }}
+        USES_CERT_KEY: ${{ inputs.key }}
         TARGET: ${{ inputs.path }}
       run: |
         set +e

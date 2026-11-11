@@ -1,36 +1,34 @@
-"""Funzioni condivise dai formati di uscita."""
+"""Helpers shared by the output formats."""
 
-BADGES = {"gold": "[ORO]", "silver": "[ARG]", "bronze": "[BRO]",
-          "none": "[NO ]"}
-KIND_LABELS = {"module": "sorgenti", "class": "classi",
-               "function": "metodi e funzioni"}
+KIND_LABELS = {"module": "source files", "class": "classes",
+               "function": "methods and functions"}
 
 
 def badge(level):
-    """Bollino testuale breve del livello."""
-    return BADGES.get(level, f"[{level[:3].upper()}]")
+    """Short text badge of the level."""
+    return f"[{level.upper()}]".ljust(8)
 
 
 def describe(violation):
-    """Descrizione di una violazione in una riga."""
+    """One-line description of a violation."""
     text = (f"{violation.rule_id} {violation.title} "
-            f"(misurato {violation.value}, soglia {violation.operator} "
+            f"(measured {violation.value}, threshold {violation.operator} "
             f"{violation.threshold})")
-    return text + (" [soppressa]" if violation.suppressed else "")
+    return text + (" [suppressed]" if violation.suppressed else "")
 
 
 def with_violations(entity):
-    """Filtro predefinito: solo gli elementi con violazioni."""
+    """Default filter: only elements with violations."""
     return bool(entity.violations)
 
 
 def everything(entity):
-    """Filtro completo: tutti gli elementi."""
+    """Full filter: every element."""
     return entity is not None
 
 
 def summary_rows(cert):
-    """Righe (tipo, livello, conteggio) ordinate per tipo e livello."""
+    """(kind, level, count) rows sorted by kind and level."""
     counts = {}
     for entity in cert.entities():
         key = (entity.kind, entity.level)

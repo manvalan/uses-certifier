@@ -1,115 +1,152 @@
 # uses-certifier
 
-Certificatore del software che produciamo. Analizza i sorgenti, applica le
-regole YAML di [uses-rules](https://github.com/manvalan/uses-rules) e
-**bollina ogni metodo, ogni classe e ogni sorgente** con un livello (Oro,
-Argento, Bronzo o Non certificato), un punteggio e un'impronta SHA-256 che
-lega il bollino al codice esatto che è stato giudicato.
+Certifier for the software we produce. It analyses the sources, applies the
+YAML rules of [uses-rules](https://github.com/manvalan/uses-rules) and
+**stamps every method, every class and every source file** with a level
+(Gold, Silver, Bronze or Not certified), a score and a unique code that is
+valid only for that exact element.
 
-Le regole vengono da *Code That Fits in Your Head* (Mark Seemann): regola del
-sette, regola 80/24, oggetti attivati, annidamento. A queste si aggiungono
-quelle di *Clean Code* e di PEP 8 / PEP 257.
+The rules come from *Code That Fits in Your Head* (Mark Seemann): rule of
+seven, 80/24 rule, activated objects, nesting. On top of those come the
+rules of *Clean Code* and PEP 8 / PEP 257.
 
-## Installazione
+## Installation
 
 ```bash
 pip install git+https://github.com/manvalan/uses-certifier
 git clone https://github.com/manvalan/uses-rules
 ```
 
-Richiede Python 3.10 o successivo.
+Requires Python 3.10 or later.
 
-## Uso
+## Usage
 
 ```bash
-# Certifica una cartella e mostra gli elementi con violazioni
+# Certify a folder and show the elements with violations
 uses-certifier certify src/ --rules ../uses-rules
 
-# Tutti gli elementi, anche quelli senza violazioni
-uses-certifier certify src/ --rules ../uses-rules --verbose
+# Write the stamps into the sources
+uses-certifier stamp src/ --rules ../uses-rules
 
-# Scrive il certificato JSON e fallisce se il progetto è sotto Argento
+# Check that every stamp still matches its code
+uses-certifier verify src/ --rules ../uses-rules
+
+# Write the JSON certificate and fail when the project is below Silver
 uses-certifier certify src/ --rules ../uses-rules \
     --certificate uses-certificate.json --min-level silver
 
-# Rapporto Markdown (per pull request) o SARIF (per GitHub code scanning)
+# Check the sources against a JSON certificate
+uses-certifier verify uses-certificate.json
+
+# Markdown report (pull requests) or SARIF (GitHub code scanning)
 uses-certifier certify src/ --rules ../uses-rules --format markdown --output report.md
 uses-certifier certify src/ --rules ../uses-rules --format sarif --output report.sarif
 
-# Controlla che il codice non sia cambiato dopo la certificazione
-uses-certifier verify uses-certificate.json
-
-# Elenca le regole attive per il progetto
+# List the rules active for the project
 uses-certifier rules . --rules ../uses-rules
 ```
 
-Invece di `--rules` si può impostare la variabile `USES_RULES_PATH`.
+Instead of `--rules` you can set the `USES_RULES_PATH` variable.
 
-Esempio di uscita:
+## How elements are scored
 
-```
-[ARG] shop/cart.py (punteggio 100)
-    [NO ] function Cart.checkout r.42 punteggio 73
-        - CTF-001 Complessità ciclomatica al massimo 7 (misurato 9, soglia <= 7)
-        - CTF-002 Al massimo 7 oggetti attivati per metodo (misurato 11, soglia <= 7)
-
-Riepilogo:
-  sorgenti             Oro              17
-  metodi e funzioni    Oro              108
-  metodi e funzioni    Non certificato  1
-Livello del progetto: Non certificato
-```
-
-## Come funziona il bollino
-
-1. **Analisi.** Python viene letto con l'AST. Gli altri linguaggi (C, C++,
+1. **Analysis.** Python is read through its AST. Other languages (C, C++,
    C#, Java, JavaScript, TypeScript, Go, Rust, Kotlin, Swift, PHP, Ruby,
-   Scala, Lua...) con [lizard](https://github.com/terryyin/lizard). Per ogni
-   elemento si calcolano le metriche elencate nel README di uses-rules.
-2. **Regole.** Ogni regola confronta una metrica con una soglia. Le
-   violazioni costano 20 punti (error), 7 (warning) o 2 (info).
-3. **Livello.** Ogni elemento riceve il primo livello di
-   `certification.yaml` che soddisfa. Una classe vale quanto il peggiore tra
-   lei e i suoi metodi, un sorgente quanto il peggiore di ciò che contiene,
-   il progetto quanto il suo sorgente peggiore.
-4. **Bollino.** Il certificato JSON registra per ogni elemento l'impronta
-   SHA-256 del codice, il livello e un timbro che combina codice, regole e
-   livello. Se il codice o le regole cambiano, il timbro decade e
-   `uses-certifier verify` lo segnala.
+   Scala, Lua...) through [lizard](https://github.com/terryyin/lizard).
+   Every element gets the metrics listed in the uses-rules README.
+2. **Rules.** Each rule compares a metric with a threshold. Every
+   violation costs 20 points (error), 7 (warning) or 2 (info), starting
+   from 100.
+3. **Level.** Each element receives the first level of
+   `certification.yaml` it satisfies: Gold (≥ 95, no errors, no warnings),
+   Silver (≥ 80, no errors), Bronze (≥ 60, no errors), otherwise Not
+   certified. A class is worth the worst of itself and its methods, a
+   source file the worst of what it contains, the project its worst file.
 
-### Metriche approssimate
+Example (illustrative codes):
 
-- Con lizard le classi sono ricostruite dai nomi dei metodi
-  (`Classe::metodo`, `Classe.metodo`). Annidamento, oggetti attivati,
-  docstring, flag booleani e campi sono calcolati solo per Python.
-- **Oggetti attivati** (Python): parametri, variabili locali e campi di
-  `self` usati dal metodo. Non contano le variabili delle comprehension e le
-  chiamate ai metodi di `self`.
-- **Annidamento**: `if`, `for`, `while`, `with`, `try`, `match`; un `elif`
-  resta allo stesso livello dell'`if`.
+```
+[NONE]   orders.py (score 100, stamp 9E16-B88B-D922-31F6)
+    [GOLD]   function total l.4 score 100 1660-9C18-FDBD-A0E2
+    [NONE]   function discount l.9 score 67 51D7-626A-D417-789E
+        - CTF-001 Cyclomatic complexity of at most 7 (measured 8, threshold <= 7)
+        - CTF-006 At most 4 parameters (measured 5, threshold <= 4)
+        - CC-001 Preferably at most 3 arguments (measured 5, threshold <= 3)
+```
 
-## Eccezioni motivate
+## The stamp
 
-Quando una regola non ha senso per un caso preciso, si sopprime con un
-commento sulla riga sopra la definizione (o sopra i decoratori), sempre con
-una motivazione:
+`uses-certifier stamp` writes a comment above every method and class, and
+one at the top of every source file:
 
 ```python
-# uses-cert: ignore[CC-008] i campi rispecchiano il formato YAML
+# uses-cert: stamp-file GOLD 9E16-B88B-D922-31F6
+"""Orders."""
+
+
+# uses-cert: stamp GOLD 8B52-FCD3-6006-4E36
+class Cart:
+    """A cart."""
+
+    # uses-cert: stamp GOLD 51D7-626A-D417-789E
+    def total(self, a, b):
+        """Total."""
+        return a + b
+```
+
+The comment syntax follows the language (`#`, `//`, `--`...). Running
+`stamp` again replaces the old stamps; stamp lines are removed before
+analysis, so they never change a fingerprint or a metric.
+
+### A code valid only for that element
+
+Each code is computed from:
+
+- the file path and the element's kind and qualified name,
+- the SHA-256 fingerprint of the element's code,
+- the fingerprint of the rules and levels in force,
+- the level awarded.
+
+So a code belongs to one element only. If the code changes, if the stamp is
+copied onto another method, if the level is edited by hand or if the rules
+change, `uses-certifier verify` reports the stamp as `INVALID`. Elements
+without a stamp are reported as `MISSING`.
+
+**Signed codes.** Without a key, codes are SHA-256 fingerprints: unique,
+but anyone with the tool can recompute them. With a secret key in
+`USES_CERT_KEY` (or `--key-file`) they become HMAC-SHA256 signatures that
+cannot be forged without the key. Use a key, kept as a CI secret, when
+stamps must prove that the official pipeline issued them.
+
+### The JSON certificate
+
+`--certificate` writes `uses-certificate.json` with, for every element,
+metrics, violations, score, level, SHA-256 fingerprint and stamp code. The
+certificate itself has a `certificate_id` that binds every stamp, the
+rules, the level and the issue date: changing anything in the file breaks
+it. `uses-certifier verify uses-certificate.json` checks both the
+certificate and every element against the current sources.
+
+## Justified exceptions
+
+When a rule makes no sense in a specific case, suppress it with a comment
+above the definition (or above its decorators), always giving a reason:
+
+```python
+# uses-cert: ignore[CC-008] fields mirror the YAML format
 @dataclass
 class Rule:
     ...
 ```
 
-`# uses-cert: ignore-file[CC-010]` vale per tutto il sorgente. Funziona con
-qualunque sintassi di commento (`//`, `#`, `--`). Le violazioni soppresse
-restano nel certificato con `"suppressed": true`, così sono sempre visibili
-in revisione.
+`# uses-cert: ignore-file[CC-010]` applies to the whole source file.
+Suppressed violations stay in the certificate with `"suppressed": true`,
+so they remain visible in review.
 
-## Configurazione del progetto
+## Project configuration
 
-Un file `.uses-certifier.yaml` nella radice del progetto sceglie i ruleset,
-esclude percorsi, adatta le soglie e fissa il livello minimo. Vedi
+A `.uses-certifier.yaml` file in the project root picks the rulesets,
+excludes paths, adjusts thresholds and sets the minimum level. See
 [`.uses-certifier.example.yaml`](.uses-certifier.example.yaml).
 
 ## In GitHub Actions
@@ -122,30 +159,41 @@ esclude percorsi, adatta le soglie e fissa il livello minimo. Vedi
   with:
     path: src
     min-level: silver
+    key: ${{ secrets.USES_CERT_KEY }}
 ```
 
-L'azione scarica uses-rules, certifica, scrive il rapporto nel riepilogo del
-job e lascia `uses-certificate.json` nella cartella di lavoro. Se uses-rules
-è privato, passare in `token` un token con accesso in lettura.
+The action fetches uses-rules, certifies, writes the report into the job
+summary and leaves `uses-certificate.json` in the workspace. If uses-rules
+is private, pass a `token` with read access to it.
 
-## Il certificatore certifica se stesso
+## Approximations
 
-La CI esegue il certificatore sul proprio codice e richiede il livello Oro.
+- With lizard, classes are rebuilt from method names (`Class::method`,
+  `Class.method`) and get no inline stamp. Nesting, activated objects,
+  docstrings, flag arguments and fields are computed for Python only.
+- **Activated objects** (Python): parameters, local variables and `self`
+  fields used by the method. Comprehension variables and calls to `self`
+  methods do not count.
+- **Nesting**: `if`, `for`, `while`, `with`, `try`, `match`; an `elif`
+  stays at the level of its `if`.
 
-## Sviluppo
+## The certifier certifies itself
+
+CI runs the certifier on its own code and requires the Gold level.
+
+## Development
 
 ```bash
 pip install -e ".[test]"
 pytest
 ```
 
-Struttura:
-
-| Modulo | Compito |
+| Module | Purpose |
 |---|---|
-| `analyzers/` | estrazione di elementi e metriche (Python con AST, altri linguaggi con lizard) |
-| `rules.py`, `config.py` | caricamento delle regole YAML e della configurazione del progetto |
-| `evaluator.py` | confronto tra metriche e soglie |
-| `scoring.py` | punteggio, livello e timbro |
-| `certificate.py`, `verify.py` | certificato JSON e verifica delle impronte |
-| `reporters/` | uscita console, Markdown e SARIF |
+| `analyzers/` | elements and metrics (Python through the AST, other languages through lizard) |
+| `rules.py`, `config.py` | loading of YAML rules and project configuration |
+| `evaluator.py` | comparison of metrics and thresholds |
+| `scoring.py`, `signing.py` | score, level and stamp code |
+| `markers.py`, `suppressions.py`, `stamper.py` | stamp and ignore comments in the sources |
+| `certificate.py`, `verify.py` | JSON certificate and verification |
+| `reporters/` | console, Markdown and SARIF output |

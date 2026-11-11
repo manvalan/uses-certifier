@@ -1,20 +1,21 @@
 import json
 
-from uses_certifier import certificate, certifier, config, verify
+from uses_certifier import certificate, certifier, config, rules, verify
 from uses_certifier.cli import main
 from uses_certifier.reporters import FORMATS
+from uses_certifier.signing import Signer
 
 from conftest import RULES
 
 GOOD = '''
 def add(a, b):
-    """Somma."""
+    """Sum."""
     return a + b
 '''
 
 COMPLEX = '''
 def pick(a, b, c):
-    """Sceglie."""
+    """Pick."""
     if a:
         return 1
     if b:
@@ -25,8 +26,9 @@ def pick(a, b, c):
 '''
 
 
-def certify(root, rulebook, cfg=None):
-    return certifier.certify(root, rulebook, cfg or config.ProjectConfig())
+def certify(root, rulebook, cfg=None, signer=None):
+    return certifier.certify(root, rulebook, cfg or config.ProjectConfig(),
+                             signer or Signer())
 
 
 def test_clean_code_is_gold(project, rulebook):
@@ -52,20 +54,18 @@ def test_warning_gives_silver(project, rulebook):
 
 
 def test_suppression_restores_level(project, rulebook):
-    code = "# uses-cert: ignore[T-001, T-002] caso noto\n" + COMPLEX.lstrip()
+    code = "# uses-cert: ignore[T-001, T-002] known case\n" + COMPLEX.lstrip()
     cert = certify(project({"a.py": code}), rulebook)
     pick = cert.modules[0].children[0]
     assert all(v.suppressed for v in pick.violations)
     assert pick.level == "gold"
 
 
-def test_overrides_and_exclusions(project, rulebook):
+def test_overrides_and_exclusions(project):
     root = project({"a.py": COMPLEX, "tests/t.py": COMPLEX})
     cfg = config.ProjectConfig(exclude=["tests/*"],
                                overrides={"T-001": {"threshold": 10}})
-    from uses_certifier import rules
-    book = rules.load(RULES, cfg)
-    cert = certify(root, book, cfg)
+    cert = certify(root, rules.load(RULES, cfg), cfg)
     assert [m.qualname for m in cert.modules] == ["a.py"]
     assert cert.modules[0].children[0].level == "silver"
 
@@ -76,18 +76,42 @@ def test_syntax_error_is_reported(project, rulebook):
     assert cert.level == "none"
 
 
+def test_codes_are_unique_per_element(project, rulebook):
+    same = GOOD.replace("add", "same")
+    cert = certify(project({"a.py": same, "b.py": same}), rulebook)
+    codes = [e.stamp for e in cert.entities()]
+    assert len(set(codes)) == len(codes)
+
+
+def test_key_changes_codes(project, rulebook):
+    root = project({"a.py": GOOD})
+    plain = certify(root, rulebook).modules[0].stamp
+    keyed = certify(root, rulebook, signer=Signer(b"k")).modules[0].stamp
+    assert plain != keyed
+
+
 def test_certificate_and_verify(project, rulebook):
     root = project({"a.py": GOOD + COMPLEX})
-    cert = certify(root, rulebook)
+    signer = Signer(b"secret")
+    cert = certify(root, rulebook, signer=signer)
     data = json.loads(json.dumps(certificate.build(cert)))
-    assert data["files"][0]["children"][0]["stamp"]
-    assert verify.verify(data, root).ok
+    assert data["signed"] and data["certificate_id"]
+    assert verify.verify_certificate(data, root, signer).ok
+    assert not verify.verify_certificate(data, root, Signer(b"other")).ok
 
     path = root / "a.py"
     path.write_text(path.read_text().replace("return 4", "return 5"))
-    result = verify.verify(data, root)
-    assert result.changed == ["a.py", "pick"]
+    result = verify.verify_certificate(data, root, signer)
+    assert result.invalid == ["a.py", "pick"]
     assert result.valid == 1
+
+
+def test_tampered_certificate_is_detected(project, rulebook):
+    root = project({"a.py": GOOD + COMPLEX})
+    signer = Signer(b"secret")
+    data = certificate.build(certify(root, rulebook, signer=signer))
+    data["level"] = "gold"
+    assert not verify.verify_certificate(data, root, signer).certificate_ok
 
 
 def test_all_formats_render(project, rulebook):

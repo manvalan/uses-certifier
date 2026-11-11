@@ -1,30 +1,31 @@
-"""Metriche testuali comuni a tutti i linguaggi."""
-# uses-cert: ignore-file[CC-010] il file cerca proprio quelle parole
+"""Text metrics shared by every language."""
+# uses-cert: ignore-file[CC-010] this file looks for exactly those words
 import re
 
 from .. import suppressions
-from ..hashing import digest
+from ..hashing import lines_digest
 from ..model import Entity
 
 TODO = re.compile(r"\b(TODO|FIXME|XXX)\b")
 
 
 def max_width(lines):
-    """Larghezza della riga più lunga."""
+    """Width of the longest line."""
     return max((len(line.rstrip("\r\n")) for line in lines), default=0)
 
 
 def todo_count(lines):
-    """Numero di righe con TODO, FIXME o XXX."""
+    """Number of lines containing TODO, FIXME or XXX."""
     return sum(1 for line in lines if TODO.search(line))
 
 
 def module_entity(text, relpath, language):
-    """Crea l'elemento che rappresenta l'intero sorgente."""
+    """Element representing the whole source file."""
     lines = text.splitlines()
     return Entity(
         kind="module", name=relpath, qualname=relpath, language=language,
-        start_line=1, end_line=len(lines), source_hash=digest(text),
+        path=relpath, first_line=1, start_line=1, end_line=len(lines),
+        source_hash=lines_digest(lines),
         metrics={"length_lines": len(lines), "max_line_width":
                  max_width(lines), "todo_count": todo_count(lines)},
         suppressions=suppressions.file_ids(lines),

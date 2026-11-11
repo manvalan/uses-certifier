@@ -1,4 +1,4 @@
-"""Permette python -m uses_certifier."""
+"""Allows python -m uses_certifier."""
 import sys
 
 from .cli import main

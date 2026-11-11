@@ -1,4 +1,4 @@
-"""Caricamento dei ruleset YAML e della configurazione di certificazione."""
+"""Loading of YAML rulesets and of the certification settings."""
 import os
 from dataclasses import asdict, fields
 from pathlib import Path
@@ -15,11 +15,11 @@ REQUIRED = ("id", "name", "title", "scope", "metric", "operator",
 
 
 class RulesError(Exception):
-    """Ruleset mancanti o non validi."""
+    """Missing or invalid rulesets."""
 
 
 class RuleBook:
-    """Regole attive e configurazione dei livelli."""
+    """Active rules and level settings."""
 
     def __init__(self, rules, certification):
         self.rules = rules
@@ -27,30 +27,30 @@ class RuleBook:
 
     @property
     def digest(self):
-        """Impronta di regole e livelli: cambia se cambia il giudizio."""
+        """Fingerprint of rules and levels: changes with the yardstick."""
         data = [asdict(r) for r in self.rules]
         return json_digest({"rules": data, "cert": self.certification})
 
     def rulesets(self):
-        """Nomi dei ruleset da cui provengono le regole attive."""
+        """Names of the rulesets the active rules come from."""
         return sorted({rule.ruleset for rule in self.rules})
 
 
 def resolve_path(explicit=None):
-    """Cartella delle regole: opzione, variabile d'ambiente o errore."""
+    """Rules folder: option, environment variable, or an error."""
     chosen = explicit or os.environ.get(ENV_VAR)
     if not chosen:
         raise RulesError(
-            "Cartella delle regole non indicata: usa --rules oppure "
-            f"la variabile {ENV_VAR} (clone di manvalan/uses-rules).")
+            "Rules folder not given: use --rules or the "
+            f"{ENV_VAR} variable (a clone of manvalan/uses-rules).")
     path = Path(chosen)
     if not (path / "rules").is_dir():
-        raise RulesError(f"{path} non contiene la cartella rules/")
+        raise RulesError(f"{path} has no rules/ folder")
     return path
 
 
 def load(root, config):
-    """Carica le regole da root applicando la configurazione del progetto."""
+    """Load the rules from root, applying the project configuration."""
     rules = []
     for file in sorted((Path(root) / "rules").glob("*.y*ml")):
         rules += _load_ruleset(file, config.rulesets)
@@ -60,7 +60,7 @@ def load(root, config):
 
 
 def _load_ruleset(file, wanted):
-    """Regole di un file, se il ruleset è tra quelli richiesti."""
+    """Rules of a file, when its ruleset is among the requested ones."""
     data = _read_yaml(file)
     name = data.get("ruleset", file.stem)
     if wanted and name not in wanted:
@@ -69,18 +69,18 @@ def _load_ruleset(file, wanted):
 
 
 def _make_rule(raw, ruleset, file):
-    """Costruisce una regola controllando i campi obbligatori."""
+    """Build a rule, checking the mandatory fields."""
     missing = [key for key in REQUIRED if key not in raw]
     if missing:
-        raise RulesError(f"{file.name}: regola {raw.get('id', '?')} "
-                         f"senza {', '.join(missing)}")
+        raise RulesError(f"{file.name}: rule {raw.get('id', '?')} "
+                         f"lacks {', '.join(missing)}")
     known = {k: v for k, v in raw.items() if k in RULE_FIELDS}
     return Rule(ruleset=ruleset, **known)
 
 
 def _read_yaml(path):
-    """Legge un file YAML, segnalando in modo chiaro se manca."""
+    """Read a YAML file, reporting clearly when it is missing."""
     if not path.is_file():
-        raise RulesError(f"File mancante: {path}")
+        raise RulesError(f"Missing file: {path}")
     with open(path, encoding="utf-8") as handle:
         return yaml.safe_load(handle) or {}

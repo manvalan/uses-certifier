@@ -1,4 +1,4 @@
-"""Metriche calcolate sull'AST di funzioni e classi Python."""
+"""Metrics computed on the AST of Python functions and classes."""
 import ast
 
 BRANCHES = (ast.If, ast.For, ast.AsyncFor, ast.While, ast.IfExp,
@@ -11,7 +11,7 @@ SELF_NAMES = ("self", "cls")
 
 
 def function_metrics(node, is_method):
-    """Tutte le metriche AST di una funzione."""
+    """Every AST metric of a function."""
     params = _parameters(node, is_method)
     return {
         "cyclomatic_complexity": cyclomatic_complexity(node),
@@ -28,7 +28,7 @@ def function_metrics(node, is_method):
 
 
 def cyclomatic_complexity(node):
-    """Complessità di McCabe: uno più ogni punto di decisione."""
+    """McCabe complexity: one plus every decision point."""
     total = 1
     for child in ast.walk(node):
         if isinstance(child, BRANCHES):
@@ -39,7 +39,7 @@ def cyclomatic_complexity(node):
 
 
 def max_nesting(body, depth=0):
-    """Profondità massima dei blocchi annidati (if, for, while, with, try)."""
+    """Maximum depth of nested blocks (if, for, while, with, try)."""
     deepest = depth
     for stmt in body:
         if isinstance(stmt, NESTED_DEFS) or not isinstance(stmt, BLOCKS):
@@ -50,8 +50,8 @@ def max_nesting(body, depth=0):
 
 
 def _blocks(stmt):
-    """Corpi annidati di un'istruzione composta (elif resta allo stesso
-    livello dell'if)."""
+    """Nested bodies of a compound statement (elif stays at the level of
+    its if)."""
     if isinstance(stmt, ast.If) and _is_elif(stmt.orelse):
         return [stmt.body] + _blocks(stmt.orelse[0])
     if isinstance(stmt, ast.Match):
@@ -60,7 +60,7 @@ def _blocks(stmt):
 
 
 def _bodies(stmt):
-    """Corpo, else, finally e gestori di eccezione non vuoti."""
+    """Non-empty body, else, finally and exception handlers."""
     names = ("body", "orelse", "finalbody")
     found = [getattr(stmt, name, []) for name in names]
     found += [handler.body for handler in getattr(stmt, "handlers", [])]
@@ -68,15 +68,15 @@ def _bodies(stmt):
 
 
 def _is_elif(orelse):
-    """Vero se il ramo else contiene solo un altro if (cioè un elif)."""
+    """True when the else branch holds only another if (an elif)."""
     return len(orelse) == 1 and isinstance(orelse[0], ast.If)
 
 
 def activated_objects(node, params):
-    """Parametri, variabili locali e campi di self usati dalla funzione.
+    """Parameters, local variables and self fields used by the function.
 
-    Non contano le variabili delle comprehension, che vivono solo
-    nell'espressione, né le chiamate ai metodi di self.
+    Comprehension variables, which live only inside their expression, and
+    calls to self methods do not count.
     """
     names = set(params)
     skipped = _comprehension_targets(node) | _self_calls(node)
@@ -91,20 +91,20 @@ def activated_objects(node, params):
 
 
 def _comprehension_targets(node):
-    """Identità dei nomi usati come variabile di una comprehension."""
+    """Identities of names used as comprehension variables."""
     return {id(name) for comp in ast.walk(node)
             if isinstance(comp, ast.comprehension)
             for name in ast.walk(comp.target)}
 
 
 def _self_calls(node):
-    """Identità delle espressioni self.metodo usate come chiamata."""
+    """Identities of self.method expressions used as calls."""
     return {id(call.func) for call in ast.walk(node)
             if isinstance(call, ast.Call) and _is_self_attribute(call.func)}
 
 
 def field_count(node):
-    """Campi della classe: attributi di classe e attributi di self assegnati."""
+    """Class fields: class attributes and assigned self attributes."""
     fields = {t.id for stmt in node.body for t in _class_targets(stmt)}
     for child in ast.walk(node):
         if _is_self_attribute(child) and isinstance(child.ctx, ast.Store):
@@ -113,7 +113,7 @@ def field_count(node):
 
 
 def _class_targets(stmt):
-    """Nomi assegnati direttamente nel corpo della classe."""
+    """Names assigned directly in the class body."""
     if isinstance(stmt, ast.AnnAssign):
         targets = [stmt.target]
     elif isinstance(stmt, ast.Assign):
@@ -124,14 +124,14 @@ def _class_targets(stmt):
 
 
 def _is_self_attribute(node):
-    """Vero per espressioni come self.campo."""
+    """True for expressions such as self.field."""
     return (isinstance(node, ast.Attribute)
             and isinstance(node.value, ast.Name)
             and node.value.id in SELF_NAMES)
 
 
 def _parameters(node, is_method):
-    """Nomi dei parametri, escluso self o cls per i metodi."""
+    """Parameter names, without self or cls for methods."""
     args = node.args
     every = args.posonlyargs + args.args + args.kwonlyargs
     every += [a for a in (args.vararg, args.kwarg) if a]
@@ -142,7 +142,7 @@ def _parameters(node, is_method):
 
 
 def _boolean_parameters(node):
-    """Parametri con default booleano o annotati come bool."""
+    """Parameters with a boolean default or annotated as bool."""
     args = node.args
     positional = args.posonlyargs + args.args
     defaults = [None] * (len(positional) - len(args.defaults)) + args.defaults
@@ -152,7 +152,7 @@ def _boolean_parameters(node):
 
 
 def _is_boolean(arg, default):
-    """Vero se il parametro è un flag booleano."""
+    """True when the parameter is a boolean flag."""
     annotated = isinstance(arg.annotation, ast.Name) and \
         arg.annotation.id == "bool"
     defaulted = isinstance(default, ast.Constant) and \
@@ -161,5 +161,5 @@ def _is_boolean(arg, default):
 
 
 def _count(node, kind):
-    """Numero di nodi di un certo tipo dentro la funzione."""
+    """Number of nodes of a given type inside the function."""
     return sum(1 for child in ast.walk(node) if isinstance(child, kind))

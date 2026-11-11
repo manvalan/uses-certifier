@@ -1,3 +1,4 @@
-"""Certificatore USES: bollina metodi, classi e sorgenti secondo regole YAML."""
+"""USES certifier: stamps methods, classes and source files using YAML
+rules."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

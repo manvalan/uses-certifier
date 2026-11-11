@@ -2,6 +2,6 @@ scoring:
   start: 100
   penalties: {error: 20, warning: 7, info: 2}
 levels:
-  - {id: gold, label: Oro, min_score: 95, max_errors: 0, max_warnings: 0}
-  - {id: silver, label: Argento, min_score: 80, max_errors: 0}
-  - {id: bronze, label: Bronzo, min_score: 60, max_errors: 0}
+  - {id: gold, label: Gold, min_score: 95, max_errors: 0, max_warnings: 0}
+  - {id: silver, label: Silver, min_score: 80, max_errors: 0}
+  - {id: bronze, label: Bronze, min_score: 60, max_errors: 0}

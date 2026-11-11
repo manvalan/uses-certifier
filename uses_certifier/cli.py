@@ -1,83 +1,95 @@
-"""Interfaccia a riga di comando: certify, verify, rules."""
+"""Command line interface: certify, stamp, verify, rules."""
 import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, certificate, certifier, config, rules
+from . import __version__, certificate, certifier, config, rules, signing
+from . import stamper, verify
 from .model import NOT_CERTIFIED
 from .reporters import FORMATS
 from .reporters.common import everything, with_violations
-from .verify import verify
 
-EXIT_OK, EXIT_BELOW_LEVEL, EXIT_USAGE = 0, 1, 2
+EXIT_OK, EXIT_FAILED, EXIT_USAGE = 0, 1, 2
 
 
 def main(argv=None):
-    """Punto di ingresso del comando uses-certifier."""
+    """Entry point of the uses-certifier command."""
     args = _parser().parse_args(argv)
     try:
         return args.handler(args)
     except (rules.RulesError, FileNotFoundError) as exc:
-        print(f"errore: {exc}", file=sys.stderr)
+        print(f"error: {exc}", file=sys.stderr)
         return EXIT_USAGE
 
 
 def _parser():
-    """Definizione degli argomenti."""
+    """Argument definitions."""
     parser = argparse.ArgumentParser(
         prog="uses-certifier",
-        description="Bollina metodi, classi e sorgenti secondo regole YAML.")
+        description="Stamps methods, classes and source files using YAML "
+                    "rules.")
     parser.add_argument("--version", action="version", version=__version__)
-    sub = parser.add_subparsers(required=True, metavar="COMANDO")
+    sub = parser.add_subparsers(required=True, metavar="COMMAND")
     _add_certify(sub)
+    _add_stamp(sub)
     _add_verify(sub)
     _add_rules(sub)
     return parser
 
 
 def _add_certify(sub):
-    """Argomenti del comando certify."""
-    cmd = sub.add_parser("certify", help="certifica un file o una cartella")
-    cmd.add_argument("path", help="file o cartella da certificare")
-    _rules_options(cmd)
+    """Arguments of the certify command."""
+    cmd = sub.add_parser("certify", help="certify a file or a folder")
+    _common_options(cmd)
     cmd.add_argument("--format", choices=sorted(FORMATS), default="console")
-    cmd.add_argument("--output", help="scrive il rapporto su file")
-    cmd.add_argument("--certificate", help="scrive il certificato JSON")
-    cmd.add_argument("--min-level", help="livello minimo richiesto")
+    cmd.add_argument("--output", help="write the report to a file")
+    cmd.add_argument("--certificate", help="write the JSON certificate")
+    cmd.add_argument("--min-level", help="minimum required level")
     cmd.add_argument("--verbose", action="store_true",
-                     help="mostra anche gli elementi senza violazioni")
+                     help="also show elements without violations")
     cmd.set_defaults(handler=run_certify)
 
 
+def _add_stamp(sub):
+    """Arguments of the stamp command."""
+    cmd = sub.add_parser("stamp", help="write stamps into the sources")
+    _common_options(cmd)
+    cmd.set_defaults(handler=run_stamp)
+
+
 def _add_verify(sub):
-    """Argomenti del comando verify."""
-    cmd = sub.add_parser("verify",
-                         help="controlla che il codice certificato non sia "
-                              "cambiato")
-    cmd.add_argument("certificate", help="certificato JSON")
-    cmd.add_argument("--root", help="cartella dei sorgenti (predefinita: "
-                                    "quella registrata nel certificato)")
+    """Arguments of the verify command."""
+    cmd = sub.add_parser(
+        "verify", help="check stamps in the sources, or a JSON certificate")
+    _common_options(cmd, target="sources folder or certificate .json")
+    cmd.add_argument("--root", help="sources folder for a certificate "
+                                    "(default: the one it records)")
     cmd.set_defaults(handler=run_verify)
 
 
 def _add_rules(sub):
-    """Argomenti del comando rules."""
-    cmd = sub.add_parser("rules", help="elenca le regole attive")
+    """Arguments of the rules command."""
+    cmd = sub.add_parser("rules", help="list the active rules")
     cmd.add_argument("path", nargs="?", default=".",
-                     help="progetto di cui leggere la configurazione")
-    _rules_options(cmd)
+                     help="project whose configuration is read")
+    cmd.add_argument("--rules", help="clone of uses-rules "
+                                     f"(or ${rules.ENV_VAR})")
+    cmd.add_argument("--config", help="project configuration file")
     cmd.set_defaults(handler=run_rules)
 
 
-def _rules_options(cmd):
-    """Opzioni comuni per trovare regole e configurazione."""
-    cmd.add_argument("--rules", help="clone di uses-rules "
-                                     f"(oppure ${rules.ENV_VAR})")
-    cmd.add_argument("--config", help="file di configurazione del progetto")
+def _common_options(cmd, target="file or folder to process"):
+    """Options shared by certify, stamp and verify."""
+    cmd.add_argument("path", help=target)
+    cmd.add_argument("--rules", help="clone of uses-rules "
+                                     f"(or ${rules.ENV_VAR})")
+    cmd.add_argument("--config", help="project configuration file")
+    cmd.add_argument("--key-file", help="secret key that signs the stamps "
+                                        f"(or ${signing.KEY_ENV})")
 
 
 def _load(args):
-    """Configurazione del progetto e regole attive."""
+    """Project configuration and active rules."""
     root = Path(args.path)
     base = root if root.is_dir() else root.parent
     project = config.load(base, args.config)
@@ -85,20 +97,27 @@ def _load(args):
     return project, rules.load(path, project)
 
 
-def run_certify(args):
-    """Esegue la certificazione e scrive rapporto e certificato."""
+def _certify(args):
+    """Certify the path given on the command line."""
     project, rulebook = _load(args)
-    cert = certifier.certify(args.path, rulebook, project)
+    signer = signing.load(args.key_file)
+    return project, certifier.certify(args.path, rulebook, project, signer)
+
+
+def run_certify(args):
+    """Run the certification and write report and certificate."""
+    project, cert = _certify(args)
     select = everything if args.verbose else with_violations
     _emit(FORMATS[args.format](cert, select), args.output)
     if args.certificate:
-        certificate.write(cert, args.certificate)
-    wanted = args.min_level or project.min_level
-    return _exit_code(cert, wanted)
+        data = certificate.write(cert, args.certificate)
+        print(f"Certificate {data['certificate_id']} written to "
+              f"{args.certificate}", file=sys.stderr)
+    return _exit_code(cert, args.min_level or project.min_level)
 
 
 def _emit(text, output):
-    """Scrive il testo su file o sul terminale."""
+    """Write text to a file or to the terminal."""
     if output:
         Path(output).write_text(text, encoding="utf-8")
     else:
@@ -106,32 +125,57 @@ def _emit(text, output):
 
 
 def _exit_code(cert, wanted):
-    """Codice di uscita in base al livello minimo richiesto."""
+    """Exit code depending on the minimum required level."""
     if not wanted:
         return EXIT_OK
     reached = cert.scorer.order(cert.level)
     if wanted != NOT_CERTIFIED and reached > cert.scorer.order(wanted):
-        print(f"Livello {cert.scorer.label(cert.level)} sotto il minimo "
-              f"richiesto ({cert.scorer.label(wanted)})", file=sys.stderr)
-        return EXIT_BELOW_LEVEL
+        print(f"Level {cert.scorer.label(cert.level)} is below the "
+              f"required {cert.scorer.label(wanted)}", file=sys.stderr)
+        return EXIT_FAILED
+    return EXIT_OK
+
+
+def run_stamp(args):
+    """Write fresh stamps into every certified source."""
+    _, cert = _certify(args)
+    changed = [m.path for m in cert.modules
+               if stamper.write(Path(cert.root) / m.path, m)]
+    for path in changed:
+        print(f"stamped {path}")
+    print(f"{len(changed)} files updated, {len(cert.modules)} certified, "
+          f"project level: {cert.scorer.label(cert.level)}")
     return EXIT_OK
 
 
 def run_verify(args):
-    """Verifica le impronte del certificato."""
-    data = certificate.read(args.certificate)
-    result = verify(data, args.root or data["root"])
-    for name in result.changed:
-        print(f"MODIFICATO  {name}")
+    """Check stamps in the sources or in a JSON certificate."""
+    if args.path.endswith(".json"):
+        data = certificate.read(args.path)
+        signer = signing.load(args.key_file)
+        result = verify.verify_certificate(
+            data, args.root or data["root"], signer)
+    else:
+        _, cert = _certify(args)
+        result = verify.verify_inline(cert, cert.root)
+    _print_verify(result)
+    return EXIT_OK if result.ok else EXIT_FAILED
+
+
+def _print_verify(result):
+    """Print the outcome of a verification."""
+    if not result.certificate_ok:
+        print("CERTIFICATE ID DOES NOT MATCH ITS CONTENT")
+    for name in result.invalid:
+        print(f"INVALID   {name}")
     for name in result.missing:
-        print(f"MANCANTE    {name}")
-    print(f"Bollini validi: {result.valid}, decaduti: "
-          f"{len(result.changed) + len(result.missing)}")
-    return EXIT_OK if result.ok else EXIT_BELOW_LEVEL
+        print(f"MISSING   {name}")
+    print(f"Valid stamps: {result.valid}, invalid: {len(result.invalid)}, "
+          f"missing: {len(result.missing)}")
 
 
 def run_rules(args):
-    """Stampa le regole attive."""
+    """Print the active rules."""
     _, rulebook = _load(args)
     for rule in rulebook.rules:
         print(f"{rule.id:<8} {rule.severity:<8} {rule.scope:<9} "

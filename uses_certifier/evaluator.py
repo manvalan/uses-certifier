@@ -1,4 +1,4 @@
-"""Applicazione delle regole agli elementi analizzati."""
+"""Application of the rules to the analysed elements."""
 import operator
 
 from . import suppressions
@@ -11,7 +11,7 @@ OPERATORS = {
 
 
 def evaluate(module, rules):
-    """Calcola le violazioni di ogni elemento del sorgente."""
+    """Compute the violations of every element of a source file."""
     file_wide = module.suppressions
     for entity in module.walk():
         suppressed = entity.suppressions | file_wide
@@ -23,7 +23,7 @@ def evaluate(module, rules):
 
 
 def _applies(rule, entity):
-    """Vero se la regola riguarda questo elemento."""
+    """True when the rule concerns this element."""
     if rule.scope != entity.kind or rule.metric not in entity.metrics:
         return False
     if rule.languages and entity.language not in rule.languages:
@@ -32,12 +32,12 @@ def _applies(rule, entity):
 
 
 def _passes(rule, value):
-    """Vero se il valore misurato rispetta la soglia."""
+    """True when the measured value meets the threshold."""
     return OPERATORS[rule.operator](value, rule.threshold)
 
 
 def _violation(rule, entity, suppressed):
-    """Violazione della regola da parte dell'elemento."""
+    """Violation of the rule by the element."""
     return Violation(
         rule_id=rule.id, severity=rule.severity, title=rule.title,
         metric=rule.metric, value=entity.metrics[rule.metric],

@@ -1,4 +1,4 @@
-"""Formati di uscita del certificatore."""
+"""Output formats of the certifier."""
 from . import console, markdown, sarif
 
 FORMATS = {

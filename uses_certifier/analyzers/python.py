@@ -1,4 +1,4 @@
-"""Analisi dei sorgenti Python tramite AST."""
+"""Analysis of Python sources through the AST."""
 import ast
 
 from .. import suppressions
@@ -11,30 +11,31 @@ DEFS = (ast.FunctionDef, ast.AsyncFunctionDef)
 
 
 class _Source:
-    """Righe del sorgente e percorso relativo, condivisi dall'analisi."""
+    """Source lines and relative path, shared during the analysis."""
 
     def __init__(self, text, relpath):
         self.lines = text.splitlines()
         self.relpath = relpath
 
     def span(self, node):
-        """Righe di un nodo, dalla definizione all'ultima istruzione."""
+        """Lines of a node, from its definition to its last statement."""
         return self.lines[node.lineno - 1:node.end_lineno]
 
     def entity(self, node, kind, qualname):
-        """Crea l'elemento base per un nodo funzione o classe."""
+        """Base element for a function or class node."""
         first = min([d.lineno for d in node.decorator_list] + [node.lineno])
         return Entity(
             kind=kind, name=node.name, qualname=qualname, language="python",
-            start_line=node.lineno, end_line=node.end_lineno,
+            path=self.relpath, first_line=first, start_line=node.lineno,
+            end_line=node.end_lineno,
             source_hash=lines_digest(self.lines[first - 1:node.end_lineno]),
-            suppressions=suppressions.ids_in_range(
-                self.lines, first - 1, node.lineno),
+            suppressions=suppressions.for_definition(
+                self.lines, first, node.lineno),
         )
 
 
 def analyze(text, relpath):
-    """Analizza un sorgente Python e restituisce l'elemento modulo."""
+    """Analyse a Python source and return the module element."""
     module = module_entity(text, relpath, "python")
     tree = ast.parse(text, filename=relpath)
     module.metrics["has_docstring"] = ast.get_docstring(tree) is not None
@@ -43,7 +44,7 @@ def analyze(text, relpath):
 
 
 def _children(node, src, prefix):
-    """Elementi funzione e classe definiti direttamente sotto un nodo."""
+    """Function and class elements defined directly under a node."""
     found = []
     for child in ast.iter_child_nodes(node):
         qualname = prefix + getattr(child, "name", "")
@@ -55,7 +56,7 @@ def _children(node, src, prefix):
 
 
 def _function(node, src, qualname, is_method):
-    """Elemento funzione con le sue metriche."""
+    """Function element with its metrics."""
     entity = src.entity(node, "function", qualname)
     entity.metrics = pymetrics.function_metrics(node, is_method)
     entity.metrics["length_lines"] = node.end_lineno - node.lineno + 1
@@ -64,7 +65,7 @@ def _function(node, src, qualname, is_method):
 
 
 def _class(node, src, qualname):
-    """Elemento classe con i suoi metodi e le sue metriche."""
+    """Class element with its methods and metrics."""
     entity = src.entity(node, "class", qualname)
     entity.children = _children(node, src, qualname + ".")
     methods = [c for c in entity.children if c.kind == "function"]

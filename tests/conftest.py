@@ -1,4 +1,4 @@
-"""Fixture comuni dei test."""
+"""Shared test fixtures."""
 import textwrap
 from pathlib import Path
 
@@ -11,13 +11,13 @@ RULES = Path(__file__).parent / "fixtures" / "rules"
 
 @pytest.fixture
 def rulebook():
-    """Regole di prova."""
+    """Test rules."""
     return rules.load(RULES, config.ProjectConfig())
 
 
 @pytest.fixture
 def project(tmp_path):
-    """Crea file in una cartella temporanea: project({'a.py': '...'})."""
+    """Create files in a temporary folder: project({'a.py': '...'})."""
     def make(files):
         for name, text in files.items():
             path = tmp_path / name

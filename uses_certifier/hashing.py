@@ -1,18 +1,18 @@
-"""Impronte digitali del codice e delle regole."""
+"""Fingerprints of code and rules."""
 import hashlib
 import json
 
 
 def digest(text):
-    """SHA-256 esadecimale di una stringa."""
+    """Hex SHA-256 of a string."""
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def lines_digest(lines):
-    """Impronta di un blocco di righe, ignorando gli spazi a fine riga."""
+    """Fingerprint of a block of lines, ignoring trailing whitespace."""
     return digest("\n".join(line.rstrip() for line in lines))
 
 
 def json_digest(data):
-    """Impronta stabile di una struttura serializzabile in JSON."""
+    """Stable fingerprint of a JSON-serialisable structure."""
     return digest(json.dumps(data, sort_keys=True, default=str))

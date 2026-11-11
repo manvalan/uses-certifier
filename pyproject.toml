@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uses-certifier"
-version = "0.1.0"
-description = "Bollina metodi, classi e sorgenti secondo regole YAML (Code That Fits in Your Head, Clean Code)"
+version = "0.2.0"
+description = "Stamps methods, classes and source files using YAML rules (Code That Fits in Your Head, Clean Code)"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["PyYAML>=6", "lizard>=1.17"]

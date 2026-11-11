@@ -19,7 +19,7 @@ def test_cyclomatic_complexity_counts_branches_and_boolean_operators():
                     x -= 1
             return [y for y in b if y]
     """)
-    # 1 + if + and + for + while + comprehension + if della comprehension
+    # 1 + if + and + for + while + comprehension + comprehension if
     assert m["cyclomatic_complexity"] == 7
 
 
