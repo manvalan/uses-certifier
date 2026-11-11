@@ -7,7 +7,7 @@ a copy to another element or a hand-edited level makes it invalid.
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import markers
+from . import markers, stamper
 
 PROBLEMS = {
     "invalid": "code changed since it was certified, or stamp tampered",
@@ -66,7 +66,7 @@ class VerifyResult:
 def verify_inline(cert, root):
     """Compare the stamps written in the sources with fresh ones."""
     result = VerifyResult()
-    for module in cert.modules:
+    for module in filter(stamper.keeps_stamps, cert.modules):
         text = (Path(root) / module.path).read_text(encoding="utf-8")
         _check_module(result, module, written_stamps(text))
     return result
