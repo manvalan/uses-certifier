@@ -1,0 +1,23 @@
+# Esempio di configurazione: copiarlo come .uses-certifier.yaml nella
+# radice del progetto da certificare. Tutte le voci sono facoltative.
+
+# Ruleset da usare (predefinito: tutti quelli presenti in uses-rules/rules).
+rulesets: [ctfiyh, clean-code]
+
+# Percorsi esclusi, relativi alla radice (sintassi fnmatch).
+exclude:
+  - "tests/*"
+  - "third_party/*"
+  - "*_pb2.py"
+
+# Adattamenti delle regole, per id.
+overrides:
+  CTF-003: {threshold: 30}        # metodi fino a 30 righe
+  CC-003: {enabled: false}        # docstring non obbligatorie
+  CTF-002: {severity: info}
+
+# Livello minimo: sotto questo il comando esce con codice 1 (utile in CI).
+min_level: silver
+
+# Cartella delle regole, se non si usa --rules o USES_RULES_PATH.
+# rules_path: ../uses-rules

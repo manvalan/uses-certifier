@@ -1,0 +1,43 @@
+name: USES Certifier
+description: Bollina metodi, classi e sorgenti secondo le regole di uses-rules
+inputs:
+  path:
+    description: Cartella o file da certificare
+    default: "."
+  min-level:
+    description: Livello minimo richiesto (gold, silver, bronze)
+    default: ""
+  rules-ref:
+    description: Branch, tag o commit di manvalan/uses-rules
+    default: main
+  token:
+    description: Token con accesso in lettura a manvalan/uses-rules
+    default: ${{ github.token }}
+outputs:
+  certificate:
+    description: Percorso del certificato JSON
+    value: uses-certificate.json
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: manvalan/uses-rules
+        ref: ${{ inputs.rules-ref }}
+        token: ${{ inputs.token }}
+        path: .uses-rules
+    - shell: bash
+      run: pip install --quiet "${{ github.action_path }}"
+    - shell: bash
+      env:
+        MIN_LEVEL: ${{ inputs.min-level }}
+        TARGET: ${{ inputs.path }}
+      run: |
+        set +e
+        uses-certifier certify "$TARGET" --rules .uses-rules \
+          --format markdown --output "$RUNNER_TEMP/uses-report.md" \
+          --certificate uses-certificate.json \
+          ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}
+        status=$?
+        cat "$RUNNER_TEMP/uses-report.md" >> "$GITHUB_STEP_SUMMARY"
+        exit $status

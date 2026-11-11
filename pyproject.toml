@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uses-certifier"
+version = "0.1.0"
+description = "Bollina metodi, classi e sorgenti secondo regole YAML (Code That Fits in Your Head, Clean Code)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6", "lizard>=1.17"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+uses-certifier = "uses_certifier.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["uses_certifier*"]

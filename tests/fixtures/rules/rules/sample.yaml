@@ -1,0 +1,15 @@
+ruleset: sample
+version: 1.0.0
+rules:
+  - {id: T-001, name: cc, title: Complessità, scope: function,
+     metric: cyclomatic_complexity, operator: "<=", threshold: 3,
+     severity: error}
+  - {id: T-002, name: params, title: Parametri, scope: function,
+     metric: parameter_count, operator: "<=", threshold: 2,
+     severity: warning}
+  - {id: T-003, name: doc, title: Docstring, scope: function,
+     metric: has_docstring, operator: "==", threshold: true,
+     severity: info, applies_to: public, languages: [python]}
+  - {id: T-004, name: methods, title: Metodi, scope: class,
+     metric: method_count, operator: "<=", threshold: 3,
+     severity: warning}
