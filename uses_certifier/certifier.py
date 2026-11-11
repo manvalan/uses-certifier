@@ -71,7 +71,19 @@ def analyze_file(path, relpath):
     original = Path(path).read_text(encoding="utf-8")
     module = analyzers.analyze(path, markers.strip_stamps(original), relpath)
     _to_original_lines(module, markers.line_map(original))
+    _number_duplicate_names(module)
     return module
+
+
+def _number_duplicate_names(module):
+    """Give repeated names (anonymous callbacks, property setters) an
+    ordinal, so that each element keeps its own certificate entry."""
+    seen = {}
+    for entity in module.walk():
+        key = (entity.kind, entity.qualname)
+        seen[key] = seen.get(key, 0) + 1
+        if seen[key] > 1:
+            entity.qualname = f"{entity.qualname}#{seen[key]}"
 
 
 def _to_original_lines(module, numbers):

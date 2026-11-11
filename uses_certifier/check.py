@@ -13,7 +13,7 @@ from . import certifier, migration
 from .certificate import certificate_id, walk
 from .model import NOT_CERTIFIED
 from .signing import Signer
-from .verify import VerifyResult, written_stamps
+from .verify import VerifyResult, take_stamp, written_stamps
 
 
 class _Checker:
@@ -145,9 +145,9 @@ class _WrittenStamps:
         if not self.in_use or entity.synthetic:
             return
         line = 0 if entity.kind == "module" else entity.first_line
+        expected = f"{item['level']} {item['stamp']}"
         result.check(f"{item['path']}:{item['name']} (inline stamp)",
-                     self.codes.pop(line, None),
-                     f"{item['level']} {item['stamp']}")
+                     take_stamp(self.codes, line, expected), expected)
 
     def report_stray(self, result, relpath):
         """Stamps that belong to no current element."""

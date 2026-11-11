@@ -78,21 +78,37 @@ def _check_module(result, module, written):
         if entity.synthetic:
             continue
         key = 0 if entity.kind == "module" else entity.first_line
+        expected = f"{entity.level} {entity.stamp}"
         result.check(f"{module.path}:{entity.qualname}",
-                     written.get(key), f"{entity.level} {entity.stamp}")
+                     take_stamp(written, key, expected), expected)
 
 
 def written_stamps(text):
     """Codes written in a source, keyed by the 1-based number of the line
-    they stamp (0 for the file stamp)."""
+    they stamp (0 for the file stamp). Elements that start on the same
+    line (a function and a callback inside it) share the key, so each
+    key holds the list of its codes."""
     lines = text.splitlines()
     found = {}
     for index, line in enumerate(lines):
         parsed = markers.parse_stamp(line)
         if parsed:
-            found[_stamped_line(lines, index, parsed[0])] = \
-                f"{parsed[1]} {parsed[2]}"
+            found.setdefault(_stamped_line(lines, index, parsed[0]), []) \
+                .append(f"{parsed[1]} {parsed[2]}")
     return found
+
+
+def take_stamp(written, line, expected):
+    """Remove and return the code written for line: the expected one when
+    present, else any other (to be reported as invalid), else None."""
+    codes = written.get(line)
+    if not codes:
+        return None
+    code = expected if expected in codes else codes[0]
+    codes.remove(code)
+    if not codes:
+        del written[line]
+    return code
 
 
 def _stamped_line(lines, index, kind):
