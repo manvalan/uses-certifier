@@ -74,9 +74,18 @@ def entity_dict(entity):
 
 def write(cert, path):
     """Write the certificate to a file; return its data."""
+    return save(build_for(cert, path), path)
+
+
+def build_for(cert, path):
+    """Certificate structure for a file at path (root relative to it)."""
     folder = Path(path).resolve().parent
     root = Path(os.path.relpath(Path(cert.root).resolve(), folder))
-    data = build(cert, root.as_posix())
+    return build(cert, root.as_posix())
+
+
+def save(data, path):
+    """Write certificate data to a file; return it."""
     with open(path, "w", encoding="utf-8") as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")

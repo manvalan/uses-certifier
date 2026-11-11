@@ -3,22 +3,28 @@ import re
 from importlib import resources
 from pathlib import Path
 
-from .config import FILENAME
+from .config import FILENAME, STRICT
 
 START, END = "<!-- uses-certifier:start -->", "<!-- uses-certifier:end -->"
 SECTION = re.compile(re.escape(START) + r".*?" + re.escape(END), re.S)
 
 
-def template(name, min_level):
-    """Text of a bundled template with the level filled in."""
+def template(name, min_level, mode=STRICT):
+    """Text of a bundled template with level and mode filled in."""
     text = resources.files(__package__).joinpath("templates", name)
-    return text.read_text(encoding="utf-8").replace("{min_level}", min_level)
+    text = text.read_text(encoding="utf-8")
+    return text.replace("{min_level}", min_level).replace("{mode}", mode)
 
 
-def init_project(root, min_level):
-    """Create or update the project files; yield (path, action)."""
+def init_project(root, min_level, mode=STRICT):
+    """Create or update the project files; yield (path, action).
+
+    mode is strict for certified projects, migration for existing
+    programs that are certified file by file.
+    """
     root = Path(root)
-    yield _create(root / FILENAME, template("uses-certifier.yaml", min_level))
+    settings = template("uses-certifier.yaml", min_level, mode)
+    yield _create(root / FILENAME, settings)
     section = template("agents-section.md", min_level)
     yield _merge_section(root / "AGENTS.md", section)
     yield _ensure_claude(root / "CLAUDE.md", template("CLAUDE.md", min_level))

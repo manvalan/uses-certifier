@@ -4,6 +4,17 @@
 # Level required by the build and by agents.
 min_level: {min_level}
 
+# strict: every source must be certified and match the certificate.
+# migration: existing program certified file by file. The build checks
+# only files already at min_level ("migrated") and accepts the others
+# ("legacy"); certify refuses to let a migrated file fall back. Switch
+# to strict when every file is migrated.
+mode: {mode}
+
+# Migration only: minimum share (percent) of migrated source files.
+# Raise it over time; never lower it.
+migration_min_coverage: 0
+
 # Paths excluded from certification (fnmatch syntax).
 exclude: []
 

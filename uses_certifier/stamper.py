@@ -2,7 +2,7 @@
 
 Every method and class gets a line such as
 
-    # uses-cert: stamp GOLD 7F3A-9C1E-2B4D-5A60
+    # uses-cert: stamp <LEVEL> <CODE>
 
 right above its definition (above decorators and ignore directives), and
 every source file gets a stamp-file line at the top. Stamp lines are

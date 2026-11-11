@@ -4,6 +4,7 @@ from uses_certifier import certificate, certifier, config
 from uses_certifier.check import check
 from uses_certifier.cli import main
 from uses_certifier.init import END, START, init_project
+from uses_certifier.migration import Policy
 from uses_certifier.signing import Signer
 
 from conftest import RULES
@@ -36,7 +37,7 @@ def run_check(path, signer=None, min_level=None):
     data = certificate.read(path)
     root = certificate.sources_root(path, data)
     sources = certifier.discover(root, config.ProjectConfig())
-    return check(data, sources, signer or Signer(), min_level)
+    return check(data, sources, signer or Signer(), Policy(min_level or ""))
 
 
 def test_certificate_is_reproducible(project, rulebook, tmp_path_factory):
@@ -139,3 +140,35 @@ def test_init_creates_and_updates(tmp_path):
     assert updated.startswith("# Mine") and updated.endswith("more\n")
     assert updated.count(START) == 1 and updated.count(END) == 1
     assert "**silver**" in updated
+
+
+def stamp_and_issue(root, rulebook):
+    """Write inline stamps and the certificate, as an agent would."""
+    assert main(["stamp", str(root), "--rules", str(RULES)]) == 0
+    return issue(root, rulebook)
+
+
+def test_inline_stamps_match_the_certificate(project, rulebook):
+    path = stamp_and_issue(project({"a.py": CODE}), rulebook)
+    result = run_check(path)
+    assert result.ok and result.valid == 8
+
+
+def test_hand_edited_inline_stamp_fails(project, rulebook):
+    root = project({"a.py": CODE})
+    path = stamp_and_issue(root, rulebook)
+    text = (root / "a.py").read_text()
+    stamp = next(line for line in text.splitlines()
+                 if "stamp GOLD" in line and "stamp-file" not in line)
+    (root / "a.py").write_text(text.replace(stamp, stamp[:-4] + "0000"))
+    assert run_check(path).invalid == ["a.py:add (inline stamp)"]
+
+
+def test_removed_inline_stamp_is_missing(project, rulebook):
+    root = project({"a.py": CODE})
+    path = stamp_and_issue(root, rulebook)
+    lines = (root / "a.py").read_text().splitlines(keepends=True)
+    index = next(i for i, line in enumerate(lines) if "class Box" in line)
+    del lines[index - 1]
+    (root / "a.py").write_text("".join(lines))
+    assert run_check(path).missing == ["a.py:Box (inline stamp)"]

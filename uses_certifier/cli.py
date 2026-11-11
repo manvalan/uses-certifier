@@ -5,8 +5,8 @@ import sys
 from pathlib import Path
 
 from . import __version__, certificate, certifier, config, rules, signing
-from . import guide, rules_cache, stamper, verify
-from .check import check
+from . import guide, migration, rules_cache, stamper, verify
+from .check import check, empty_certificate
 from .init import init_project
 from .model import NOT_CERTIFIED
 from .reporters import FORMATS
@@ -22,7 +22,7 @@ def main(argv=None):
     try:
         return args.handler(args)
     except (rules.RulesError, rules_cache.FetchError,
-            FileNotFoundError) as exc:
+            config.ConfigError, FileNotFoundError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_USAGE
 
@@ -95,9 +95,18 @@ def _add_init(sub):
     cmd = sub.add_parser(
         "init", help="add configuration and agent instructions to a project")
     cmd.add_argument("path", nargs="?", default=".", help="project root")
+    _level_and_mode(cmd)
+    cmd.set_defaults(handler=run_init)
+
+
+def _level_and_mode(cmd):
+    """Options that choose the required level and the project mode."""
     cmd.add_argument("--min-level", default="silver",
                      help="level required by the project (default: silver)")
-    cmd.set_defaults(handler=run_init)
+    cmd.add_argument("--migration", dest="mode", action="store_const",
+                     const=config.MIGRATION, default=config.STRICT,
+                     help="existing program: build without a full "
+                          "certificate and migrate it file by file")
 
 
 def _add_onboarding(sub):
@@ -113,8 +122,7 @@ def _add_onboarding(sub):
     setup = sub.add_parser("setup", help="fetch the rules, init the "
                                          "project and certify it once")
     _project_options(setup)
-    setup.add_argument("--min-level", default="silver",
-                       help="level required by the project")
+    _level_and_mode(setup)
     setup.add_argument("--ref", default="main", help="uses-rules branch")
     setup.set_defaults(handler=run_setup)
 
@@ -170,11 +178,63 @@ def run_certify(args):
     project, cert = _certify(args)
     select = everything if args.verbose else with_violations
     _emit(FORMATS[args.format](cert, select), args.output)
+    policy = migration.Policy.of(project, args.min_level)
+    if policy.migration:
+        return _certify_migration(cert, policy, args.certificate)
     if args.certificate:
-        data = certificate.write(cert, args.certificate)
-        print(f"Certificate {data['certificate_id']} written to "
-              f"{args.certificate}", file=sys.stderr)
-    return _exit_code(cert, args.min_level or project.min_level)
+        _write_certificate(certificate.build_for(cert, args.certificate),
+                           args.certificate)
+    return _exit_code(cert, policy.min_level)
+
+
+def _write_certificate(data, path):
+    """Save the certificate and say so."""
+    certificate.save(data, path)
+    print(f"Certificate {data['certificate_id']} written to {path}",
+          file=sys.stderr)
+
+
+def _certify_migration(cert, policy, path):
+    """Migration mode: report the progress, refuse regressions."""
+    data = certificate.build_for(cert, path or certificate.DEFAULT_NAME)
+    if _report_regressions(path, data, policy):
+        print("Certificate not written: fix the regressions first",
+              file=sys.stderr)
+        return EXIT_FAILED
+    if path:
+        _write_certificate(data, path)
+    return _coverage_exit(data, policy)
+
+
+def _report_regressions(path, data, policy):
+    """Print the migrated files that fell back; True when there are."""
+    fallen = _regressions(path, data, policy)
+    for name in fallen:
+        print(f"REGRESSED    {name}: was certified at "
+              f"{policy.wanted(data['levels'])}", file=sys.stderr)
+    return bool(fallen)
+
+
+def _regressions(path, data, policy):
+    """Migrated files of the existing certificate now below the level."""
+    if not path or not Path(path).is_file():
+        return []
+    return migration.regressions(certificate.read(path), data, policy)
+
+
+def _coverage_exit(data, policy):
+    """Print the migration progress; exit code depending on the
+    required coverage."""
+    done = len(migration.migrated(data, policy))
+    total = len(data["files"]) + len(data["failures"])
+    wanted = policy.wanted(data["levels"])
+    print(migration.coverage_note(done, total, policy, wanted),
+          file=sys.stderr)
+    if migration.coverage(done, total) < policy.min_coverage:
+        print("Migration coverage below the required "
+              f"{policy.min_coverage:g}%", file=sys.stderr)
+        return EXIT_FAILED
+    return EXIT_OK
 
 
 def _emit(text, output):
@@ -199,14 +259,26 @@ def _exit_code(cert, wanted):
 
 def run_stamp(args):
     """Write fresh stamps into every certified source."""
-    _, cert = _certify(args)
-    changed = [m.path for m in cert.modules
+    project, cert = _certify(args)
+    changed = [m.path for m in _to_stamp(cert, project)
                if stamper.write(Path(cert.root) / m.path, m)]
     for path in changed:
         print(f"stamped {path}")
     print(f"{len(changed)} files updated, {len(cert.modules)} certified, "
           f"project level: {cert.scorer.label(cert.level)}")
     return EXIT_OK
+
+
+def _to_stamp(cert, project):
+    """Sources to stamp: all of them, or in migration mode only the
+    migrated ones (legacy code is left untouched)."""
+    policy = migration.Policy.of(project)
+    if not policy.migration:
+        return cert.modules
+    levels = [level["id"] for level in cert.scorer.levels]
+    wanted = policy.wanted(levels)
+    return [m for m in cert.modules
+            if migration.at_level(m.level, wanted, levels)]
 
 
 def run_verify(args):
@@ -226,23 +298,47 @@ def run_check(args):
 
 def _check_certificate(path, args):
     """Check sources against a certificate and print the outcome."""
-    data = certificate.read(path)
-    root = Path(getattr(args, "root", None) or
-                certificate.sources_root(path, data))
+    data, root = _read_certificate(path, getattr(args, "root", None))
     project = config.load(root, args.config)
-    sources = certifier.discover(root, project)
-    result = check(data, sources, signing.load(args.key_file),
-                   getattr(args, "min_level", None) or project.min_level)
+    if data is None:
+        data = _no_certificate(path, project)
+    policy = migration.Policy.of(project, getattr(args, "min_level", None))
+    result = check(data, certifier.discover(root, project),
+                   signing.load(args.key_file), policy)
     _print_verify(result)
     return EXIT_OK if result.ok else EXIT_FAILED
 
 
-def _print_verify(result):
-    """Print the outcome of a verification."""
+def _read_certificate(path, root=None):
+    """(certificate data, or None when there is none yet; sources root)."""
+    if not Path(path).is_file():
+        return None, Path(root or Path(path).parent)
+    data = certificate.read(path)
+    return data, Path(root or certificate.sources_root(path, data))
+
+
+def _no_certificate(path, project):
+    """An empty certificate for a project being migrated; an error in a
+    strict project."""
+    if not project.migrating:
+        raise FileNotFoundError(f"certificate {path} not found")
+    print(f"note: no certificate {path} yet: every file is legacy")
+    return empty_certificate()
+
+
+def _print_notes(result):
+    """Notes and whole-certificate problems of a verification."""
     for note in result.notes:
         print(f"note: {note}")
     if not result.certificate_ok:
         print("CERTIFICATE ID DOES NOT MATCH ITS CONTENT")
+    if not result.coverage_ok:
+        print("MIGRATION COVERAGE BELOW THE REQUIRED MINIMUM")
+
+
+def _print_verify(result):
+    """Print the outcome of a verification."""
+    _print_notes(result)
     for kind, names in result.problems.items():
         for name in names:
             print(f"{kind.upper():<12} {name}")
@@ -254,9 +350,15 @@ def _print_verify(result):
 
 def run_init(args):
     """Add configuration and agent instructions to a project."""
-    for path, action in init_project(Path(args.path), args.min_level):
-        print(f"{action:<8} {path}")
+    _init(args)
     return EXIT_OK
+
+
+def _init(args):
+    """Create or update configuration and agent instructions."""
+    root = Path(args.path)
+    for path, action in init_project(root, args.min_level, args.mode):
+        print(f"{action:<8} {path}")
 
 
 def run_fetch_rules(args):
@@ -277,8 +379,7 @@ def run_setup(args):
     if not (args.rules or os.environ.get(rules.ENV_VAR)):
         args.rules = str(rules_cache.fetch(args.ref))
     print(f"rules    {rules.resolve_path(args.rules)}")
-    for path, action in init_project(Path(args.path), args.min_level):
-        print(f"{action:<8} {path}")
+    _init(args)
     _, cert = _certify(args)
     print("\n".join([""] + summary(cert)))
     print(NEXT_STEPS.format(level=args.min_level))

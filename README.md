@@ -158,8 +158,33 @@ each code.
 needing the rules. It fails when code changed after certification, when
 new code is not certified, when certified code disappeared, when an
 element is below the required level, or when the certificate was edited.
-See [docs/build-integration.md](docs/build-integration.md) for Make,
+When a source carries stamps, every stamp must also match the code
+recorded in the JSON certificate: a stamp edited by hand, removed or left
+over from deleted code fails the build. See [docs/build-integration.md](docs/build-integration.md) for Make,
 CMake, npm, Gradle, Maven, Python, pre-commit and GitHub Actions.
+
+## Migrating existing programs
+
+Programs written before certification can adopt it gradually:
+
+```bash
+uses-certifier init . --min-level gold --migration
+```
+
+writes `mode: migration` in `.uses-certifier.yaml`. In this mode:
+
+- the build passes even without a certificate (every file is *legacy*);
+- a source file certified at `min_level` is *migrated*, and from then on
+  `check` verifies it as strictly as in a normal project;
+- legacy files are recorded in the certificate but not enforced, and
+  `stamp` leaves them untouched;
+- `certify` refuses to write the certificate when a migrated file falls
+  back below `min_level`, so the migration only moves forward;
+- `check` and `certify` print the coverage (migrated files out of all
+  sources); `migration_min_coverage` makes the build fail below a
+  percentage, and is raised as the migration proceeds.
+
+When every file is migrated, switch to `mode: strict`.
 
 ## Design principles
 

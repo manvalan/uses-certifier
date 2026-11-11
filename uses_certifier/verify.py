@@ -29,12 +29,15 @@ class VerifyResult:
     valid: int = 0
     problems: dict = field(default_factory=_empty_problems)
     certificate_ok: bool = True
+    coverage_ok: bool = True
+    files_checked: int = 0
     notes: list = field(default_factory=list)
 
     @property
     def ok(self):
         """True when every stamp is valid and nothing is uncovered."""
-        return self.certificate_ok and not any(self.problems.values())
+        return (self.certificate_ok and self.coverage_ok
+                and not any(self.problems.values()))
 
     @property
     def invalid(self):

@@ -10,17 +10,35 @@ DEFAULT_EXCLUDE = [
     ".git/*", "*/.git/*", "*/node_modules/*", "node_modules/*",
     "*/__pycache__/*", "*venv/*", "build/*", "dist/*", "*.min.js",
 ]
+STRICT, MIGRATION = "strict", "migration"
+
+
+class ConfigError(ValueError):
+    """The project configuration is not valid."""
 
 
 @dataclass
 class ProjectConfig:
-    """Project choices: rulesets, exclusions, thresholds, minimum level."""
+    """Project choices: rulesets, exclusions, thresholds, minimum level
+    and mode (strict, or migration for existing programs)."""
 
     rulesets: list = field(default_factory=list)
     exclude: list = field(default_factory=list)
     overrides: dict = field(default_factory=dict)
     min_level: str = ""
     rules_path: str = ""
+    mode: str = STRICT
+    migration_min_coverage: float = 0
+
+    def __post_init__(self):
+        if self.mode not in (STRICT, MIGRATION):
+            raise ConfigError(f"unknown mode {self.mode!r}: use "
+                             f"{STRICT} or {MIGRATION}")
+
+    @property
+    def migrating(self):
+        """True while an existing program is being migrated."""
+        return self.mode == MIGRATION
 
     def is_excluded(self, relpath):
         """True when the relative path matches an exclusion."""

@@ -26,6 +26,12 @@ creates `.uses-certifier.yaml`, adds a certification section to
 `AGENTS.md`, creates or updates `CLAUDE.md`, and certifies the project
 once to show where it stands.
 
+For a program written before certification, add `--migration`: the
+build then accepts the files not yet certified and the project is
+migrated file by file (see "Migrating existing programs" in the README).
+In that case step 4 applies to the files you create or change, not to
+the whole project.
+
 ## 3. Learn the rules and how certification works
 
 ```bash

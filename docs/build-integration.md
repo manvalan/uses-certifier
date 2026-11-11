@@ -9,7 +9,16 @@ under a second on typical projects, and exits with code 1 when:
 - certified code disappeared (`MISSING`),
 - an element is below `--min-level` or the `min_level` of
   `.uses-certifier.yaml` (`BELOW_LEVEL`),
-- the certificate was edited by hand.
+- a stamp written in a source does not match the JSON certificate, is
+  missing from a stamped source or belongs to no element,
+- the certificate was edited by hand,
+- in migration mode, the share of migrated files is below
+  `migration_min_coverage`.
+
+In migration mode (`mode: migration` in `.uses-certifier.yaml`) the build
+also passes without a certificate, and only the files already certified
+at `min_level` are checked; the others are legacy code waiting to be
+migrated.
 
 Add it as the first step of the build so that uncertified code never
 compiles. Every example assumes `uses-certifier` is installed
