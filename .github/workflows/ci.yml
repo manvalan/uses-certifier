@@ -26,9 +26,6 @@ jobs:
         with:
           path: .
           min-level: gold
-          # Temporary: the rules still live in manvalan/uses-rules#1.
-          # Switch back to "main" once that pull request is merged.
-          rules-ref: claude/certificatore-v1
       - uses: actions/upload-artifact@v4
         with:
           name: uses-certificate
