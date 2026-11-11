@@ -12,7 +12,7 @@ def render(cert, select=with_violations):
     for relpath, reason in cert.failures.items():
         out.append(f"{badge('none')} {relpath}: cannot be analysed "
                    f"({reason})")
-    out += [""] + _summary(cert)
+    out += [""] + summary(cert)
     return "\n".join(out) + "\n"
 
 
@@ -34,7 +34,7 @@ def _entity_lines(entity):
     return [head] + [f"        - {describe(v)}" for v in entity.violations]
 
 
-def _summary(cert):
+def summary(cert):
     """Summary by kind and level, with the project level."""
     out = ["Summary:"]
     for kind, level, count in summary_rows(cert):

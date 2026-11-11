@@ -21,13 +21,13 @@
   "level": "gold",
   "summary": {
     "module": {
-      "gold": 28
+      "gold": 30
     },
     "function": {
-      "gold": 166
+      "gold": 179
     },
     "class": {
-      "gold": 12
+      "gold": 13
     }
   },
   "failures": {},
@@ -2181,11 +2181,11 @@
       "language": "python",
       "lines": [
         1,
-        237
+        309
       ],
-      "sha256": "fe990923302aa7a35baaf0c31ed2c9f5126719386cac5b38856291cca3546a67",
+      "sha256": "9bb51eeb08f2d8467521d4d88e1155d76272e209b383056c5d739f1496d511ba",
       "metrics": {
-        "length_lines": 237,
+        "length_lines": 309,
         "max_line_width": 79,
         "todo_count": 0,
         "has_docstring": true
@@ -2194,7 +2194,7 @@
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "85AE-78F9-062A-B789",
+      "stamp": "F307-41AB-8615-8749",
       "children": [
         {
           "kind": "function",
@@ -2202,10 +2202,10 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            17,
-            24
+            19,
+            27
           ],
-          "sha256": "652f6990d87618a390b755a42f4d2456f12a35977b20190e462391d1bbf77edf",
+          "sha256": "c93884a0e1fd30faeb1c446cd0a7116ec40bd4ac56cee9db152c0b9409d3b507",
           "metrics": {
             "cyclomatic_complexity": 2,
             "parameter_count": 1,
@@ -2215,14 +2215,14 @@
             "return_count": 2,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 8,
-            "max_line_width": 56
+            "length_lines": 9,
+            "max_line_width": 53
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "74BA-C179-9516-7C1A",
+          "stamp": "71B0-548E-3D23-B053",
           "children": []
         },
         {
@@ -2231,10 +2231,10 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            27,
-            41
+            30,
+            45
           ],
-          "sha256": "9fed1f2de126d753336b5780469043e5f0e11a4d4b6ef15fb11821e2dbaf780a",
+          "sha256": "d1c2c8391156b5e39766de408b408100b0719892dc64b41d368720dcc7147476",
           "metrics": {
             "cyclomatic_complexity": 1,
             "parameter_count": 0,
@@ -2244,14 +2244,14 @@
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 15,
+            "length_lines": 16,
             "max_line_width": 75
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "4D97-D060-A16E-EEEC",
+          "stamp": "36F9-4472-F4E0-D847",
           "children": []
         },
         {
@@ -2260,8 +2260,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            44,
-            54
+            48,
+            58
           ],
           "sha256": "03d3e435cbb31d85a1eadb530a1ccb112eeee01065207e0e5fdf9177b0ec54f4",
           "metrics": {
@@ -2289,8 +2289,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            57,
-            61
+            61,
+            65
           ],
           "sha256": "01ff2a4015915d40c16984d8d8b9a758133b317cdcbbfc0bc873ef3470fa178c",
           "metrics": {
@@ -2318,8 +2318,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            64,
-            71
+            68,
+            75
           ],
           "sha256": "6b64ad60e4c2816b8ff0b5f0a444b165f787c8df81dfec88bdb1e55d58c8675c",
           "metrics": {
@@ -2347,8 +2347,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            74,
-            86
+            78,
+            90
           ],
           "sha256": "f78cbdd16b3855718cb74a67aff8f107fc3c4142a744644564cefb6b3d99946b",
           "metrics": {
@@ -2376,8 +2376,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            89,
-            96
+            93,
+            100
           ],
           "sha256": "07b12ca0523b46c881239d033b227d94a98ea5a6d4214664353fb3bd4e908b42",
           "metrics": {
@@ -2401,12 +2401,70 @@
         },
         {
           "kind": "function",
+          "name": "_add_onboarding",
+          "path": "uses_certifier/cli.py",
+          "language": "python",
+          "lines": [
+            103,
+            119
+          ],
+          "sha256": "37c7ed28ad027b5df9d3cde3518d546aaf0f35426314834e6f48f2a636794ed3",
+          "metrics": {
+            "cyclomatic_complexity": 1,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 4,
+            "return_count": 0,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 17,
+            "max_line_width": 74
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "9147-C026-306D-6470",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_project_options",
+          "path": "uses_certifier/cli.py",
+          "language": "python",
+          "lines": [
+            122,
+            128
+          ],
+          "sha256": "9e94083c28541451a874e243b0b6d0341d913cee7124df27bda8577436147b4c",
+          "metrics": {
+            "cyclomatic_complexity": 1,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 1,
+            "return_count": 0,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 7,
+            "max_line_width": 73
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "9545-364C-EC7A-06E0",
+          "children": []
+        },
+        {
+          "kind": "function",
           "name": "_add_rules",
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            99,
-            107
+            131,
+            139
           ],
           "sha256": "041748f079bc88641a416df60ced8d17e8e5ec8f4c1d2f4af58ad96aa3cddf5c",
           "metrics": {
@@ -2434,8 +2492,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            110,
-            117
+            142,
+            149
           ],
           "sha256": "07c8368311e3a7480c476d0b2b04d7a0d4179e5cd038ca2f989a624f82268041",
           "metrics": {
@@ -2463,8 +2521,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            120,
-            126
+            152,
+            158
           ],
           "sha256": "0bfc82469b21fd26f5f992df30a4bcec11409a9d4a0ac7f2c9a5b84778b7062a",
           "metrics": {
@@ -2492,8 +2550,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            129,
-            133
+            161,
+            165
           ],
           "sha256": "d14938f6f4c31d80c7d8bd93ee1e8382d2fc819dbe2f27681bbff6523c1c6ce5",
           "metrics": {
@@ -2521,8 +2579,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            136,
-            145
+            168,
+            177
           ],
           "sha256": "7ad4e9811ccc654592839c4545c565a0bf15c0b32632769e04118a6fc27e7605",
           "metrics": {
@@ -2550,8 +2608,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            148,
-            153
+            180,
+            185
           ],
           "sha256": "469bebd49faa3b7a97609e8e8237b70f417f01e41e66f433ad8f7b312b223c55",
           "metrics": {
@@ -2579,8 +2637,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            156,
-            165
+            188,
+            197
           ],
           "sha256": "c4956aa9afe7cf7907ec13d3261cdc969f8780e0f523eb3b93c93e05306b350c",
           "metrics": {
@@ -2608,8 +2666,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            168,
-            177
+            200,
+            209
           ],
           "sha256": "3a4b855e7777c8b7ee4809ed081d987e958b4d20dcbd1e79d503239a7d89439f",
           "metrics": {
@@ -2637,8 +2695,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            180,
-            187
+            212,
+            219
           ],
           "sha256": "52e5b981e8d60f0389a6df8e36dd5ff7ae519f6e950c7f2fdf28b6a42534f809",
           "metrics": {
@@ -2666,8 +2724,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            190,
-            192
+            222,
+            224
           ],
           "sha256": "8920779e043d0bdf78ee350166fde131f7e9858439b81347028e1d29972cbb72",
           "metrics": {
@@ -2695,8 +2753,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            195,
-            205
+            227,
+            237
           ],
           "sha256": "a9bf18ec772afaf5a37e31b69f352edc0ac8074deb657d1af2280e838dd0d0c5",
           "metrics": {
@@ -2724,8 +2782,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            208,
-            220
+            240,
+            252
           ],
           "sha256": "43e6393e73ecab33cade1eb550325d8ca12d1b428d990a7337a815f519c0dbc4",
           "metrics": {
@@ -2753,8 +2811,8 @@
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            223,
-            227
+            255,
+            259
           ],
           "sha256": "3190159c7354c3fb70ce13aa56f33355d8eb494766fce9407d8a72b9fafb3706",
           "metrics": {
@@ -2778,12 +2836,99 @@
         },
         {
           "kind": "function",
+          "name": "run_fetch_rules",
+          "path": "uses_certifier/cli.py",
+          "language": "python",
+          "lines": [
+            262,
+            265
+          ],
+          "sha256": "8ea721e47e8f932156ccd0a7ce53c72c8e6deead1ca639fa564d1ad356afb009",
+          "metrics": {
+            "cyclomatic_complexity": 1,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 1,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 4,
+            "max_line_width": 58
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "5D50-6475-82CC-AA79",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "run_guide",
+          "path": "uses_certifier/cli.py",
+          "language": "python",
+          "lines": [
+            268,
+            272
+          ],
+          "sha256": "5db62f50493ef699dddf60d5580ce9b8ccc24784dfdfa7acab2ee57110542e3b",
+          "metrics": {
+            "cyclomatic_complexity": 2,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 3,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 5,
+            "max_line_width": 64
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "5FBB-2E50-C4D6-C4DA",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "run_setup",
+          "path": "uses_certifier/cli.py",
+          "language": "python",
+          "lines": [
+            275,
+            285
+          ],
+          "sha256": "53ebaa7d41b35de684ae41f8721ed59610cacfd58dbba5d950aa990c84577e0f",
+          "metrics": {
+            "cyclomatic_complexity": 4,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 5,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 11,
+            "max_line_width": 70
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "28A4-0F48-17F4-D7B4",
+          "children": []
+        },
+        {
+          "kind": "function",
           "name": "run_rules",
           "path": "uses_certifier/cli.py",
           "language": "python",
           "lines": [
-            230,
-            237
+            302,
+            309
           ],
           "sha256": "4394c103bf4a13551445c60345a65a4eb78a11cab7629cf086e78a6ffd14cce3",
           "metrics": {
@@ -3079,6 +3224,146 @@
           "level": "gold",
           "certified": true,
           "stamp": "77DA-358C-97CF-9FDB",
+          "children": []
+        }
+      ]
+    },
+    {
+      "kind": "module",
+      "name": "uses_certifier/guide.py",
+      "path": "uses_certifier/guide.py",
+      "language": "python",
+      "lines": [
+        1,
+        63
+      ],
+      "sha256": "de723170019c9d54d0d6ea16abe5b708b695e3afcd9f911bbf1a70026037d90e",
+      "metrics": {
+        "length_lines": 63,
+        "max_line_width": 75,
+        "todo_count": 0,
+        "has_docstring": true
+      },
+      "violations": [],
+      "score": 100,
+      "level": "gold",
+      "certified": true,
+      "stamp": "EA6F-4FE8-C2C1-84C9",
+      "children": [
+        {
+          "kind": "function",
+          "name": "render",
+          "path": "uses_certifier/guide.py",
+          "language": "python",
+          "lines": [
+            23,
+            27
+          ],
+          "sha256": "d9bd39fad1d6e019457ff6e55c11359cab82d89e016306bc4cbdd6203359a105",
+          "metrics": {
+            "cyclomatic_complexity": 1,
+            "parameter_count": 2,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 3,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 5,
+            "max_line_width": 70
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "40DC-4C85-EB91-31BF",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_levels",
+          "path": "uses_certifier/guide.py",
+          "language": "python",
+          "lines": [
+            30,
+            42
+          ],
+          "sha256": "dfa0450fa0588a1a17cd01fdadc9ea665adde5bca28f8b6e9e0f8bc771cb1b34",
+          "metrics": {
+            "cyclomatic_complexity": 3,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 5,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 13,
+            "max_line_width": 71
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "93ED-DA6E-1C23-B236",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_rules",
+          "path": "uses_certifier/guide.py",
+          "language": "python",
+          "lines": [
+            45,
+            57
+          ],
+          "sha256": "8034514f08be051a4754a93096683bf0c47fb7d7ac4a78cacde6fa409b262b23",
+          "metrics": {
+            "cyclomatic_complexity": 4,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 5,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 13,
+            "max_line_width": 75
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "0516-D1F0-3AF4-245F",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_workflow",
+          "path": "uses_certifier/guide.py",
+          "language": "python",
+          "lines": [
+            60,
+            63
+          ],
+          "sha256": "58d4efefcc69428abcfc9cc3fb6d2581c8a903a29bd2787bb8db754697a9ae21",
+          "metrics": {
+            "cyclomatic_complexity": 1,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 2,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 4,
+            "max_line_width": 66
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "08C6-CB16-F902-4CC4",
           "children": []
         }
       ]
@@ -3982,7 +4267,7 @@
         1,
         44
       ],
-      "sha256": "0e1bcebab6d2634367b31591e7df3533b9ec9af40c555d1f3ed8b8a502b1ef29",
+      "sha256": "c6b32db39dc5b849ea107f5bda9e24a72df8343a0529f3d1e5300cfa23f35ae2",
       "metrics": {
         "length_lines": 44,
         "max_line_width": 75,
@@ -3993,7 +4278,7 @@
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "6D92-1CA2-E25C-DF98",
+      "stamp": "105E-22AB-D7EC-E14D",
       "children": [
         {
           "kind": "function",
@@ -4004,7 +4289,7 @@
             6,
             16
           ],
-          "sha256": "92caae73ca03efb12c7392457566c136c20f348f9cde63afcbb983771aca4dc5",
+          "sha256": "9e0c044564a11518d02942ef5da89916e15783447520f71d856f08732dbe8244",
           "metrics": {
             "cyclomatic_complexity": 3,
             "parameter_count": 2,
@@ -4021,7 +4306,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "12BD-0A4E-7954-C03A",
+          "stamp": "5D0D-0357-D6A5-B667",
           "children": []
         },
         {
@@ -4084,14 +4369,14 @@
         },
         {
           "kind": "function",
-          "name": "_summary",
+          "name": "summary",
           "path": "uses_certifier/reporters/console.py",
           "language": "python",
           "lines": [
             37,
             44
           ],
-          "sha256": "400b74d945f76861bcbe849aeb22e55274649e41e10b7cecdcc263e93e32bed0",
+          "sha256": "a493797977115d27a0f08be1355980a187ef6153253e22a77989e3e7cb78e6d9",
           "metrics": {
             "cyclomatic_complexity": 2,
             "parameter_count": 1,
@@ -4108,7 +4393,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1B35-4911-927C-B27E",
+          "stamp": "5C4F-0F92-99B5-3DF1",
           "children": []
         }
       ]
@@ -4342,11 +4627,11 @@
       "language": "python",
       "lines": [
         1,
-        86
+        89
       ],
-      "sha256": "4d560996919861c0aa4ff3e26b4b88f1d5c5d816c2f2cd5c233fa1b4666dae44",
+      "sha256": "4d49d5ae61c3e45ead99ddb4bfb4250d40f5e5e06abd194e4978d9da64d01519",
       "metrics": {
-        "length_lines": 86,
+        "length_lines": 89,
         "max_line_width": 74,
         "todo_count": 0,
         "has_docstring": true
@@ -4355,7 +4640,7 @@
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "ECA2-17E9-B9AF-160C",
+      "stamp": "E0E6-0DFC-6569-AF98",
       "children": [
         {
           "kind": "class",
@@ -4363,8 +4648,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            17,
-            18
+            18,
+            19
           ],
           "sha256": "28a75763e870c875722dd4328d5038b663e8791939f999f1b332341ad859aeb9",
           "metrics": {
@@ -4387,8 +4672,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            21,
-            36
+            22,
+            37
           ],
           "sha256": "559ed53a58e775e143a55f9413f615b2464551099e784ee88c81e31894ee8e81",
           "metrics": {
@@ -4410,8 +4695,8 @@
               "path": "uses_certifier/rules.py",
               "language": "python",
               "lines": [
-                24,
-                26
+                25,
+                27
               ],
               "sha256": "f84e0fe82b8ce12562422da4f33f5e68b7665b8840769ec51b0989c17f544e3a",
               "metrics": {
@@ -4439,8 +4724,8 @@
               "path": "uses_certifier/rules.py",
               "language": "python",
               "lines": [
-                28,
-                32
+                29,
+                33
               ],
               "sha256": "5b6af1ad80d825eef882fe00a7824ca6b8ceb10309bdf932739d2d6cb9adc358",
               "metrics": {
@@ -4468,8 +4753,8 @@
               "path": "uses_certifier/rules.py",
               "language": "python",
               "lines": [
-                34,
-                36
+                35,
+                37
               ],
               "sha256": "5d75fcbfa0d131b590e29db787bab06d1766cd83fdbda86b17190832bd57a94d",
               "metrics": {
@@ -4499,12 +4784,12 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            39,
-            49
+            40,
+            52
           ],
-          "sha256": "4f3f561952990019af8b8b5f7577bc8c2f1b6d040507a380d216eece56090f4c",
+          "sha256": "06f998f7cdfdf0d9f77a3f9cfab10334f1627f87351f6592c48611203c5583ad",
           "metrics": {
-            "cyclomatic_complexity": 4,
+            "cyclomatic_complexity": 5,
             "parameter_count": 1,
             "boolean_parameters": 0,
             "max_nesting": 1,
@@ -4512,14 +4797,14 @@
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 11,
-            "max_line_width": 68
+            "length_lines": 13,
+            "max_line_width": 72
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "334D-B603-BD04-9E85",
+          "stamp": "E2C7-56F8-99C1-56A0",
           "children": []
         },
         {
@@ -4528,8 +4813,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            52,
-            59
+            55,
+            62
           ],
           "sha256": "c7206b287fbab8f2fe14ed5d267cb0c87431b5236d130e0ef0301b5c31e5ef7c",
           "metrics": {
@@ -4557,8 +4842,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            62,
-            68
+            65,
+            71
           ],
           "sha256": "298c5d77c95ad43aedd43b473da3156474f92315b35d02edb48f459fbc4387e2",
           "metrics": {
@@ -4586,8 +4871,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            71,
-            78
+            74,
+            81
           ],
           "sha256": "e152a39c49322c66f03df417ca8825c18fa2b18d14e6f97133ea39be71f8074a",
           "metrics": {
@@ -4615,8 +4900,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            81,
-            86
+            84,
+            89
           ],
           "sha256": "4fd88099cce873b870e9a53a99de9ed035787e5b57973ae85b9b211a2e294608",
           "metrics": {
@@ -4636,6 +4921,170 @@
           "level": "gold",
           "certified": true,
           "stamp": "FBFC-41DF-5500-41C1",
+          "children": []
+        }
+      ]
+    },
+    {
+      "kind": "module",
+      "name": "uses_certifier/rules_cache.py",
+      "path": "uses_certifier/rules_cache.py",
+      "language": "python",
+      "lines": [
+        1,
+        48
+      ],
+      "sha256": "324f5cb28452c293a91a3939dc83dbdbef753c617cc8364f6932664dc1b7d200",
+      "metrics": {
+        "length_lines": 48,
+        "max_line_width": 74,
+        "todo_count": 0,
+        "has_docstring": true
+      },
+      "violations": [],
+      "score": 100,
+      "level": "gold",
+      "certified": true,
+      "stamp": "8B1D-EE73-8F49-5226",
+      "children": [
+        {
+          "kind": "class",
+          "name": "FetchError",
+          "path": "uses_certifier/rules_cache.py",
+          "language": "python",
+          "lines": [
+            10,
+            11
+          ],
+          "sha256": "c02fe67c8b9155ae2a212cf8220d39d8b1ab5fa84b1be54bf6691293ef755c15",
+          "metrics": {
+            "length_lines": 2,
+            "method_count": 0,
+            "weighted_complexity": 0,
+            "field_count": 0,
+            "has_docstring": true
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "D517-E247-19F0-B578",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "cache_dir",
+          "path": "uses_certifier/rules_cache.py",
+          "language": "python",
+          "lines": [
+            14,
+            19
+          ],
+          "sha256": "dc8eea05744c74bf29952ea1ecdc148526778c98a90382020d2a3142f367335d",
+          "metrics": {
+            "cyclomatic_complexity": 3,
+            "parameter_count": 0,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 1,
+            "return_count": 2,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 6,
+            "max_line_width": 74
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "50C3-EACC-6C3A-D86F",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "cached",
+          "path": "uses_certifier/rules_cache.py",
+          "language": "python",
+          "lines": [
+            22,
+            25
+          ],
+          "sha256": "acff06badc38afa9334260cf811311f9aa5777688c1f082f6407ce2730539a01",
+          "metrics": {
+            "cyclomatic_complexity": 2,
+            "parameter_count": 0,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 1,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 4,
+            "max_line_width": 69
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "B798-3A28-567D-EB2D",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "fetch",
+          "path": "uses_certifier/rules_cache.py",
+          "language": "python",
+          "lines": [
+            28,
+            38
+          ],
+          "sha256": "ffed99cdc38da855f69ca7514f65d0dd04df763e8e30c01a43a62f92f06f16ac",
+          "metrics": {
+            "cyclomatic_complexity": 3,
+            "parameter_count": 2,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 3,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 11,
+            "max_line_width": 69
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "CC9B-A5F9-896D-981B",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_git",
+          "path": "uses_certifier/rules_cache.py",
+          "language": "python",
+          "lines": [
+            41,
+            48
+          ],
+          "sha256": "8b95e7f1f5da411642cb33dc2ba622a4b6bb094e76a38a478192dd7cd68ca676",
+          "metrics": {
+            "cyclomatic_complexity": 3,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 2,
+            "return_count": 0,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 8,
+            "max_line_width": 74
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "C160-1AD3-EBB5-69A3",
           "children": []
         }
       ]
@@ -5921,5 +6370,5 @@
       ]
     }
   ],
-  "certificate_id": "744F-8424-DC52-CF19"
+  "certificate_id": "11EB-5E36-F93F-27BB"
 }

@@ -5,6 +5,7 @@ from pathlib import Path
 
 import yaml
 
+from . import rules_cache
 from .hashing import json_digest
 from .model import Rule
 
@@ -37,12 +38,14 @@ class RuleBook:
 
 
 def resolve_path(explicit=None):
-    """Rules folder: option, environment variable, or an error."""
-    chosen = explicit or os.environ.get(ENV_VAR)
+    """Rules folder: option, environment variable, fetched cache, or an
+    error."""
+    chosen = explicit or os.environ.get(ENV_VAR) or rules_cache.cached()
     if not chosen:
         raise RulesError(
-            "Rules folder not given: use --rules or the "
-            f"{ENV_VAR} variable (a clone of manvalan/uses-rules).")
+            "Rules not found: run `uses-certifier fetch-rules`, or use "
+            f"--rules or the {ENV_VAR} variable (a clone of "
+            "manvalan/uses-rules).")
     path = Path(chosen)
     if not (path / "rules").is_dir():
         raise RulesError(f"{path} has no rules/ folder")

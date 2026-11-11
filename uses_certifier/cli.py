@@ -1,15 +1,17 @@
 """Command line interface: certify, stamp, verify, rules."""
 import argparse
+import os
 import sys
 from pathlib import Path
 
 from . import __version__, certificate, certifier, config, rules, signing
-from . import stamper, verify
+from . import guide, rules_cache, stamper, verify
 from .check import check
 from .init import init_project
 from .model import NOT_CERTIFIED
 from .reporters import FORMATS
 from .reporters.common import everything, with_violations
+from .reporters.console import summary
 
 EXIT_OK, EXIT_FAILED, EXIT_USAGE = 0, 1, 2
 
@@ -19,7 +21,8 @@ def main(argv=None):
     args = _parser().parse_args(argv)
     try:
         return args.handler(args)
-    except (rules.RulesError, FileNotFoundError) as exc:
+    except (rules.RulesError, rules_cache.FetchError,
+            FileNotFoundError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_USAGE
 
@@ -38,6 +41,7 @@ def _parser():
     _add_check(sub)
     _add_rules(sub)
     _add_init(sub)
+    _add_onboarding(sub)
     return parser
 
 
@@ -94,6 +98,34 @@ def _add_init(sub):
     cmd.add_argument("--min-level", default="silver",
                      help="level required by the project (default: silver)")
     cmd.set_defaults(handler=run_init)
+
+
+def _add_onboarding(sub):
+    """Arguments of fetch-rules, guide and setup."""
+    fetch = sub.add_parser("fetch-rules",
+                           help="download or update the uses-rules cache")
+    fetch.add_argument("--ref", default="main", help="branch or tag")
+    fetch.set_defaults(handler=run_fetch_rules)
+    show = sub.add_parser("guide", help="explain certification and the "
+                                        "rules in force (Markdown)")
+    _project_options(show)
+    show.set_defaults(handler=run_guide)
+    setup = sub.add_parser("setup", help="fetch the rules, init the "
+                                         "project and certify it once")
+    _project_options(setup)
+    setup.add_argument("--min-level", default="silver",
+                       help="level required by the project")
+    setup.add_argument("--ref", default="main", help="uses-rules branch")
+    setup.set_defaults(handler=run_setup)
+
+
+def _project_options(cmd):
+    """Path, rules and configuration options."""
+    cmd.add_argument("path", nargs="?", default=".", help="project root")
+    cmd.add_argument("--rules", help="clone of uses-rules "
+                                     f"(or ${rules.ENV_VAR})")
+    cmd.add_argument("--config", help="project configuration file")
+    cmd.set_defaults(key_file=None)
 
 
 def _add_rules(sub):
@@ -225,6 +257,46 @@ def run_init(args):
     for path, action in init_project(Path(args.path), args.min_level):
         print(f"{action:<8} {path}")
     return EXIT_OK
+
+
+def run_fetch_rules(args):
+    """Download or update the cached rules."""
+    print(f"rules ready in {rules_cache.fetch(args.ref)}")
+    return EXIT_OK
+
+
+def run_guide(args):
+    """Print the guide for the rules in force."""
+    project, rulebook = _load(args)
+    print(guide.render(rulebook, project.min_level or "silver"))
+    return EXIT_OK
+
+
+def run_setup(args):
+    """Fetch the rules, init the project, certify it once."""
+    if not (args.rules or os.environ.get(rules.ENV_VAR)):
+        args.rules = str(rules_cache.fetch(args.ref))
+    print(f"rules    {rules.resolve_path(args.rules)}")
+    for path, action in init_project(Path(args.path), args.min_level):
+        print(f"{action:<8} {path}")
+    _, cert = _certify(args)
+    print("\n".join([""] + summary(cert)))
+    print(NEXT_STEPS.format(level=args.min_level))
+    return EXIT_OK
+
+
+NEXT_STEPS = """
+Next steps:
+  1. Read the rules: uses-certifier guide .
+  2. See what to fix: uses-certifier certify . --verbose
+  3. Refactor until the project reaches {level}.
+  4. Issue the certificate:
+     uses-certifier certify . --certificate uses-certificate.json \\
+         --min-level {level}
+  5. Add `uses-certifier check` as the first build step
+     (see docs/build-integration.md in manvalan/uses-certifier)
+  6. Commit .uses-certifier.yaml, AGENTS.md, CLAUDE.md,
+     uses-certificate.json and the build change."""
 
 
 def run_rules(args):

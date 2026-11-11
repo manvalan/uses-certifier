@@ -10,12 +10,22 @@ The rules come from *Code That Fits in Your Head* (Mark Seemann): rule of
 seven, 80/24 rule, activated objects, nesting. On top of those come the
 rules of *Clean Code* and PEP 8 / PEP 257.
 
+> **AI agents:** to put a project under certification, follow
+> [AGENT_SETUP.md](AGENT_SETUP.md). In short:
+> `pip install git+https://github.com/manvalan/uses-certifier`, then
+> `uses-certifier setup .` and `uses-certifier guide .` in the project root.
+
 ## Installation
 
 ```bash
 pip install git+https://github.com/manvalan/uses-certifier
-git clone https://github.com/manvalan/uses-rules
+uses-certifier fetch-rules      # caches manvalan/uses-rules locally
 ```
+
+The rules are looked up in this order: `--rules`, `USES_RULES_PATH`,
+`rules_path` in `.uses-certifier.yaml`, then the cache filled by
+`fetch-rules` (`~/.cache/uses-certifier/uses-rules`, or
+`USES_RULES_CACHE`).
 
 Requires Python 3.10 or later.
 
@@ -23,16 +33,16 @@ Requires Python 3.10 or later.
 
 ```bash
 # Certify a folder and show the elements with violations
-uses-certifier certify src/ --rules ../uses-rules
+uses-certifier certify src/
 
 # Write the stamps into the sources
-uses-certifier stamp src/ --rules ../uses-rules
+uses-certifier stamp src/
 
 # Check that every stamp still matches its code
-uses-certifier verify src/ --rules ../uses-rules
+uses-certifier verify src/
 
 # Write the JSON certificate and fail when the project is below Silver
-uses-certifier certify . --rules ../uses-rules \
+uses-certifier certify . \
     --certificate uses-certificate.json --min-level silver
 
 # Build check: do the sources still match the committed certificate?
@@ -41,15 +51,21 @@ uses-certifier check
 # Add configuration and agent instructions to a project
 uses-certifier init . --min-level silver
 
+# All at once: fetch the rules, init, certify and print the next steps
+uses-certifier setup . --min-level silver
+
+# Explain certification and every rule in force (Markdown)
+uses-certifier guide .
+
 # Markdown report (pull requests) or SARIF (GitHub code scanning)
-uses-certifier certify src/ --rules ../uses-rules --format markdown --output report.md
-uses-certifier certify src/ --rules ../uses-rules --format sarif --output report.sarif
+uses-certifier certify src/ --format markdown --output report.md
+uses-certifier certify src/ --format sarif --output report.sarif
 
 # List the rules active for the project
-uses-certifier rules . --rules ../uses-rules
+uses-certifier rules .
 ```
 
-Instead of `--rules` you can set the `USES_RULES_PATH` variable.
+Every command that needs the rules accepts `--rules PATH`.
 
 ## How elements are scored
 
@@ -234,5 +250,5 @@ pytest
 | `scoring.py`, `signing.py` | score, level and stamp code |
 | `markers.py`, `suppressions.py`, `stamper.py` | stamp and ignore comments in the sources |
 | `certificate.py`, `check.py`, `verify.py` | JSON certificate, build check, stamp verification |
-| `init.py`, `templates/` | project setup and agent instructions |
+| `init.py`, `guide.py`, `rules_cache.py`, `templates/` | project setup, agent guide, rules download |
 | `reporters/` | console, Markdown and SARIF output |

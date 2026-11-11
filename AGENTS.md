@@ -14,9 +14,9 @@ Required level: **gold**.
 ### Setup
 
 - Install: `pip install git+https://github.com/manvalan/uses-certifier`
-- Rules: set `USES_RULES_PATH` to a clone of
-  `https://github.com/manvalan/uses-rules`, or clone it next to this
-  project and pass `--rules ../uses-rules`.
+- Download the rules: `uses-certifier fetch-rules` (they are cached and
+  used automatically; `USES_RULES_PATH` or `--rules` override them).
+- Read the rules and how certification works: `uses-certifier guide .`
 
 ### Write code that passes the rules
 
