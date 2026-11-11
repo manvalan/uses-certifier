@@ -163,12 +163,17 @@ CMake, npm, Gradle, Maven, Python, pre-commit and GitHub Actions.
 
 ## Design principles
 
-Besides the measured rules, uses-rules holds design principles in
-`principles/` (command query separation, parse don't validate, functional
-core / imperative shell, dependency rule and more). The certifier does not
-measure them; `uses-certifier guide` presents them with how to apply them,
-a check question and examples, and the agent instructions require agents
-to apply them and report where they did not.
+Besides the measured rules, uses-rules holds 27 design principles in
+`principles/`, from The Pragmatic Programmer, Clean Code, Clean
+Architecture, Refactoring, Working Effectively with Legacy Code and Code
+That Fits in Your Head (DRY, orthogonality, broken windows, command query
+separation, two hats, seams, characterization tests and more). Most of
+them cannot be measured; `uses-certifier guide` presents them by category
+with how to apply them, a check question and examples, and the agent
+instructions require agents to apply them and report where they did not.
+Where part of a principle is measurable it has a rule: duplicated
+function bodies (CC-011, DRY) and commented-out code (CC-012, broken
+windows).
 
 ## Instructions for agents
 
@@ -238,6 +243,12 @@ one). If uses-rules is private, pass a `token` with read access to it.
   methods do not count.
 - **Nesting**: `if`, `for`, `while`, `with`, `try`, `match`; an `elif`
   stays at the level of its `if`.
+- **Duplicated code**: functions of 6 lines or more whose bodies are
+  identical anywhere in the certified tree. Python bodies are compared on
+  the syntax tree (formatting and comments ignored, names included);
+  other languages on their trimmed, non-blank lines.
+- **Commented-out code** (Python): full-line comments whose content
+  parses as an assignment, call, import, return or control statement.
 
 ## The certifier certifies itself
 

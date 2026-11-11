@@ -1,8 +1,12 @@
 set: sample
 version: 1.0.0
+categories:
+  design: Design and structure
 principles:
   - id: DP-001
     name: cqs
+    category: design
+    measured_by: [T-001]
     title: Command Query Separation
     summary: Change state or answer, never both.
     apply: [Split methods that do both.]

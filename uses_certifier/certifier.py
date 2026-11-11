@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import analyzers, evaluator, markers
+from . import analyzers, duplicates, evaluator, markers
 from .model import NOT_CERTIFIED
 from .scoring import Scorer
 
@@ -36,8 +36,17 @@ def certify(root, rulebook, config, signer):
     """Analyse, evaluate and stamp every source under root."""
     result = _empty_result(Path(root), rulebook, signer)
     for path, relpath in discover(root, config):
-        _certify_into(result, path, relpath)
+        _analyze_into(result, path, relpath)
+    _evaluate_all(result)
     return result
+
+
+def _evaluate_all(result):
+    """Apply the rules and stamp every analysed source."""
+    duplicates.mark(result.modules)
+    for module in result.modules:
+        evaluator.evaluate(module, result.rulebook.rules)
+        result.scorer.score_tree(module)
 
 
 def _empty_result(root, rulebook, signer):
@@ -47,22 +56,20 @@ def _empty_result(root, rulebook, signer):
     return Certification(str(base), rulebook, scorer)
 
 
-def _certify_into(result, path, relpath):
-    """Add a certified source, or the reason it was rejected."""
+def _analyze_into(result, path, relpath):
+    """Add an analysed source, or the reason it was rejected."""
     try:
-        module = certify_file(path, relpath, result.rulebook, result.scorer)
+        module = analyze_file(path, relpath)
     except (SyntaxError, UnicodeDecodeError, ValueError) as exc:
         result.failures[relpath] = f"{type(exc).__name__}: {exc}"
         return
     result.modules.append(module)
 
 
-def certify_file(path, relpath, rulebook, scorer):
-    """Analyse, evaluate and stamp a single source file."""
+def analyze_file(path, relpath):
+    """Analyse a source file; line numbers refer to the real file."""
     original = Path(path).read_text(encoding="utf-8")
     module = analyzers.analyze(path, markers.strip_stamps(original), relpath)
-    evaluator.evaluate(module, rulebook.rules)
-    scorer.score_tree(module)
     _to_original_lines(module, markers.line_map(original))
     return module
 
@@ -75,8 +82,6 @@ def _to_original_lines(module, numbers):
         entity.first_line = real(entity.first_line)
         entity.start_line = real(entity.start_line)
         entity.end_line = real(entity.end_line)
-        for violation in entity.violations:
-            violation.line = real(violation.line)
 
 
 def discover(root, config):

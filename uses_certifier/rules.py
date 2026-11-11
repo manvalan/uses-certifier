@@ -72,7 +72,11 @@ def load_principles(root):
     """
     found = []
     for file in sorted((Path(root) / "principles").glob("*.y*ml")):
-        found += _read_yaml(file).get("principles", [])
+        data = _read_yaml(file)
+        labels = data.get("categories", {})
+        for item in data.get("principles", []):
+            item["category_title"] = labels.get(item.get("category"), "")
+            found.append(item)
     return found
 
 

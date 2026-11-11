@@ -1,6 +1,9 @@
 """Metrics computed on the AST of Python functions and classes."""
 import ast
 
+from .. import markers
+from ..hashing import digest
+
 BRANCHES = (ast.If, ast.For, ast.AsyncFor, ast.While, ast.IfExp,
             ast.ExceptHandler, ast.comprehension, ast.match_case)
 BLOCKS = (ast.If, ast.For, ast.AsyncFor, ast.While, ast.With,
@@ -163,3 +166,43 @@ def _is_boolean(arg, default):
 def _count(node, kind):
     """Number of nodes of a given type inside the function."""
     return sum(1 for child in ast.walk(node) if isinstance(child, kind))
+
+
+MIN_DUPLICATE_LINES = 6
+CODE_STATEMENTS = (ast.Assign, ast.AugAssign, ast.Return, ast.Import,
+                   ast.ImportFrom, ast.Raise, ast.Delete, ast.For,
+                   ast.While, ast.If, ast.With, ast.Try)
+
+
+def body_fingerprint(node):
+    """Fingerprint of a function body (without docstring) on its syntax
+    tree, or "" when the function is too short to count as duplication."""
+    if node.end_lineno - node.lineno + 1 < MIN_DUPLICATE_LINES:
+        return ""
+    body = node.body
+    if ast.get_docstring(node) is not None:
+        body = body[1:]
+    return digest(ast.dump(ast.Module(body=body, type_ignores=[])))
+
+
+def commented_code_lines(lines):
+    """Number of comment lines that contain Python code."""
+    return sum(1 for line in lines if _is_commented_code(line.strip()))
+
+
+def _is_commented_code(text):
+    """True for a full-line comment whose content parses as a statement."""
+    if not text.startswith("#") or markers.kind(text):
+        return False
+    try:
+        tree = ast.parse(text.lstrip("#").strip())
+    except SyntaxError:
+        return False
+    return any(_is_code(statement) for statement in tree.body)
+
+
+def _is_code(statement):
+    """True for statements that are clearly code, not prose."""
+    if isinstance(statement, ast.Expr):
+        return isinstance(statement.value, ast.Call)
+    return isinstance(statement, CODE_STATEMENTS)

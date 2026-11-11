@@ -39,6 +39,8 @@ def analyze(text, relpath):
     module = module_entity(text, relpath, "python")
     tree = ast.parse(text, filename=relpath)
     module.metrics["has_docstring"] = ast.get_docstring(tree) is not None
+    module.metrics["commented_code_lines"] = pymetrics.commented_code_lines(
+        text.splitlines())
     module.children = _children(tree, _Source(text, relpath), "")
     return module
 
@@ -61,6 +63,7 @@ def _function(node, src, qualname, is_method):
     entity.metrics = pymetrics.function_metrics(node, is_method)
     entity.metrics["length_lines"] = node.end_lineno - node.lineno + 1
     entity.metrics["max_line_width"] = max_width(src.span(node))
+    entity.body_hash = pymetrics.body_fingerprint(node)
     return entity
 
 

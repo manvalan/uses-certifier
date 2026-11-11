@@ -9,6 +9,7 @@ from ..model import Entity
 from .text import max_width, module_entity
 
 SEPARATOR = re.compile(r"::|\.")
+MIN_DUPLICATE_LINES = 6
 
 
 def supports(path):
@@ -36,7 +37,7 @@ def analyze(path, text, relpath):
 def _function(info, lines, module):
     """Function element from lizard's information."""
     span = lines[info.start_line - 1:info.end_line]
-    return Entity(
+    entity = Entity(
         kind="function", name=SEPARATOR.split(info.name)[-1],
         qualname=info.name, language=module.language, path=module.path,
         first_line=info.start_line, start_line=info.start_line,
@@ -50,6 +51,17 @@ def _function(info, lines, module):
             "max_line_width": max_width(span),
         },
     )
+    entity.body_hash = _body_hash(span)
+    return entity
+
+
+def _body_hash(span):
+    """Fingerprint of a body on its non-blank lines without indentation,
+    or "" when it is too short to count as duplication."""
+    lines = [line.strip() for line in span[1:] if line.strip()]
+    if len(span) < MIN_DUPLICATE_LINES:
+        return ""
+    return lines_digest(lines)
 
 
 def _group_by_class(functions, module):

@@ -69,8 +69,11 @@ def _principles(principles):
     """Every design principle with how to apply and check it."""
     if not principles:
         return ""
-    out = [PRINCIPLES_INTRO]
+    out, category = [PRINCIPLES_INTRO], None
     for item in principles:
+        if item.get("category_title") and item["category_title"] != category:
+            category = item["category_title"]
+            out += [f"### {category}", ""]
         out += _principle(item)
     return "\n".join(out)
 
@@ -78,9 +81,11 @@ def _principles(principles):
 def _principle(item):
     """Markdown block of one design principle."""
     summary = " ".join(item["summary"].split())
-    out = [f"### {item['id']} {item['title']}", "", summary, ""]
+    out = [f"#### {item['id']} {item['title']}", "", summary, ""]
     out += [f"- {' '.join(step.split())}" for step in item.get("apply", [])]
     out += ["", f"**Check:** {item['check']}"]
+    if item.get("measured_by"):
+        out += ["", f"Partly measured by: {', '.join(item['measured_by'])}"]
     example = item.get("example")
     if example:
         out += ["", f"- Avoid: `{example['avoid']}`",

@@ -70,6 +70,7 @@ class Entity:
     level: str = NOT_CERTIFIED
     stamp: str = ""
     synthetic: bool = False
+    body_hash: str = ""
 
     @property
     def is_public(self):

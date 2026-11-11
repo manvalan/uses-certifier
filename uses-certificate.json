@@ -11,7 +11,7 @@
       "clean-code",
       "ctfiyh"
     ],
-    "digest": "8ba8add751d47408ca1977d3e46bffdf918f5dad557c90a80bc991c7a0e48222"
+    "digest": "6a0eb90b769ab9625b801f7744480fdb4b5078881cff5bf8fc60b40e4cf7f2d6"
   },
   "levels": [
     "gold",
@@ -21,10 +21,10 @@
   "level": "gold",
   "summary": {
     "module": {
-      "gold": 30
+      "gold": 31
     },
     "function": {
-      "gold": 182
+      "gold": 189
     },
     "class": {
       "gold": 13
@@ -46,13 +46,14 @@
         "length_lines": 4,
         "max_line_width": 70,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "B814-B723-E7D3-7BFE",
+      "stamp": "DBF3-9049-4D25-75A7",
       "children": []
     },
     {
@@ -69,13 +70,14 @@
         "length_lines": 6,
         "max_line_width": 38,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "2577-9904-50D7-BBDA",
+      "stamp": "DFB6-9DDD-6A7C-FEE4",
       "children": []
     },
     {
@@ -92,13 +94,14 @@
         "length_lines": 20,
         "max_line_width": 72,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "1060-2B77-6585-A4E6",
+      "stamp": "7351-3396-B3CA-CF17",
       "children": [
         {
           "kind": "function",
@@ -120,13 +123,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5962-08EC-233A-BDA4",
+          "stamp": "B3AD-08C1-57B9-20C7",
           "children": []
         },
         {
@@ -149,13 +153,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1435-2DCD-6B05-92BB",
+          "stamp": "AE75-E666-A444-C433",
           "children": []
         }
       ]
@@ -167,20 +172,21 @@
       "language": "python",
       "lines": [
         1,
-        84
+        96
       ],
-      "sha256": "d5d3a39f5b8455d96fa6d968f107aa8b258b8b56bfdc19a77efc08a4f370b233",
+      "sha256": "b458550d15df491122d68ec018b00d90adf6186bb9cb8ee4c2204b5b86e765eb",
       "metrics": {
-        "length_lines": 84,
+        "length_lines": 96,
         "max_line_width": 76,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "A9DC-46EA-7CDE-79E0",
+      "stamp": "CCBD-798D-59D7-417C",
       "children": [
         {
           "kind": "function",
@@ -188,8 +194,8 @@
           "path": "uses_certifier/analyzers/generic.py",
           "language": "python",
           "lines": [
-            14,
-            16
+            15,
+            17
           ],
           "sha256": "e9df947d70c90f5d37af2b2446171aba57897400978e027dab13ab27c487d383",
           "metrics": {
@@ -202,13 +208,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 63
+            "max_line_width": 63,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "EB0F-66E4-5811-DC38",
+          "stamp": "D817-BF6B-B71F-244C",
           "children": []
         },
         {
@@ -217,8 +224,8 @@
           "path": "uses_certifier/analyzers/generic.py",
           "language": "python",
           "lines": [
-            19,
-            22
+            20,
+            23
           ],
           "sha256": "073a78772b2133f9a7602bde6485b344aaf9a61dec4dd8096039d2abd42f07b9",
           "metrics": {
@@ -231,13 +238,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "B053-EF43-A17E-4CB6",
+          "stamp": "A01E-370E-FDB5-D97D",
           "children": []
         },
         {
@@ -246,8 +254,8 @@
           "path": "uses_certifier/analyzers/generic.py",
           "language": "python",
           "lines": [
-            25,
-            33
+            26,
+            34
           ],
           "sha256": "cd5d440dbf41821390a0e3e814be36cb5859f4a2a8e462ff91651682ca167b8f",
           "metrics": {
@@ -260,13 +268,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 69
+            "max_line_width": 69,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "8622-92EA-385F-B79C",
+          "stamp": "6460-773F-ECF3-48CD",
           "children": []
         },
         {
@@ -275,27 +284,58 @@
           "path": "uses_certifier/analyzers/generic.py",
           "language": "python",
           "lines": [
-            36,
-            52
+            37,
+            55
           ],
-          "sha256": "6bdae4430e679466fbfdbb897e41e90c10a6b86a16a500d7c9c3cf24c2525d0c",
+          "sha256": "525862cddc120b1a67421d6be8e1616349b43536ec02f2ebe3813704edc7af9d",
           "metrics": {
             "cyclomatic_complexity": 1,
             "parameter_count": 3,
             "boolean_parameters": 0,
             "max_nesting": 0,
-            "activated_objects": 4,
+            "activated_objects": 5,
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 17,
-            "max_line_width": 71
+            "length_lines": 19,
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "3802-BFF7-7600-8EEC",
+          "stamp": "28C9-7AC4-B302-75BE",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_body_hash",
+          "path": "uses_certifier/analyzers/generic.py",
+          "language": "python",
+          "lines": [
+            58,
+            64
+          ],
+          "sha256": "bc3f4d334580c939d245aa8e06796e1003ea9e56c605d2021d92158fece6b9ed",
+          "metrics": {
+            "cyclomatic_complexity": 4,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 2,
+            "return_count": 2,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 7,
+            "max_line_width": 72,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "3339-CA60-3F60-DC5B",
           "children": []
         },
         {
@@ -304,8 +344,8 @@
           "path": "uses_certifier/analyzers/generic.py",
           "language": "python",
           "lines": [
-            55,
-            65
+            67,
+            77
           ],
           "sha256": "73022a6712bc4c188bc22622be60ac083ffa677773fba6d08afdc9da556a1adf",
           "metrics": {
@@ -318,13 +358,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "D924-2283-08C2-29C1",
+          "stamp": "6784-A44E-490D-416F",
           "children": []
         },
         {
@@ -333,8 +374,8 @@
           "path": "uses_certifier/analyzers/generic.py",
           "language": "python",
           "lines": [
-            68,
-            84
+            80,
+            96
           ],
           "sha256": "93a54cf43c2468810f076270746de7f8e8103e890f13d9710055c293f9874080",
           "metrics": {
@@ -347,13 +388,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 17,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "3AEB-D732-F527-3610",
+          "stamp": "D846-68B9-5BDB-F964",
           "children": []
         }
       ]
@@ -365,20 +407,21 @@
       "language": "python",
       "lines": [
         1,
-        165
+        208
       ],
-      "sha256": "0be9b44213faf4759c7d4e8c206b76291d92000bb35d9581a9bf910a7727ef9d",
+      "sha256": "e1b5349fd6cc477b1dc7160d51943b4afe419f93ac8057d958c4664055643276",
       "metrics": {
-        "length_lines": 165,
+        "length_lines": 208,
         "max_line_width": 78,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "6EBD-5283-4929-4615",
+      "stamp": "D287-F538-AFAC-EBBC",
       "children": [
         {
           "kind": "function",
@@ -386,8 +429,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            13,
-            27
+            16,
+            30
           ],
           "sha256": "dcd3d4bc40d34c49ef637d28d05cae3aade285933700588808a3a7e193134170",
           "metrics": {
@@ -400,13 +443,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 15,
-            "max_line_width": 68
+            "max_line_width": 68,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "27C5-37FD-AC79-4EFF",
+          "stamp": "3FDC-7F51-106E-3B88",
           "children": []
         },
         {
@@ -415,8 +459,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            30,
-            38
+            33,
+            41
           ],
           "sha256": "060c6754d08f68bd4a63c97e7cb6470971fcaeccfde97ae1d4af63d1d06f85bc",
           "metrics": {
@@ -429,13 +473,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 59
+            "max_line_width": 59,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7317-5C65-6C32-28AB",
+          "stamp": "10A6-FAFD-DB44-7B27",
           "children": []
         },
         {
@@ -444,8 +489,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            41,
-            49
+            44,
+            52
           ],
           "sha256": "f6ae992bb09b1cf6adda9e4ed399f8a104f5f72df324d476ece69c64f303321a",
           "metrics": {
@@ -458,13 +503,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "AA38-B3AF-2D02-C516",
+          "stamp": "3F22-A859-F8BB-95D7",
           "children": []
         },
         {
@@ -473,8 +519,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            52,
-            59
+            55,
+            62
           ],
           "sha256": "86e90c024c306f5f2d5b84f606ffcd8b9c952c7b80ea02f23c5d1d4d6c2ff056",
           "metrics": {
@@ -487,13 +533,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C5F8-18B8-9124-068C",
+          "stamp": "D3FC-5B3B-172E-A87B",
           "children": []
         },
         {
@@ -502,8 +549,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            62,
-            67
+            65,
+            70
           ],
           "sha256": "6cbadf0b035cf02412345a0c4dfff1888197e749fcd60cc64f309d24917467cf",
           "metrics": {
@@ -516,13 +563,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1568-8CC2-0A00-6EFA",
+          "stamp": "E4EB-832F-DFAD-3E60",
           "children": []
         },
         {
@@ -531,8 +579,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            70,
-            72
+            73,
+            75
           ],
           "sha256": "531ce3232c4c6cc95863b1f87bcdd7be82cc2fb88e517c56a26794665073ba9a",
           "metrics": {
@@ -545,13 +593,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 68
+            "max_line_width": 68,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7988-4096-FB6E-11D8",
+          "stamp": "B62D-B083-D533-006A",
           "children": []
         },
         {
@@ -560,8 +609,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            75,
-            90
+            78,
+            93
           ],
           "sha256": "de93cbabd5a42d7efc6c4317276b08f07d3386de097cd992cf2ac8f6d3e8319a",
           "metrics": {
@@ -574,13 +623,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 16,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "B7AE-D505-C21B-9AE4",
+          "stamp": "5ECC-D40A-7B29-87B6",
           "children": []
         },
         {
@@ -589,8 +639,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            93,
-            97
+            96,
+            100
           ],
           "sha256": "7958da951ac67d27a4768f08dd70489c7825d22052a27b1be2b79b17fcb95341",
           "metrics": {
@@ -603,13 +653,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 62
+            "max_line_width": 62,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7992-3212-C5D9-0076",
+          "stamp": "B8DF-D484-C9A3-B929",
           "children": []
         },
         {
@@ -618,8 +669,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            100,
-            103
+            103,
+            106
           ],
           "sha256": "628b864a4fb6119bf929f4dea41389ef552cecb76207a16e75093eed2cec0073",
           "metrics": {
@@ -632,13 +683,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "ABF7-69DD-889A-3FF3",
+          "stamp": "9557-DEA6-A274-EF2C",
           "children": []
         },
         {
@@ -647,8 +699,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            106,
-            112
+            109,
+            115
           ],
           "sha256": "aeaa662fd31f85336df00f44b70b50854c021956fe8e0ef7b40f4401b43bba84",
           "metrics": {
@@ -661,13 +713,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "659D-E7EC-2CB7-E917",
+          "stamp": "05A2-A2B1-1B3B-D6C5",
           "children": []
         },
         {
@@ -676,8 +729,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            115,
-            123
+            118,
+            126
           ],
           "sha256": "20f6bb92dd3a0f5fa57f328d58392c8f1126dcbd68254cfe4678734aebe90040",
           "metrics": {
@@ -690,13 +743,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 58
+            "max_line_width": 58,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6939-93C2-4235-C7EE",
+          "stamp": "FBF7-E566-28C0-0A51",
           "children": []
         },
         {
@@ -705,8 +759,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            126,
-            130
+            129,
+            133
           ],
           "sha256": "80befc8b206a246c483c12cd8f0303f4345793d5455356798785c837dbdbeccf",
           "metrics": {
@@ -719,13 +773,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 50
+            "max_line_width": 50,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7F21-8816-B565-24FE",
+          "stamp": "93E1-05E1-A984-C4E6",
           "children": []
         },
         {
@@ -734,8 +789,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            133,
-            141
+            136,
+            144
           ],
           "sha256": "3f529bfa140566b34413f728858746cfdf01f0c302f8f954bc91a3b6c37005f9",
           "metrics": {
@@ -748,13 +803,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 59
+            "max_line_width": 59,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5850-48AC-C686-48F0",
+          "stamp": "DB00-9012-679D-D912",
           "children": []
         },
         {
@@ -763,8 +819,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            144,
-            151
+            147,
+            154
           ],
           "sha256": "babcda93e8590d4b6f3a5ed467d3bad090b8549b646f7798f15b20c288b9bef2",
           "metrics": {
@@ -777,13 +833,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 78
+            "max_line_width": 78,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5D0E-D5E3-0A75-D3CE",
+          "stamp": "2526-159B-37DC-FD55",
           "children": []
         },
         {
@@ -792,8 +849,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            154,
-            160
+            157,
+            163
           ],
           "sha256": "8bf320ec74921316c28a8b2c236d74eab908ec4dab9218c0edc40f069324c92f",
           "metrics": {
@@ -806,13 +863,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 58
+            "max_line_width": 58,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "11AF-4427-150D-A89E",
+          "stamp": "FA94-1071-9BA0-B870",
           "children": []
         },
         {
@@ -821,8 +879,8 @@
           "path": "uses_certifier/analyzers/pymetrics.py",
           "language": "python",
           "lines": [
-            163,
-            165
+            166,
+            168
           ],
           "sha256": "52dc9c430ccc6b1422fd1e19d37a98ab9892f2299400278e23b08a2cd1ac741e",
           "metrics": {
@@ -835,13 +893,134 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1AC6-D7D4-ACA9-0457",
+          "stamp": "01A4-60C4-D12A-2101",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "body_fingerprint",
+          "path": "uses_certifier/analyzers/pymetrics.py",
+          "language": "python",
+          "lines": [
+            177,
+            185
+          ],
+          "sha256": "9024fb226b90d32cfdfb7a676d7fc9250d45f5184c1097aa52d8b76afb362b63",
+          "metrics": {
+            "cyclomatic_complexity": 3,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 2,
+            "return_count": 2,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 9,
+            "max_line_width": 74,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "A763-F35C-EA1B-16AE",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "commented_code_lines",
+          "path": "uses_certifier/analyzers/pymetrics.py",
+          "language": "python",
+          "lines": [
+            188,
+            190
+          ],
+          "sha256": "afad758b1c9901b017d0aadea4b5cd0deb1d881fea5bb4ef8ed93c7b02fa668c",
+          "metrics": {
+            "cyclomatic_complexity": 3,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 1,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 3,
+            "max_line_width": 71,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "BF98-9AE1-93B2-ABC9",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_is_commented_code",
+          "path": "uses_certifier/analyzers/pymetrics.py",
+          "language": "python",
+          "lines": [
+            193,
+            201
+          ],
+          "sha256": "fcbf35c8e7d6a67679f131659db29987bde8fea4db0004e3b5722b02277c55fc",
+          "metrics": {
+            "cyclomatic_complexity": 5,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 2,
+            "return_count": 3,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 9,
+            "max_line_width": 75,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "4A8A-1B6B-FF14-9E20",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_is_code",
+          "path": "uses_certifier/analyzers/pymetrics.py",
+          "language": "python",
+          "lines": [
+            204,
+            208
+          ],
+          "sha256": "b1ddbcb9d9202041e05eba7090a3fb5a86fdb6d51901c071b98f6824d01e20cc",
+          "metrics": {
+            "cyclomatic_complexity": 2,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 1,
+            "return_count": 2,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 5,
+            "max_line_width": 63,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "7E8B-29E2-3F4C-33FB",
           "children": []
         }
       ]
@@ -853,20 +1032,21 @@
       "language": "python",
       "lines": [
         1,
-        80
+        83
       ],
-      "sha256": "03013604bcdcd1332fbe146899b06ac45c9a8eba068f8de7479e30aa32ac6981",
+      "sha256": "59ed01a527eda45ca2fa6d09ba17b804e25aace56fab5a041f44f8bfcd115f4c",
       "metrics": {
-        "length_lines": 80,
+        "length_lines": 83,
         "max_line_width": 76,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "1F57-820C-F62F-E8E7",
+      "stamp": "98BF-E8BC-482E-37E8",
       "children": [
         {
           "kind": "class",
@@ -889,7 +1069,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7D52-9DE2-D78B-8463",
+          "stamp": "1525-4B75-8DA5-7E0C",
           "children": [
             {
               "kind": "function",
@@ -911,13 +1091,14 @@
                 "bare_except_count": 0,
                 "has_docstring": false,
                 "length_lines": 3,
-                "max_line_width": 38
+                "max_line_width": 38,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "884B-7EEE-272C-D8CC",
+              "stamp": "0D47-643E-4673-4E31",
               "children": []
             },
             {
@@ -940,13 +1121,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 73
+                "max_line_width": 73,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "424E-AFC7-6F7E-C8F2",
+              "stamp": "7598-A522-4E4D-4DD4",
               "children": []
             },
             {
@@ -969,13 +1151,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 11,
-                "max_line_width": 76
+                "max_line_width": 76,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "B564-2515-14EB-467A",
+              "stamp": "73EF-94A2-0146-C51A",
               "children": []
             }
           ]
@@ -987,9 +1170,9 @@
           "language": "python",
           "lines": [
             37,
-            43
+            45
           ],
-          "sha256": "59ea9ffa1f32e7777a39b213ca2f55734e135b67f9f07fbcca2ec25ced8f4f62",
+          "sha256": "a8531b0e3277af819b7a2df5f6d824028bd74c06265a144d988ce286e721076d",
           "metrics": {
             "cyclomatic_complexity": 1,
             "parameter_count": 2,
@@ -999,14 +1182,15 @@
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 7,
-            "max_line_width": 73
+            "length_lines": 9,
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C04F-15E6-BC10-25DE",
+          "stamp": "4627-9664-794B-9AEF",
           "children": []
         },
         {
@@ -1015,8 +1199,8 @@
           "path": "uses_certifier/analyzers/python.py",
           "language": "python",
           "lines": [
-            46,
-            55
+            48,
+            57
           ],
           "sha256": "8ab1d06e5c3d42bdfefabfd399906c876e25ad1296e43d81f374adc4bd812827",
           "metrics": {
@@ -1029,13 +1213,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "8F5E-2A91-1AAB-F5BD",
+          "stamp": "87F6-0E26-776B-6665",
           "children": []
         },
         {
@@ -1044,10 +1229,10 @@
           "path": "uses_certifier/analyzers/python.py",
           "language": "python",
           "lines": [
-            58,
-            64
+            60,
+            67
           ],
-          "sha256": "cbcbfebcfca3a4a1352856fbf454a91548a5c366f50b23867343287cc153fb72",
+          "sha256": "c92932c7d60b43e2a01f8c402357235b1ec5669838132e5c9cec3426c8077285",
           "metrics": {
             "cyclomatic_complexity": 1,
             "parameter_count": 4,
@@ -1057,8 +1242,9 @@
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 7,
-            "max_line_width": 70
+            "length_lines": 8,
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [
             {
@@ -1069,14 +1255,14 @@
               "value": 4,
               "threshold": 3,
               "operator": "<=",
-              "line": 58,
+              "line": 60,
               "suppressed": false
             }
           ],
           "score": 98,
           "level": "gold",
           "certified": true,
-          "stamp": "EF9E-C5A5-E396-F500",
+          "stamp": "30C3-5E13-63E8-E9D8",
           "children": []
         },
         {
@@ -1085,8 +1271,8 @@
           "path": "uses_certifier/analyzers/python.py",
           "language": "python",
           "lines": [
-            67,
-            80
+            70,
+            83
           ],
           "sha256": "319e689f4f076d448aa179acd282c8aaf0346743b2afd24fa950132b8455892c",
           "metrics": {
@@ -1099,13 +1285,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 14,
-            "max_line_width": 66
+            "max_line_width": 66,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E69E-5A25-C96E-C448",
+          "stamp": "7948-946E-4675-01D5",
           "children": []
         }
       ]
@@ -1124,7 +1311,8 @@
         "length_lines": 32,
         "max_line_width": 73,
         "todo_count": 3,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [
         {
@@ -1142,7 +1330,7 @@
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "988B-FE59-A1C0-2E32",
+      "stamp": "D538-0DB5-EC55-5458",
       "children": [
         {
           "kind": "function",
@@ -1164,13 +1352,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E3A4-CF62-B19D-5FBF",
+          "stamp": "0A85-C546-657C-7BB7",
           "children": []
         },
         {
@@ -1193,13 +1382,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 56
+            "max_line_width": 56,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "A7DD-AF73-9B97-EFB2",
+          "stamp": "2CD5-0913-3BB5-2338",
           "children": []
         },
         {
@@ -1222,13 +1412,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6FA1-77B1-D2F8-026B",
+          "stamp": "6908-4C11-DCCD-EFA2",
           "children": []
         }
       ]
@@ -1247,13 +1438,14 @@
         "length_lines": 94,
         "max_line_width": 76,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "1F76-838F-9DFB-8BEE",
+      "stamp": "420B-C8BF-9CED-D660",
       "children": [
         {
           "kind": "function",
@@ -1275,13 +1467,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 18,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7FF7-3249-7C7A-E02A",
+          "stamp": "A0C2-BCFC-6DB2-AD24",
           "children": []
         },
         {
@@ -1304,13 +1497,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "57E7-07A3-8AF5-D248",
+          "stamp": "2896-B8F7-473B-C254",
           "children": []
         },
         {
@@ -1333,13 +1527,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 64
+            "max_line_width": 64,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E088-9D10-93A9-B449",
+          "stamp": "0932-183F-2960-69D5",
           "children": []
         },
         {
@@ -1362,13 +1557,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 66
+            "max_line_width": 66,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9B3F-5BF7-A8E4-4EE8",
+          "stamp": "5EFD-A5B9-F51E-AC49",
           "children": []
         },
         {
@@ -1391,13 +1587,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 12,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "B4F3-95E8-A8D1-5F72",
+          "stamp": "EEA3-07D3-E00C-1422",
           "children": []
         },
         {
@@ -1420,13 +1617,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9EBB-773B-80AC-385C",
+          "stamp": "7202-01D6-94B3-7108",
           "children": []
         },
         {
@@ -1449,13 +1647,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 48
+            "max_line_width": 48,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C770-F9C6-B27B-3A1D",
+          "stamp": "F083-88A5-C5F2-FFAB",
           "children": []
         },
         {
@@ -1478,13 +1677,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "91D1-9FA7-5D43-F498",
+          "stamp": "7731-6F86-0254-3A03",
           "children": []
         }
       ]
@@ -1496,20 +1696,21 @@
       "language": "python",
       "lines": [
         1,
-        99
+        104
       ],
-      "sha256": "1f0edb34148b08d9db9864076928f8a123420e6922f6cdad66f91d6a0d078a06",
+      "sha256": "35b23cd0ea14190d6a05c750a1c9272d8506a81aece59425d7ff777e627dae91",
       "metrics": {
-        "length_lines": 99,
+        "length_lines": 104,
         "max_line_width": 77,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "964A-0572-787F-BE99",
+      "stamp": "4A7F-ED63-BAAA-EBD5",
       "children": [
         {
           "kind": "class",
@@ -1532,7 +1733,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "AD2D-3384-B4C0-DFC1",
+          "stamp": "3EFB-95A5-491B-113E",
           "children": [
             {
               "kind": "function",
@@ -1554,13 +1755,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 6,
-                "max_line_width": 59
+                "max_line_width": 59,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "2F2E-0B76-E27D-515C",
+              "stamp": "A6B7-A056-9C21-5B2F",
               "children": []
             },
             {
@@ -1583,13 +1785,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 4,
-                "max_line_width": 38
+                "max_line_width": 38,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "54B7-D52A-C1CF-E34B",
+              "stamp": "B464-F6E3-B312-176E",
               "children": []
             }
           ]
@@ -1601,9 +1804,9 @@
           "language": "python",
           "lines": [
             35,
-            40
+            41
           ],
-          "sha256": "cd1aa37a92ef418732b3e7036c055fac7314b134a3359c6d0a61408e95f3b0af",
+          "sha256": "1000662a2eb11f807d057e5a5ee28bb4fa2beaec0cfeec11ad0495b82aae3327",
           "metrics": {
             "cyclomatic_complexity": 2,
             "parameter_count": 4,
@@ -1613,8 +1816,9 @@
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 6,
-            "max_line_width": 62
+            "length_lines": 7,
+            "max_line_width": 62,
+            "duplicate_count": 0
           },
           "violations": [
             {
@@ -1632,7 +1836,37 @@
           "score": 98,
           "level": "gold",
           "certified": true,
-          "stamp": "D8D1-740D-B4FC-0631",
+          "stamp": "EF85-312B-C014-2D01",
+          "children": []
+        },
+        {
+          "kind": "function",
+          "name": "_evaluate_all",
+          "path": "uses_certifier/certifier.py",
+          "language": "python",
+          "lines": [
+            44,
+            49
+          ],
+          "sha256": "46b2416e6ea4098d99996e0de2ac1b0535b56a27cda51779bf3e99a59d68282a",
+          "metrics": {
+            "cyclomatic_complexity": 2,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 1,
+            "activated_objects": 2,
+            "return_count": 0,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 6,
+            "max_line_width": 58,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "DD73-96AD-BD6E-298D",
           "children": []
         },
         {
@@ -1641,8 +1875,8 @@
           "path": "uses_certifier/certifier.py",
           "language": "python",
           "lines": [
-            43,
-            47
+            52,
+            56
           ],
           "sha256": "7f4513148502314d2ba7ea56a292555c5ee8d696a03167125f1961dcefd87a15",
           "metrics": {
@@ -1655,25 +1889,26 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 68
+            "max_line_width": 68,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "64E5-4723-05D4-E726",
+          "stamp": "5AC2-4096-9D99-7F53",
           "children": []
         },
         {
           "kind": "function",
-          "name": "_certify_into",
+          "name": "_analyze_into",
           "path": "uses_certifier/certifier.py",
           "language": "python",
           "lines": [
-            50,
-            57
+            59,
+            66
           ],
-          "sha256": "6476665891d45aab1105a131117c2ba3e18f79b2d798bb364f85a0ebfac1c952",
+          "sha256": "6b2c7e641f7b40d98d932d0d070962cb9db2d74b4553103dd1bea578e028d38c",
           "metrics": {
             "cyclomatic_complexity": 2,
             "parameter_count": 3,
@@ -1684,54 +1919,44 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 76
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7185-62F6-244F-5315",
+          "stamp": "9E5F-A2BB-85E8-82DD",
           "children": []
         },
         {
           "kind": "function",
-          "name": "certify_file",
+          "name": "analyze_file",
           "path": "uses_certifier/certifier.py",
           "language": "python",
           "lines": [
-            60,
-            67
+            69,
+            74
           ],
-          "sha256": "61c067fac443547d652854a1dca29e514550a9085867b6d856376408eaa73d18",
+          "sha256": "de29202684bfc9ff3b4ed923a9243513913513066e83e5e2de9393571cf7e0ae",
           "metrics": {
             "cyclomatic_complexity": 1,
-            "parameter_count": 4,
+            "parameter_count": 2,
             "boolean_parameters": 0,
             "max_nesting": 0,
-            "activated_objects": 6,
+            "activated_objects": 4,
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 8,
-            "max_line_width": 77
+            "length_lines": 6,
+            "max_line_width": 77,
+            "duplicate_count": 0
           },
-          "violations": [
-            {
-              "rule_id": "CC-001",
-              "severity": "info",
-              "title": "Preferably at most 3 arguments",
-              "metric": "parameter_count",
-              "value": 4,
-              "threshold": 3,
-              "operator": "<=",
-              "line": 60,
-              "suppressed": false
-            }
-          ],
-          "score": 98,
+          "violations": [],
+          "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "78E8-CAC0-0910-48D7",
+          "stamp": "2979-0AAF-4D83-0065",
           "children": []
         },
         {
@@ -1740,27 +1965,28 @@
           "path": "uses_certifier/certifier.py",
           "language": "python",
           "lines": [
-            70,
-            79
+            77,
+            84
           ],
-          "sha256": "a9aff5dcf52b60b793d5cc0e06f898e5bd9b8f4d4962f46031b36cb3bc4c2e9f",
+          "sha256": "75fac9e6fb9cbe448a4a12857e26989b21e3a6c5a9dc8646a00529ffd2276d36",
           "metrics": {
-            "cyclomatic_complexity": 4,
+            "cyclomatic_complexity": 3,
             "parameter_count": 2,
             "boolean_parameters": 0,
-            "max_nesting": 2,
-            "activated_objects": 4,
+            "max_nesting": 1,
+            "activated_objects": 3,
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 10,
-            "max_line_width": 76
+            "length_lines": 8,
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "28CC-F05C-DF20-7987",
+          "stamp": "65C3-4D9B-0B0F-3121",
           "children": []
         },
         {
@@ -1769,8 +1995,8 @@
           "path": "uses_certifier/certifier.py",
           "language": "python",
           "lines": [
-            82,
-            91
+            87,
+            96
           ],
           "sha256": "a860bcee9822dca8b20bcd9e454cf570acdc0f61a660d447341ef822d6a6b381",
           "metrics": {
@@ -1783,13 +2009,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1789-DA89-9F29-695C",
+          "stamp": "A9CB-3C87-C1E7-E2BF",
           "children": []
         },
         {
@@ -1798,8 +2025,8 @@
           "path": "uses_certifier/certifier.py",
           "language": "python",
           "lines": [
-            94,
-            99
+            99,
+            104
           ],
           "sha256": "63cfbc03741bab3486ff52026e8861acb938fb4a84a989f7b2d26fd6f7aeb04d",
           "metrics": {
@@ -1812,13 +2039,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 60
+            "max_line_width": 60,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "AB8B-F95F-B81D-7350",
+          "stamp": "DAFF-D6CF-F1FA-224E",
           "children": []
         }
       ]
@@ -1837,13 +2065,14 @@
         "length_lines": 100,
         "max_line_width": 78,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "DF76-BD0A-FB7E-BFF2",
+      "stamp": "A93E-DE10-DD81-17A3",
       "children": [
         {
           "kind": "class",
@@ -1866,7 +2095,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5CFB-5400-EFDB-EC1B",
+          "stamp": "1DBD-5656-1955-0B0E",
           "children": [
             {
               "kind": "function",
@@ -1888,13 +2117,14 @@
                 "bare_except_count": 0,
                 "has_docstring": false,
                 "length_lines": 4,
-                "max_line_width": 53
+                "max_line_width": 53,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "9B29-CDDD-9D04-296B",
+              "stamp": "F8A5-7D3A-05BD-3425",
               "children": []
             },
             {
@@ -1917,13 +2147,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 11,
-                "max_line_width": 73
+                "max_line_width": 73,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "9077-49C6-5147-DAF3",
+              "stamp": "773D-6E82-4006-0F7F",
               "children": []
             },
             {
@@ -1946,13 +2177,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 9,
-                "max_line_width": 76
+                "max_line_width": 76,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "F132-72E8-94CA-4162",
+              "stamp": "DBB0-72BE-C2E3-E0FA",
               "children": []
             },
             {
@@ -1975,13 +2207,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 10,
-                "max_line_width": 76
+                "max_line_width": 76,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "B953-A1DD-BB38-1774",
+              "stamp": "77D2-47E8-E212-4B1D",
               "children": []
             },
             {
@@ -2004,13 +2237,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 7,
-                "max_line_width": 74
+                "max_line_width": 74,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "5744-028E-45AB-3CF9",
+              "stamp": "7A4B-FE7A-E115-52A7",
               "children": []
             },
             {
@@ -2033,13 +2267,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 6,
-                "max_line_width": 78
+                "max_line_width": 78,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "839E-4A1D-C4FB-9A8F",
+              "stamp": "D301-1398-DCF0-C19B",
               "children": []
             },
             {
@@ -2062,13 +2297,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 9,
-                "max_line_width": 69
+                "max_line_width": 69,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "D238-4B72-EB83-1651",
+              "stamp": "B7E3-61A3-0AB8-FD94",
               "children": []
             }
           ]
@@ -2093,13 +2329,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "F9F7-971F-9B0E-DA23",
+          "stamp": "E16A-1FCC-6483-518F",
           "children": []
         },
         {
@@ -2122,13 +2359,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "2549-9C9E-ED75-DCCE",
+          "stamp": "370D-6E4C-E535-CEA5",
           "children": []
         },
         {
@@ -2151,7 +2389,8 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 57
+            "max_line_width": 57,
+            "duplicate_count": 0
           },
           "violations": [
             {
@@ -2169,7 +2408,7 @@
           "score": 98,
           "level": "gold",
           "certified": true,
-          "stamp": "F57C-EA5D-1383-4574",
+          "stamp": "F644-1AF3-6498-9611",
           "children": []
         }
       ]
@@ -2188,13 +2427,14 @@
         "length_lines": 309,
         "max_line_width": 79,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "F307-41AB-8615-8749",
+      "stamp": "A255-C4F3-A02B-38C6",
       "children": [
         {
           "kind": "function",
@@ -2216,13 +2456,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 53
+            "max_line_width": 53,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "71B0-548E-3D23-B053",
+          "stamp": "5834-2236-B9EE-1D2A",
           "children": []
         },
         {
@@ -2245,13 +2486,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 16,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "36F9-4472-F4E0-D847",
+          "stamp": "6199-A8E6-7A68-B1CE",
           "children": []
         },
         {
@@ -2274,13 +2516,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "276E-A10E-50E2-53CC",
+          "stamp": "023F-3838-E424-1CD8",
           "children": []
         },
         {
@@ -2303,13 +2546,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9039-3728-1B72-FD93",
+          "stamp": "4166-67EC-E6F3-BDFF",
           "children": []
         },
         {
@@ -2332,13 +2576,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "3E08-E83E-1407-52D0",
+          "stamp": "4CB6-3CEB-9740-EC9C",
           "children": []
         },
         {
@@ -2361,13 +2606,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 13,
-            "max_line_width": 79
+            "max_line_width": 79,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "A755-B8A8-398B-7969",
+          "stamp": "FF07-2395-B21B-32DE",
           "children": []
         },
         {
@@ -2390,13 +2636,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 77
+            "max_line_width": 77,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9BCD-8B16-FE94-6201",
+          "stamp": "E3B3-1995-BD52-02BD",
           "children": []
         },
         {
@@ -2419,13 +2666,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 17,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9147-C026-306D-6470",
+          "stamp": "96C8-8CB4-4183-B3D9",
           "children": []
         },
         {
@@ -2448,13 +2696,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9545-364C-EC7A-06E0",
+          "stamp": "4EBC-55BC-B856-64A2",
           "children": []
         },
         {
@@ -2477,13 +2726,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E129-985F-1A29-8E49",
+          "stamp": "9F53-B01A-C02B-8A69",
           "children": []
         },
         {
@@ -2506,13 +2756,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "3609-A460-F064-43BB",
+          "stamp": "AF9E-17B5-410F-9974",
           "children": []
         },
         {
@@ -2535,13 +2786,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 63
+            "max_line_width": 63,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "D189-E4A0-7382-A90D",
+          "stamp": "F52E-A2E7-31B5-7EBF",
           "children": []
         },
         {
@@ -2564,13 +2816,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "39F0-FDCF-FBDB-2D76",
+          "stamp": "75EF-6873-0D2D-3285",
           "children": []
         },
         {
@@ -2593,13 +2846,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 65
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "A472-574E-7EBA-2A49",
+          "stamp": "55A7-4777-0A41-5B10",
           "children": []
         },
         {
@@ -2622,13 +2876,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 55
+            "max_line_width": 55,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6310-428F-D51C-B576",
+          "stamp": "7FE2-AE33-1D88-ABC8",
           "children": []
         },
         {
@@ -2651,13 +2906,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "0140-947E-24DF-4F88",
+          "stamp": "0C5E-5ABF-4BED-9AC1",
           "children": []
         },
         {
@@ -2680,13 +2936,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "2B96-24B3-7CDA-E4F3",
+          "stamp": "C0E7-FEEE-AC19-2660",
           "children": []
         },
         {
@@ -2709,13 +2966,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 63
+            "max_line_width": 63,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C05E-4B28-6E2E-59EF",
+          "stamp": "EC30-B762-23CE-EA8A",
           "children": []
         },
         {
@@ -2738,13 +2996,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 66
+            "max_line_width": 66,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "D1F1-C157-D45B-4CA5",
+          "stamp": "F489-DFB5-C8FA-6060",
           "children": []
         },
         {
@@ -2767,13 +3026,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "708C-91CF-A23E-866D",
+          "stamp": "0034-72C4-477B-9FDA",
           "children": []
         },
         {
@@ -2796,13 +3056,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 13,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "87D6-F0BF-EE1D-B567",
+          "stamp": "928C-0D8A-4BDB-F1F8",
           "children": []
         },
         {
@@ -2825,13 +3086,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "25AE-D867-577C-1932",
+          "stamp": "21CC-3640-4612-978B",
           "children": []
         },
         {
@@ -2854,13 +3116,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 58
+            "max_line_width": 58,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5D50-6475-82CC-AA79",
+          "stamp": "C0B0-0C2D-F79B-0A8D",
           "children": []
         },
         {
@@ -2883,13 +3146,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 64
+            "max_line_width": 64,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5FBB-2E50-C4D6-C4DA",
+          "stamp": "CFB9-4D47-392E-2878",
           "children": []
         },
         {
@@ -2912,13 +3176,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "28A4-0F48-17F4-D7B4",
+          "stamp": "D656-5B83-FF2C-E168",
           "children": []
         },
         {
@@ -2941,13 +3206,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 65
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "72E8-1291-AC79-D02E",
+          "stamp": "13DF-9C9B-7E7B-2914",
           "children": []
         }
       ]
@@ -2966,13 +3232,14 @@
         "length_lines": 43,
         "max_line_width": 75,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "D8CB-E16B-9D95-F49A",
+      "stamp": "5952-5A59-86B4-1E3C",
       "children": [
         {
           "kind": "class",
@@ -2995,7 +3262,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5351-8371-7384-CDD5",
+          "stamp": "40BB-A5D8-0968-3598",
           "children": [
             {
               "kind": "function",
@@ -3017,13 +3284,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 4,
-                "max_line_width": 69
+                "max_line_width": 69,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "4BE1-5BC7-10D4-71A5",
+              "stamp": "8341-0307-0586-EA13",
               "children": []
             },
             {
@@ -3046,13 +3314,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 74
+                "max_line_width": 74,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "1492-4B93-BB29-2E3F",
+              "stamp": "3BCF-E926-FFC6-B64B",
               "children": []
             }
           ]
@@ -3077,13 +3346,69 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "41C3-79C7-F526-E386",
+          "stamp": "D8D9-88E3-44CC-37D1",
+          "children": []
+        }
+      ]
+    },
+    {
+      "kind": "module",
+      "name": "uses_certifier/duplicates.py",
+      "path": "uses_certifier/duplicates.py",
+      "language": "python",
+      "lines": [
+        1,
+        16
+      ],
+      "sha256": "ba07e51e7dce51f6006cb62867f6ca8a0003ad876fbdf26dfaf0967efbf03fb0",
+      "metrics": {
+        "length_lines": 16,
+        "max_line_width": 73,
+        "todo_count": 0,
+        "has_docstring": true,
+        "commented_code_lines": 0
+      },
+      "violations": [],
+      "score": 100,
+      "level": "gold",
+      "certified": true,
+      "stamp": "86C3-A532-B369-27DD",
+      "children": [
+        {
+          "kind": "function",
+          "name": "mark",
+          "path": "uses_certifier/duplicates.py",
+          "language": "python",
+          "lines": [
+            5,
+            16
+          ],
+          "sha256": "9b619fddddc34dfa4a6c33b7cbf541d08d9040f1156429c765a6421189274359",
+          "metrics": {
+            "cyclomatic_complexity": 7,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 2,
+            "activated_objects": 5,
+            "return_count": 0,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 12,
+            "max_line_width": 73,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "97EA-3FBC-CF77-5625",
           "children": []
         }
       ]
@@ -3102,13 +3427,14 @@
         "length_lines": 47,
         "max_line_width": 70,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "61F3-3CB4-22D0-9C33",
+      "stamp": "E7E9-CC8E-A21F-657B",
       "children": [
         {
           "kind": "function",
@@ -3130,13 +3456,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "F336-8E72-9E59-FA04",
+          "stamp": "D3CE-9668-7449-1607",
           "children": []
         },
         {
@@ -3159,13 +3486,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "8D9E-0A61-4DF3-C43F",
+          "stamp": "8BBC-6A29-4E27-C33B",
           "children": []
         },
         {
@@ -3188,13 +3516,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 59
+            "max_line_width": 59,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5A2A-9564-FCB0-EF83",
+          "stamp": "1442-B906-E28A-F3F3",
           "children": []
         },
         {
@@ -3217,13 +3546,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "77DA-358C-97CF-9FDB",
+          "stamp": "B575-ADCC-96B6-CD98",
           "children": []
         }
       ]
@@ -3235,20 +3565,21 @@
       "language": "python",
       "lines": [
         1,
-        95
+        100
       ],
-      "sha256": "5de6a9cb8af05bb7fc84851a2ef2b6dbd1ee68e156521e020fdd4c402dff39e9",
+      "sha256": "a0511a2cbdaa6e9892ee43c3fbe9c7ab3260c151c3e18f0ee722c13d0146b188",
       "metrics": {
-        "length_lines": 95,
-        "max_line_width": 76,
+        "length_lines": 100,
+        "max_line_width": 77,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "C299-51A8-1123-16EF",
+      "stamp": "7703-BCF4-6999-56E1",
       "children": [
         {
           "kind": "function",
@@ -3270,13 +3601,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "A60C-E99C-D1D9-D319",
+          "stamp": "266F-EC90-88D4-2EEF",
           "children": []
         },
         {
@@ -3299,13 +3631,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 13,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "93ED-DA6E-1C23-B236",
+          "stamp": "711C-39EC-8418-7E8C",
           "children": []
         },
         {
@@ -3328,13 +3661,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 13,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "0516-D1F0-3AF4-245F",
+          "stamp": "06AF-E26D-C4F3-2A75",
           "children": []
         },
         {
@@ -3344,26 +3678,27 @@
           "language": "python",
           "lines": [
             68,
-            75
+            78
           ],
-          "sha256": "0b13de81c4ea80612ca9f3285ecd93f905be348067b44621cedbb3900e49b36c",
+          "sha256": "498d3dc677f9eac4d3a809046954a133a57efcb57a1a9d9a4806db032dcc8e45",
           "metrics": {
-            "cyclomatic_complexity": 3,
+            "cyclomatic_complexity": 5,
             "parameter_count": 1,
             "boolean_parameters": 0,
-            "max_nesting": 1,
-            "activated_objects": 3,
+            "max_nesting": 2,
+            "activated_objects": 4,
             "return_count": 2,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 8,
-            "max_line_width": 64
+            "length_lines": 11,
+            "max_line_width": 77,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "38E2-3AA7-D02E-B085",
+          "stamp": "61F7-8243-8018-CFA6",
           "children": []
         },
         {
@@ -3372,12 +3707,12 @@
           "path": "uses_certifier/guide.py",
           "language": "python",
           "lines": [
-            78,
-            89
+            81,
+            94
           ],
-          "sha256": "d593892ddf494f7674bf2668f570db4b5a9ba4d86b85830f2cf19ce33d9b2c38",
+          "sha256": "3baea4d2fbcef80f3a5fe8da1fc23b9018e337a796546a122760ab97d75440af",
           "metrics": {
-            "cyclomatic_complexity": 5,
+            "cyclomatic_complexity": 6,
             "parameter_count": 1,
             "boolean_parameters": 0,
             "max_nesting": 1,
@@ -3385,14 +3720,15 @@
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 12,
-            "max_line_width": 76
+            "length_lines": 14,
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6E8B-FF43-5890-2EC8",
+          "stamp": "DF97-6DA7-7627-C4CC",
           "children": []
         },
         {
@@ -3401,8 +3737,8 @@
           "path": "uses_certifier/guide.py",
           "language": "python",
           "lines": [
-            92,
-            95
+            97,
+            100
           ],
           "sha256": "58d4efefcc69428abcfc9cc3fb6d2581c8a903a29bd2787bb8db754697a9ae21",
           "metrics": {
@@ -3415,13 +3751,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 66
+            "max_line_width": 66,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "08C6-CB16-F902-4CC4",
+          "stamp": "6660-C7BB-913B-94AC",
           "children": []
         }
       ]
@@ -3440,13 +3777,14 @@
         "length_lines": 18,
         "max_line_width": 72,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "5353-60F3-E965-5B2F",
+      "stamp": "9F0C-847C-DC03-5C42",
       "children": [
         {
           "kind": "function",
@@ -3468,13 +3806,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 59
+            "max_line_width": 59,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "2684-900E-0413-5424",
+          "stamp": "91CB-126A-6DF4-A476",
           "children": []
         },
         {
@@ -3497,13 +3836,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "932F-1B87-7577-FD26",
+          "stamp": "7406-1C48-E29A-E3B4",
           "children": []
         },
         {
@@ -3526,13 +3866,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 64
+            "max_line_width": 64,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "42E2-3B72-D47A-ABEC",
+          "stamp": "5486-B833-C84E-A116",
           "children": []
         }
       ]
@@ -3551,13 +3892,14 @@
         "length_lines": 58,
         "max_line_width": 78,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "14E5-B709-9F28-29F9",
+      "stamp": "5887-2974-D949-2A91",
       "children": [
         {
           "kind": "function",
@@ -3579,13 +3921,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 77
+            "max_line_width": 77,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "AE69-33C0-F667-B840",
+          "stamp": "E309-2206-67DE-61C2",
           "children": []
         },
         {
@@ -3608,13 +3951,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 78
+            "max_line_width": 78,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E761-AC7D-EBDE-6949",
+          "stamp": "E040-502B-B9CC-7495",
           "children": []
         },
         {
@@ -3637,13 +3981,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 57
+            "max_line_width": 57,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "8BE3-A6B8-C593-52C9",
+          "stamp": "8DA4-9D28-7595-A3D5",
           "children": []
         },
         {
@@ -3666,13 +4011,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 12,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "4325-ABDE-E933-4D54",
+          "stamp": "1242-7B29-75A1-B35D",
           "children": []
         },
         {
@@ -3695,13 +4041,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "88DB-89A2-1595-74B2",
+          "stamp": "77F5-BB50-E99E-0672",
           "children": []
         }
       ]
@@ -3720,13 +4067,14 @@
         "length_lines": 58,
         "max_line_width": 76,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "ECA9-294F-46B3-43C1",
+      "stamp": "92E4-BD15-9DB0-577E",
       "children": [
         {
           "kind": "function",
@@ -3748,13 +4096,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "8339-8EDC-AA94-C1DD",
+          "stamp": "EABE-DD4F-028B-5232",
           "children": []
         },
         {
@@ -3777,13 +4126,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 66
+            "max_line_width": 66,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "DA4B-A98B-3FC3-6032",
+          "stamp": "66E7-0C60-7954-A976",
           "children": []
         },
         {
@@ -3806,13 +4156,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 57
+            "max_line_width": 57,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "0816-64A0-607C-CF89",
+          "stamp": "1AB7-0AD1-454C-8500",
           "children": []
         },
         {
@@ -3835,13 +4186,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 65
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "AA64-D6BF-4DA7-5C0B",
+          "stamp": "FC63-E3CC-BCD5-4225",
           "children": []
         },
         {
@@ -3864,13 +4216,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "B95A-CF7C-9C96-2FD0",
+          "stamp": "1F13-195D-51BE-2D08",
           "children": []
         },
         {
@@ -3893,13 +4246,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E4F7-0B0D-698B-F330",
+          "stamp": "8022-152E-ACA3-A72D",
           "children": []
         },
         {
@@ -3922,13 +4276,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "493C-545B-D061-2DF9",
+          "stamp": "5F9A-A671-DCFB-97DB",
           "children": []
         }
       ]
@@ -3940,20 +4295,21 @@
       "language": "python",
       "lines": [
         1,
-        83
+        84
       ],
-      "sha256": "322d73b5fdd002a8939b352cd2ebb12bc859b0b7d72f1f4569555af460813ab2",
+      "sha256": "6e242edc53462cebd37e2fb96cef241b082600bbfc34910fe51a3621af2ae2ed",
       "metrics": {
-        "length_lines": 83,
+        "length_lines": 84,
         "max_line_width": 73,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "FE42-2BB3-3074-32C3",
+      "stamp": "DB02-056E-E0B3-0CEB",
       "children": [
         {
           "kind": "class",
@@ -3988,7 +4344,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9857-9DE8-8837-A638",
+          "stamp": "CBDF-33F5-BF22-2603",
           "children": []
         },
         {
@@ -4024,7 +4380,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7948-FA02-7C16-35C8",
+          "stamp": "0106-3209-82E9-0A18",
           "children": []
         },
         {
@@ -4034,14 +4390,14 @@
           "language": "python",
           "lines": [
             46,
-            83
+            84
           ],
-          "sha256": "33704ffd860af43b23f20b94f11dc36feb3eb9cf6e22e35dd3e6f78de756fdab",
+          "sha256": "fbe69acdaaf26eed14b91ba704d789e76c7efeb2225b90b82df46f1ecd2a6f7e",
           "metrics": {
-            "length_lines": 37,
+            "length_lines": 38,
             "method_count": 2,
             "weighted_complexity": 3,
-            "field_count": 17,
+            "field_count": 18,
             "has_docstring": true
           },
           "violations": [
@@ -4050,7 +4406,7 @@
               "severity": "warning",
               "title": "Class with at most 7 fields",
               "metric": "field_count",
-              "value": 17,
+              "value": 18,
               "threshold": 7,
               "operator": "<=",
               "line": 47,
@@ -4060,7 +4416,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1CD2-B39B-8267-B90D",
+          "stamp": "D8A9-FFBF-2381-8E60",
           "children": [
             {
               "kind": "function",
@@ -4068,8 +4424,8 @@
               "path": "uses_certifier/model.py",
               "language": "python",
               "lines": [
-                74,
-                77
+                75,
+                78
               ],
               "sha256": "9cddf1dbf2a57cb6d6284a0f5262c9b85234edef50821e8123865f3fe9650f36",
               "metrics": {
@@ -4082,13 +4438,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 67
+                "max_line_width": 67,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "B76D-4A73-9D52-6E3A",
+              "stamp": "67E9-A93C-196D-50AF",
               "children": []
             },
             {
@@ -4097,8 +4454,8 @@
               "path": "uses_certifier/model.py",
               "language": "python",
               "lines": [
-                79,
-                83
+                80,
+                84
               ],
               "sha256": "84dc8b57f7277fc7822f88f3322f68fa5d5f19c3fc6a6fee2c2fbf20cfc386cc",
               "metrics": {
@@ -4111,13 +4468,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 5,
-                "max_line_width": 59
+                "max_line_width": 59,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "747C-AC38-E14F-5F00",
+              "stamp": "BD91-5110-1915-D781",
               "children": []
             }
           ]
@@ -4138,13 +4496,14 @@
         "length_lines": 8,
         "max_line_width": 38,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "770A-3F2E-12F4-8F29",
+      "stamp": "2AEF-4980-C8E1-8F74",
       "children": []
     },
     {
@@ -4161,13 +4520,14 @@
         "length_lines": 39,
         "max_line_width": 75,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "1C5C-200A-5D81-5966",
+      "stamp": "5591-FD34-64CD-2B00",
       "children": [
         {
           "kind": "function",
@@ -4189,13 +4549,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 40
+            "max_line_width": 40,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "BAB2-DA4F-8C76-DB5C",
+          "stamp": "F6D4-AC5F-AD27-E83E",
           "children": []
         },
         {
@@ -4218,13 +4579,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "24AA-C65C-C73F-EE0A",
+          "stamp": "386F-0CCC-869B-A4C1",
           "children": []
         },
         {
@@ -4247,13 +4609,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 56
+            "max_line_width": 56,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "FCA5-DF37-B77F-F354",
+          "stamp": "BB36-0CA2-7A90-6102",
           "children": []
         },
         {
@@ -4276,13 +4639,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 37
+            "max_line_width": 37,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "719C-BA7E-528D-F012",
+          "stamp": "D14D-F868-6F19-672D",
           "children": []
         },
         {
@@ -4305,13 +4669,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 10,
-            "max_line_width": 66
+            "max_line_width": 66,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "20C4-5B30-7BD6-5A8F",
+          "stamp": "BC01-568A-A366-2E6C",
           "children": []
         }
       ]
@@ -4330,13 +4695,14 @@
         "length_lines": 44,
         "max_line_width": 75,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "105E-22AB-D7EC-E14D",
+      "stamp": "C9F2-DF48-93F9-8220",
       "children": [
         {
           "kind": "function",
@@ -4358,13 +4724,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 68
+            "max_line_width": 68,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5D0D-0357-D6A5-B667",
+          "stamp": "E3D5-1119-62A8-AB70",
           "children": []
         },
         {
@@ -4387,13 +4754,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "DC19-785C-2398-671C",
+          "stamp": "CFF2-442D-97C0-3C43",
           "children": []
         },
         {
@@ -4416,13 +4784,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6DDB-D706-A2C9-4AF5",
+          "stamp": "783C-7CA4-C134-5A1F",
           "children": []
         },
         {
@@ -4445,13 +4814,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 65
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5C4F-0F92-99B5-3DF1",
+          "stamp": "F3FC-3C36-B8EF-2ACB",
           "children": []
         }
       ]
@@ -4470,13 +4840,14 @@
         "length_lines": 37,
         "max_line_width": 69,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "5FF2-6C9C-221E-D3A4",
+      "stamp": "2178-AB14-CF9C-F866",
       "children": [
         {
           "kind": "function",
@@ -4498,13 +4869,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 53
+            "max_line_width": 53,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "533A-08B2-F486-9B70",
+          "stamp": "CC4B-B60D-4B8F-F27C",
           "children": []
         },
         {
@@ -4527,13 +4899,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 69
+            "max_line_width": 69,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "99F8-6BCC-D172-CE06",
+          "stamp": "EEE4-7224-023E-4ECD",
           "children": []
         },
         {
@@ -4556,13 +4929,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 69
+            "max_line_width": 69,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "D4DA-7529-A9DE-A3CE",
+          "stamp": "6F58-5978-BA9D-936A",
           "children": []
         }
       ]
@@ -4581,13 +4955,14 @@
         "length_lines": 46,
         "max_line_width": 75,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "0D7E-0EC3-4602-B299",
+      "stamp": "3205-D9E5-5418-2A78",
       "children": [
         {
           "kind": "function",
@@ -4609,13 +4984,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 16,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "1350-C871-F7A7-7777",
+          "stamp": "EC63-F3B7-6B4B-9A71",
           "children": []
         },
         {
@@ -4638,13 +5014,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "A1C0-BE57-94C1-E103",
+          "stamp": "0305-DF0D-DC36-F136",
           "children": []
         },
         {
@@ -4667,13 +5044,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "4339-A9C8-47E4-2E6C",
+          "stamp": "AB4A-53C2-7E24-EA7E",
           "children": []
         }
       ]
@@ -4685,20 +5063,21 @@
       "language": "python",
       "lines": [
         1,
-        103
+        107
       ],
-      "sha256": "2084d9b161896f2e502dbd51d70b8c4e2c26bad6b12ba4fb234329f3b1d8b4e1",
+      "sha256": "e99c3abe0cf68ac18325cfd8b89969e38c48c57d5ef5a77f97d0d35e403beb88",
       "metrics": {
-        "length_lines": 103,
+        "length_lines": 107,
         "max_line_width": 74,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "BEB7-BA91-C8B1-EAFA",
+      "stamp": "3E25-0D85-338C-A1A2",
       "children": [
         {
           "kind": "class",
@@ -4721,7 +5100,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5310-89BA-7987-282E",
+          "stamp": "998E-A35F-1CAE-998A",
           "children": []
         },
         {
@@ -4745,7 +5124,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "2751-551C-EE39-39D2",
+          "stamp": "E490-E077-5A5C-FA5B",
           "children": [
             {
               "kind": "function",
@@ -4767,13 +5146,14 @@
                 "bare_except_count": 0,
                 "has_docstring": false,
                 "length_lines": 4,
-                "max_line_width": 60
+                "max_line_width": 60,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "99D4-9441-3446-5CCF",
+              "stamp": "C227-472A-DFC8-8C87",
               "children": []
             },
             {
@@ -4796,13 +5176,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 4,
-                "max_line_width": 74
+                "max_line_width": 74,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "2DBA-6E0A-F4DA-A366",
+              "stamp": "5E18-5F4B-0972-3EEF",
               "children": []
             },
             {
@@ -4825,13 +5206,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 63
+                "max_line_width": 63,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "DEAE-98AF-ECD9-476C",
+              "stamp": "0EAA-7891-5D99-9860",
               "children": []
             }
           ]
@@ -4856,13 +5238,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 13,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E2C7-56F8-99C1-56A0",
+          "stamp": "BAF0-1F90-F6B8-1382",
           "children": []
         },
         {
@@ -4885,13 +5268,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "5E78-0E3E-8418-C459",
+          "stamp": "F3BC-BDAB-92F4-AB05",
           "children": []
         },
         {
@@ -4901,26 +5285,27 @@
           "language": "python",
           "lines": [
             67,
-            76
+            80
           ],
-          "sha256": "ecf0531a9efc7af2a768c8f849232b6b342b034803a5d08b06d17f3c9ae0217b",
+          "sha256": "bfd34298015180ff507988c1bb186b00a618a4a8c4800da5f9074e6394e08081",
           "metrics": {
-            "cyclomatic_complexity": 2,
+            "cyclomatic_complexity": 3,
             "parameter_count": 1,
             "boolean_parameters": 0,
-            "max_nesting": 1,
-            "activated_objects": 3,
+            "max_nesting": 2,
+            "activated_objects": 6,
             "return_count": 1,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 10,
-            "max_line_width": 70
+            "length_lines": 14,
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "7BBD-3B53-452D-E0A2",
+          "stamp": "AF1D-0DDB-8437-EF8C",
           "children": []
         },
         {
@@ -4929,8 +5314,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            79,
-            85
+            83,
+            89
           ],
           "sha256": "298c5d77c95ad43aedd43b473da3156474f92315b35d02edb48f459fbc4387e2",
           "metrics": {
@@ -4943,13 +5328,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "56E8-EF59-C105-A861",
+          "stamp": "40E7-5FB2-FDE6-31D3",
           "children": []
         },
         {
@@ -4958,8 +5344,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            88,
-            95
+            92,
+            99
           ],
           "sha256": "e152a39c49322c66f03df417ca8825c18fa2b18d14e6f97133ea39be71f8074a",
           "metrics": {
@@ -4972,13 +5358,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "501B-AD1C-16A9-6C5C",
+          "stamp": "7AC2-18D7-D9DC-21ED",
           "children": []
         },
         {
@@ -4987,8 +5374,8 @@
           "path": "uses_certifier/rules.py",
           "language": "python",
           "lines": [
-            98,
-            103
+            102,
+            107
           ],
           "sha256": "4fd88099cce873b870e9a53a99de9ed035787e5b57973ae85b9b211a2e294608",
           "metrics": {
@@ -5001,13 +5388,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 65
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "FBFC-41DF-5500-41C1",
+          "stamp": "593A-D794-7AAF-6C3D",
           "children": []
         }
       ]
@@ -5026,13 +5414,14 @@
         "length_lines": 48,
         "max_line_width": 74,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "8B1D-EE73-8F49-5226",
+      "stamp": "50C2-7EE5-653C-CF0D",
       "children": [
         {
           "kind": "class",
@@ -5055,7 +5444,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "D517-E247-19F0-B578",
+          "stamp": "D6E0-8861-0A7E-5609",
           "children": []
         },
         {
@@ -5078,13 +5467,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "50C3-EACC-6C3A-D86F",
+          "stamp": "1CA3-FEA2-B286-C88A",
           "children": []
         },
         {
@@ -5107,13 +5497,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 69
+            "max_line_width": 69,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "B798-3A28-567D-EB2D",
+          "stamp": "4CCB-96BA-D48F-22EA",
           "children": []
         },
         {
@@ -5136,13 +5527,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 69
+            "max_line_width": 69,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "CC9B-A5F9-896D-981B",
+          "stamp": "5767-EB90-1E4D-03B2",
           "children": []
         },
         {
@@ -5165,13 +5557,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C160-1AD3-EBB5-69A3",
+          "stamp": "05D9-1322-0782-A507",
           "children": []
         }
       ]
@@ -5190,13 +5583,14 @@
         "length_lines": 69,
         "max_line_width": 77,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "A285-045C-78E5-1A4E",
+      "stamp": "5244-8199-76A9-B0E4",
       "children": [
         {
           "kind": "class",
@@ -5219,7 +5613,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "D48D-4394-8D73-71AB",
+          "stamp": "54A6-80AF-CCEA-CD45",
           "children": [
             {
               "kind": "function",
@@ -5241,13 +5635,14 @@
                 "bare_except_count": 0,
                 "has_docstring": false,
                 "length_lines": 4,
-                "max_line_width": 60
+                "max_line_width": 60,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "0C9A-097C-D779-FE91",
+              "stamp": "FA55-D358-EA04-3406",
               "children": []
             },
             {
@@ -5270,13 +5665,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 51
+                "max_line_width": 51,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "BBCA-6C35-F4A2-4C7E",
+              "stamp": "D800-DB60-28D0-EA75",
               "children": []
             },
             {
@@ -5299,13 +5695,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 4,
-                "max_line_width": 67
+                "max_line_width": 67,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "FCDB-78D1-86CB-F9BE",
+              "stamp": "0997-7602-5C5D-A884",
               "children": []
             },
             {
@@ -5328,13 +5725,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 42
+                "max_line_width": 42,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "B32A-5ECC-A6C9-5C9B",
+              "stamp": "9971-F259-673D-EBEB",
               "children": []
             },
             {
@@ -5357,13 +5755,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 10,
-                "max_line_width": 77
+                "max_line_width": 77,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "19ED-8D33-838D-EB6A",
+              "stamp": "751C-C517-D21D-EB4F",
               "children": []
             },
             {
@@ -5386,13 +5785,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 6,
-                "max_line_width": 68
+                "max_line_width": 68,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "B109-27CB-72B4-6361",
+              "stamp": "8478-3A7E-C4E2-EA8D",
               "children": []
             },
             {
@@ -5415,13 +5815,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 7,
-                "max_line_width": 68
+                "max_line_width": 68,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "E1EC-147A-E207-5BC2",
+              "stamp": "058F-4F60-DEE9-3B89",
               "children": []
             },
             {
@@ -5444,13 +5845,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 7,
-                "max_line_width": 67
+                "max_line_width": 67,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "6BE3-E280-4935-E265",
+              "stamp": "067F-776F-1970-EC5C",
               "children": []
             },
             {
@@ -5473,13 +5875,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 6,
-                "max_line_width": 51
+                "max_line_width": 51,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "8D16-E419-E124-C0B4",
+              "stamp": "3958-DB1B-4F30-6557",
               "children": []
             }
           ]
@@ -5500,13 +5903,14 @@
         "length_lines": 49,
         "max_line_width": 76,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "E396-C61C-05B0-C282",
+      "stamp": "3696-D00E-8458-FA23",
       "children": [
         {
           "kind": "class",
@@ -5529,7 +5933,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6025-7C7D-A07B-1DDD",
+          "stamp": "9ED2-41BD-DBEC-82F2",
           "children": [
             {
               "kind": "function",
@@ -5551,13 +5955,14 @@
                 "bare_except_count": 0,
                 "has_docstring": false,
                 "length_lines": 2,
-                "max_line_width": 32
+                "max_line_width": 32,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "B69F-7444-85FB-CA46",
+              "stamp": "7E2D-E016-B623-D76E",
               "children": []
             },
             {
@@ -5580,13 +5985,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 59
+                "max_line_width": 59,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "A606-529B-A1E3-AD85",
+              "stamp": "13D8-21E3-2175-7FB4",
               "children": []
             },
             {
@@ -5609,13 +6015,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 10,
-                "max_line_width": 74
+                "max_line_width": 74,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "D76B-E239-DF9A-D305",
+              "stamp": "8CA3-EC71-8788-6DB4",
               "children": []
             },
             {
@@ -5638,13 +6045,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 4,
-                "max_line_width": 76
+                "max_line_width": 76,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "1135-6D68-B9DF-44C2",
+              "stamp": "AD28-E8E2-4B9A-6790",
               "children": []
             }
           ]
@@ -5669,13 +6077,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 71
+            "max_line_width": 71,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "07E4-B7F5-7D72-DE70",
+          "stamp": "37FF-6E24-1DC8-D40E",
           "children": []
         }
       ]
@@ -5694,13 +6103,14 @@
         "length_lines": 78,
         "max_line_width": 77,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "44D8-6DD8-2A59-4A10",
+      "stamp": "E031-748F-4802-DCF5",
       "children": [
         {
           "kind": "function",
@@ -5722,13 +6132,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 44
+            "max_line_width": 44,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "21C1-78D5-FEBE-C4D4",
+          "stamp": "7B1C-BAE7-47F6-CD4D",
           "children": []
         },
         {
@@ -5751,13 +6162,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 74
+            "max_line_width": 74,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C912-AA4D-4981-BFB3",
+          "stamp": "F13E-5CE6-BC09-4173",
           "children": []
         },
         {
@@ -5780,13 +6192,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 14,
-            "max_line_width": 77
+            "max_line_width": 77,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "FBAF-D0AF-FC7C-807F",
+          "stamp": "1779-3EAF-C23F-E4E0",
           "children": []
         },
         {
@@ -5809,7 +6222,8 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [
             {
@@ -5827,7 +6241,7 @@
           "score": 98,
           "level": "gold",
           "certified": true,
-          "stamp": "2440-9384-31BF-8CBD",
+          "stamp": "3F04-8CD3-2EEF-9866",
           "children": []
         },
         {
@@ -5850,13 +6264,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 4,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "38D6-9E8F-FED3-EBE8",
+          "stamp": "25E8-7334-522D-DAE7",
           "children": []
         },
         {
@@ -5879,13 +6294,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 76
+            "max_line_width": 76,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "02FE-9399-40F5-215D",
+          "stamp": "E424-2433-43A2-8FC5",
           "children": []
         },
         {
@@ -5908,13 +6324,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "54C4-FD5B-8FDC-CFB5",
+          "stamp": "3BFB-6446-38E5-CA75",
           "children": []
         }
       ]
@@ -5933,13 +6350,14 @@
         "length_lines": 45,
         "max_line_width": 75,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "57DD-EECB-21B6-FDA9",
+      "stamp": "ED24-1B8C-3AE9-D600",
       "children": [
         {
           "kind": "function",
@@ -5961,13 +6379,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 9,
-            "max_line_width": 75
+            "max_line_width": 75,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "22C7-FBFA-4CEF-E9E4",
+          "stamp": "AF28-E93F-8902-6C49",
           "children": []
         },
         {
@@ -5990,13 +6409,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "0319-7686-1EED-D664",
+          "stamp": "A64D-C946-0910-2BF6",
           "children": []
         },
         {
@@ -6019,13 +6439,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "9E9B-90F4-CC07-7C3E",
+          "stamp": "2D93-5FD4-3E8D-CDEE",
           "children": []
         },
         {
@@ -6048,13 +6469,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 65
+            "max_line_width": 65,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C4F5-ADE3-75DB-21B9",
+          "stamp": "95B2-439C-9686-59CD",
           "children": []
         },
         {
@@ -6077,13 +6499,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 58
+            "max_line_width": 58,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "C1C6-021E-B924-279E",
+          "stamp": "7F92-BF87-2773-DF74",
           "children": []
         }
       ]
@@ -6102,13 +6525,14 @@
         "length_lines": 107,
         "max_line_width": 73,
         "todo_count": 0,
-        "has_docstring": true
+        "has_docstring": true,
+        "commented_code_lines": 0
       },
       "violations": [],
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "4BA9-1972-4BF9-E6BA",
+      "stamp": "31CA-EB08-E34D-5CA3",
       "children": [
         {
           "kind": "function",
@@ -6130,13 +6554,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 3,
-            "max_line_width": 45
+            "max_line_width": 45,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "431B-412E-9439-807B",
+          "stamp": "CB47-65D1-0E0D-F422",
           "children": []
         },
         {
@@ -6160,7 +6585,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "05F3-41A8-560C-0BDE",
+          "stamp": "F86B-EE09-4CD8-7C68",
           "children": [
             {
               "kind": "function",
@@ -6182,13 +6607,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 70
+                "max_line_width": 70,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "3EBE-614B-FEC2-D718",
+              "stamp": "A6FC-1246-A87F-4964",
               "children": []
             },
             {
@@ -6211,13 +6637,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 61
+                "max_line_width": 61,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "E3AB-4E46-D01C-36D6",
+              "stamp": "5750-51BA-F430-F3C0",
               "children": []
             },
             {
@@ -6240,13 +6667,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 64
+                "max_line_width": 64,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "D921-933D-6BB7-9D41",
+              "stamp": "42C6-9122-729F-FCB4",
               "children": []
             },
             {
@@ -6269,13 +6697,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 3,
-                "max_line_width": 40
+                "max_line_width": 40,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "2C1D-A21A-9932-98F1",
+              "stamp": "38EE-D50D-F587-9B5A",
               "children": []
             },
             {
@@ -6298,13 +6727,14 @@
                 "bare_except_count": 0,
                 "has_docstring": true,
                 "length_lines": 8,
-                "max_line_width": 70
+                "max_line_width": 70,
+                "duplicate_count": 0
               },
               "violations": [],
               "score": 100,
               "level": "gold",
               "certified": true,
-              "stamp": "AF53-4A79-42EF-751F",
+              "stamp": "C598-5FAF-BA36-8016",
               "children": []
             }
           ]
@@ -6329,13 +6759,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 7,
-            "max_line_width": 69
+            "max_line_width": 69,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "EF63-5E00-0618-E08F",
+          "stamp": "6400-DFE1-EB03-AA32",
           "children": []
         },
         {
@@ -6358,13 +6789,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 8,
-            "max_line_width": 72
+            "max_line_width": 72,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "B627-4FA1-BB8D-121E",
+          "stamp": "0EEC-0FB1-934D-1442",
           "children": []
         },
         {
@@ -6387,13 +6819,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 11,
-            "max_line_width": 73
+            "max_line_width": 73,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "E1ED-2E3D-963D-3241",
+          "stamp": "AD51-C513-15F7-75DD",
           "children": []
         },
         {
@@ -6416,13 +6849,14 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 5,
-            "max_line_width": 70
+            "max_line_width": 70,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "315B-5143-615C-1C8C",
+          "stamp": "76BA-7C7A-1684-272D",
           "children": []
         },
         {
@@ -6445,17 +6879,18 @@
             "bare_except_count": 0,
             "has_docstring": true,
             "length_lines": 6,
-            "max_line_width": 67
+            "max_line_width": 67,
+            "duplicate_count": 0
           },
           "violations": [],
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6EC9-DAF1-63FA-8D0D",
+          "stamp": "D242-7421-13B7-7237",
           "children": []
         }
       ]
     }
   ],
-  "certificate_id": "3233-1439-93BD-E9CE"
+  "certificate_id": "674C-E61F-D60C-BE45"
 }

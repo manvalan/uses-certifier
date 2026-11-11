@@ -33,14 +33,25 @@ Required level: **gold**.
 ### Follow the design principles
 
 Besides the measured rules, apply the design principles listed by
-`uses-certifier guide .` (DP-001 and following): command query
-separation, parse don't validate, objects that protect their invariants,
-functional core and imperative shell, fractal architecture,
-intention-revealing names, single responsibility, dependencies pointing
-inward, explicit dependencies, tell don't ask, composition over
-inheritance, explicit errors, the rule of three, tests first, small safe
-steps. The certifier cannot measure them: answer each check question for
-the code you touched.
+`uses-certifier guide .` (DP-001 and following), drawn from The Pragmatic
+Programmer, Clean Code, Clean Architecture, Refactoring, Working
+Effectively with Legacy Code and Code That Fits in Your Head. In short:
+
+- Design: DRY, orthogonal components, no broken windows, tracer bullets,
+  functional core and imperative shell, command query separation, parse
+  don't validate, objects that protect their invariants.
+- Writing: intention-revealing names, small functions at one level of
+  abstraction, code as documentation (comments say why), the Boy Scout
+  rule, tell don't ask, explicit errors.
+- Architecture: single responsibility, dependencies pointing inward,
+  explicit dependencies, composition over inheritance.
+- Improvement: the two hats (never refactor and change behaviour in the
+  same step), small verifiable steps, recognise code smells, rule of three.
+- Safety: tests before changing existing code, seams to isolate
+  dependencies, characterization tests for legacy code, tests first.
+
+Most of them cannot be measured: answer each check question for the code
+you touched.
 
 ### After every change
 

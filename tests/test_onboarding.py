@@ -52,7 +52,7 @@ def test_guide_lists_rules_and_workflow(rulebook):
     assert "| Gold | 95 | 0 | 0 |" in text
     assert "uses-certifier check" in text and "**gold**" in text
     assert "uses-certifier:start" not in text
-    assert "### DP-001 Command Query Separation" in text
+    assert "#### DP-001 Command Query Separation" in text
     assert "**Check:** Does a method both change state" in text
 
 
@@ -72,3 +72,9 @@ def test_cli_guide(project, capsys):
     root = project({"a.py": "X = 1\n"})
     assert main(["guide", str(root), "--rules", str(RULES)]) == 0
     assert "## Rules in force" in capsys.readouterr().out
+
+
+def test_guide_groups_principles_by_category(rulebook):
+    text = guide.render(rulebook, "gold")
+    assert "### Design and structure" in text
+    assert "Partly measured by: T-001" in text
