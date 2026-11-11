@@ -1,4 +1,7 @@
+import ast
+
 from uses_certifier import analyzers, markers, suppressions
+from uses_certifier.analyzers import python
 
 PY = '''"""Module."""
 
@@ -47,11 +50,20 @@ def test_python_tree():
     assert (total.first_line, total.start_line) == (8, 9)
 
 
-def test_python_type_alias_statement_is_skipped():
-    text = "type Logger = int | None\n\n\ndef log():\n    pass\n"
-    module = analyzers.analyze("alias.py", text, "alias.py")
-    names = [(e.kind, e.qualname) for e in module.walk()]
-    assert names == [("module", "alias.py"), ("function", "log")]
+class _NamedStatement(ast.AST):
+    """Stand-in for ast.TypeAlias (Python 3.12+): its name is a node."""
+
+    _fields = ()
+
+
+def test_statement_whose_name_is_a_node_is_skipped():
+    text = "def log():\n    pass\n"
+    tree = ast.parse(text)
+    alias = _NamedStatement()
+    alias.name = ast.Name(id="Logger")
+    tree.body.insert(0, alias)
+    found = python._children(tree, python._Source(text, "a.py"), "")
+    assert [e.qualname for e in found] == ["log"]
 
 
 def test_java_methods_grouped_by_class():
