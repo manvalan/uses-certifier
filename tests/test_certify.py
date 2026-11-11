@@ -102,7 +102,7 @@ def test_certificate_and_verify(project, rulebook):
     path = root / "a.py"
     path.write_text(path.read_text().replace("return 4", "return 5"))
     result = verify.verify_certificate(data, root, signer)
-    assert result.invalid == ["a.py", "pick"]
+    assert result.invalid == ["a.py:a.py", "a.py:pick"]
     assert result.valid == 1
 
 

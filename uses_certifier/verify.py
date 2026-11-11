@@ -50,11 +50,12 @@ def verify_certificate(data, root, signer):
 def _check_item(result, item, current, digest):
     """Compare one certificate entry with the current element."""
     entity = current.get((item["kind"], item["name"]))
+    name = f"{item['path']}:{item['name']}"
     if entity is None:
-        result.check(item["name"], None, None)
+        result.check(name, None, None)
         return
     expected = result.signer.stamp(entity, digest, item["level"])
-    result.check(item["name"], item["stamp"], expected)
+    result.check(name, item["stamp"], expected)
 
 
 def _current(path, relpath):
