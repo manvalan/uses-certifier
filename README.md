@@ -32,11 +32,14 @@ uses-certifier stamp src/ --rules ../uses-rules
 uses-certifier verify src/ --rules ../uses-rules
 
 # Write the JSON certificate and fail when the project is below Silver
-uses-certifier certify src/ --rules ../uses-rules \
+uses-certifier certify . --rules ../uses-rules \
     --certificate uses-certificate.json --min-level silver
 
-# Check the sources against a JSON certificate
-uses-certifier verify uses-certificate.json
+# Build check: do the sources still match the committed certificate?
+uses-certifier check
+
+# Add configuration and agent instructions to a project
+uses-certifier init . --min-level silver
 
 # Markdown report (pull requests) or SARIF (GitHub code scanning)
 uses-certifier certify src/ --rules ../uses-rules --format markdown --output report.md
@@ -120,12 +123,40 @@ stamps must prove that the official pipeline issued them.
 
 ### The JSON certificate
 
-`--certificate` writes `uses-certificate.json` with, for every element,
-metrics, violations, score, level, SHA-256 fingerprint and stamp code. The
+`--certificate` writes `uses-certificate.json`, meant to be committed next
+to the sources. For every file, class and method it records metrics,
+violations, score, level, SHA-256 fingerprint and stamp code. The
 certificate itself has a `certificate_id` that binds every stamp, the
-rules, the level and the issue date: changing anything in the file breaks
-it. `uses-certifier verify uses-certificate.json` checks both the
-certificate and every element against the current sources.
+rules and the level: changing anything in the file breaks it.
+
+The certificate is **reproducible**: the same method, class and file with
+the same rules (and key) always get the same code, and the whole file is
+byte-identical. It holds no date and no absolute path; `root` is the
+sources folder relative to the certificate. Always certify from the same
+folder (normally the project root), because the file path is part of
+each code.
+
+## Build check
+
+`uses-certifier check` compares the sources with the certificate without
+needing the rules. It fails when code changed after certification, when
+new code is not certified, when certified code disappeared, when an
+element is below the required level, or when the certificate was edited.
+See [docs/build-integration.md](docs/build-integration.md) for Make,
+CMake, npm, Gradle, Maven, Python, pre-commit and GitHub Actions.
+
+## Instructions for agents
+
+`uses-certifier init` adds to a project:
+
+- `.uses-certifier.yaml` with the required level,
+- a certification section in `AGENTS.md` (created, appended or
+  refreshed between `uses-certifier:start` / `end` markers) that tells
+  coding agents how to write code that passes the rules, how to issue
+  the certificate and what they must never do,
+- `CLAUDE.md` pointing Claude to `AGENTS.md`.
+
+This repository uses them itself: see [AGENTS.md](AGENTS.md).
 
 ## Justified exceptions
 
@@ -155,16 +186,22 @@ excludes paths, adjusts thresholds and sets the minimum level. See
 - uses: actions/checkout@v4
 - uses: actions/setup-python@v5
   with: {python-version: "3.12"}
+# Fast check of the committed certificate (no rules needed)
 - uses: manvalan/uses-certifier@main
   with:
-    path: src
+    mode: check
+    key: ${{ secrets.USES_CERT_KEY }}
+# Full certification with the current rules and a report in the job summary
+- uses: manvalan/uses-certifier@main
+  with:
     min-level: silver
     key: ${{ secrets.USES_CERT_KEY }}
 ```
 
-The action fetches uses-rules, certifies, writes the report into the job
-summary and leaves `uses-certificate.json` in the workspace. If uses-rules
-is private, pass a `token` with read access to it.
+In `certify` mode the action fetches uses-rules, certifies, writes the
+report into the job summary and leaves the issued certificate in
+`$RUNNER_TEMP/uses-certificate.json` (it never overwrites the committed
+one). If uses-rules is private, pass a `token` with read access to it.
 
 ## Approximations
 
@@ -179,7 +216,8 @@ is private, pass a `token` with read access to it.
 
 ## The certifier certifies itself
 
-CI runs the certifier on its own code and requires the Gold level.
+CI runs the certifier on its own code and requires the Gold level, and
+checks the committed `uses-certificate.json` like any adopting project.
 
 ## Development
 
@@ -195,5 +233,6 @@ pytest
 | `evaluator.py` | comparison of metrics and thresholds |
 | `scoring.py`, `signing.py` | score, level and stamp code |
 | `markers.py`, `suppressions.py`, `stamper.py` | stamp and ignore comments in the sources |
-| `certificate.py`, `verify.py` | JSON certificate and verification |
+| `certificate.py`, `check.py`, `verify.py` | JSON certificate, build check, stamp verification |
+| `init.py`, `templates/` | project setup and agent instructions |
 | `reporters/` | console, Markdown and SARIF output |

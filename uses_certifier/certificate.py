@@ -1,39 +1,45 @@
-"""JSON certificate: every element's stamp with its fingerprint."""
+"""JSON certificate: every element's stamp with its fingerprint.
+
+The certificate is reproducible: the same sources, rules and key always
+give byte-identical content, so it can be committed next to the code.
+"""
 import json
+import os
 from dataclasses import asdict
-from datetime import datetime, timezone
+from pathlib import Path
 
 from . import __version__
 from .model import NOT_CERTIFIED
 
-FORMAT_VERSION = 2
+FORMAT_VERSION = 3
+DEFAULT_NAME = "uses-certificate.json"
 
 
-def build(cert):
-    """Certificate structure, ready for JSON."""
-    signer = cert.scorer.signer
+def build(cert, root="."):
+    """Certificate structure, ready for JSON; root as seen from the
+    certificate's folder."""
     data = {
         "format": FORMAT_VERSION,
         "certifier": {"name": "uses-certifier", "version": __version__},
-        "issued_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "root": cert.root,
-        "signed": signer.keyed,
+        "root": root,
+        "signed": cert.scorer.signer.keyed,
         "rules": {"rulesets": cert.rulebook.rulesets(),
                   "digest": cert.rulebook.digest},
+        "levels": [level["id"] for level in cert.scorer.levels],
         "level": cert.level,
         "summary": summary(cert),
         "failures": cert.failures,
         "files": [entity_dict(m) for m in cert.modules],
     }
-    data["certificate_id"] = certificate_id(data, signer)
+    data["certificate_id"] = certificate_id(data, cert.scorer.signer)
     return data
 
 
 def certificate_id(data, signer):
-    """Code of the whole certificate: binds every stamp, rules and date."""
+    """Code of the whole certificate: binds every stamp, rules and level."""
     stamps = [e["stamp"] for f in data["files"] for e in walk(f)]
     return signer.code("certificate", data["rules"]["digest"],
-                       data["issued_at"], data["level"], *stamps)
+                       data["level"], *stamps)
 
 
 def walk(item):
@@ -68,7 +74,9 @@ def entity_dict(entity):
 
 def write(cert, path):
     """Write the certificate to a file; return its data."""
-    data = build(cert)
+    folder = Path(path).resolve().parent
+    root = Path(os.path.relpath(Path(cert.root).resolve(), folder))
+    data = build(cert, root.as_posix())
     with open(path, "w", encoding="utf-8") as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
@@ -79,3 +87,8 @@ def read(path):
     """Read a certificate from a file."""
     with open(path, encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def sources_root(path, data):
+    """Folder of the certified sources, from the certificate's location."""
+    return Path(path).resolve().parent / data["root"]

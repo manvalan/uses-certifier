@@ -1,0 +1,7 @@
+- id: uses-certifier-check
+  name: uses-certifier check
+  description: Fail when the sources do not match uses-certificate.json
+  entry: uses-certifier check
+  language: python
+  pass_filenames: false
+  always_run: true

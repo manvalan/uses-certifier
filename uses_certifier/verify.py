@@ -1,4 +1,4 @@
-"""Checks that stamps still match the code they were issued for.
+"""Checks that stamps written in the sources still match their code.
 
 A stamp code depends on file path, element, code fingerprint, rules and
 level: it is valid only for that exact element. Any change to the code,
@@ -7,64 +7,57 @@ a copy to another element or a hand-edited level makes it invalid.
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import analyzers, certificate, markers
+from . import markers
+
+PROBLEMS = {
+    "invalid": "code changed since it was certified, or stamp tampered",
+    "missing": "certified element no longer present, or stamp missing",
+    "uncertified": "element not covered by the certificate",
+    "below_level": "certified below the required level",
+}
+
+
+def _empty_problems():
+    """One empty list per kind of problem."""
+    return {kind: [] for kind in PROBLEMS}
 
 
 @dataclass
 class VerifyResult:
-    """Valid stamps and the problems found."""
+    """Valid stamps and the problems found, by kind."""
 
     valid: int = 0
-    invalid: list = field(default_factory=list)
-    missing: list = field(default_factory=list)
+    problems: dict = field(default_factory=_empty_problems)
     certificate_ok: bool = True
-    signer: object = None
+    notes: list = field(default_factory=list)
 
     @property
     def ok(self):
-        """True when every stamp is valid."""
-        return not (self.invalid or self.missing) and self.certificate_ok
+        """True when every stamp is valid and nothing is uncovered."""
+        return self.certificate_ok and not any(self.problems.values())
+
+    @property
+    def invalid(self):
+        """Elements whose stamp does not match their code."""
+        return self.problems["invalid"]
+
+    @property
+    def missing(self):
+        """Elements without stamp, or stamps without element."""
+        return self.problems["missing"]
+
+    def add(self, kind, name):
+        """Record a problem."""
+        self.problems[kind].append(name)
 
     def check(self, name, written, expected):
         """Record the comparison of a written and an expected code."""
         if written is None:
-            self.missing.append(name)
+            self.add("missing", name)
         elif written != expected:
-            self.invalid.append(name)
+            self.add("invalid", name)
         else:
             self.valid += 1
-
-
-def verify_certificate(data, root, signer):
-    """Compare a JSON certificate with the current sources."""
-    result = VerifyResult(signer=signer)
-    result.certificate_ok = (
-        certificate.certificate_id(data, signer) == data["certificate_id"])
-    for stamped in data["files"]:
-        current = _current(Path(root) / stamped["path"], stamped["path"])
-        for item in certificate.walk(stamped):
-            _check_item(result, item, current, data["rules"]["digest"])
-    return result
-
-
-def _check_item(result, item, current, digest):
-    """Compare one certificate entry with the current element."""
-    entity = current.get((item["kind"], item["name"]))
-    name = f"{item['path']}:{item['name']}"
-    if entity is None:
-        result.check(name, None, None)
-        return
-    expected = result.signer.stamp(entity, digest, item["level"])
-    result.check(name, item["stamp"], expected)
-
-
-def _current(path, relpath):
-    """Current elements of a source by (kind, name); empty if missing."""
-    if not path.is_file():
-        return {}
-    text = markers.strip_stamps(path.read_text(encoding="utf-8"))
-    module = analyzers.analyze(path, text, relpath)
-    return {(e.kind, e.qualname): e for e in module.walk()}
 
 
 def verify_inline(cert, root):

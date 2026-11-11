@@ -5,6 +5,8 @@ from pathlib import Path
 
 from . import __version__, certificate, certifier, config, rules, signing
 from . import stamper, verify
+from .check import check
+from .init import init_project
 from .model import NOT_CERTIFIED
 from .reporters import FORMATS
 from .reporters.common import everything, with_violations
@@ -33,7 +35,9 @@ def _parser():
     _add_certify(sub)
     _add_stamp(sub)
     _add_verify(sub)
+    _add_check(sub)
     _add_rules(sub)
+    _add_init(sub)
     return parser
 
 
@@ -65,6 +69,31 @@ def _add_verify(sub):
     cmd.add_argument("--root", help="sources folder for a certificate "
                                     "(default: the one it records)")
     cmd.set_defaults(handler=run_verify)
+
+
+def _add_check(sub):
+    """Arguments of the check command."""
+    cmd = sub.add_parser(
+        "check", help="fast build check of the sources against the JSON "
+                      "certificate (no rules needed)")
+    cmd.add_argument("certificate", nargs="?",
+                     default=certificate.DEFAULT_NAME,
+                     help=f"certificate (default: {certificate.DEFAULT_NAME})")
+    cmd.add_argument("--min-level", help="also require this level")
+    cmd.add_argument("--config", help="project configuration file")
+    cmd.add_argument("--key-file", help="secret key that signs the stamps "
+                                        f"(or ${signing.KEY_ENV})")
+    cmd.set_defaults(handler=run_check)
+
+
+def _add_init(sub):
+    """Arguments of the init command."""
+    cmd = sub.add_parser(
+        "init", help="add configuration and agent instructions to a project")
+    cmd.add_argument("path", nargs="?", default=".", help="project root")
+    cmd.add_argument("--min-level", default="silver",
+                     help="level required by the project (default: silver)")
+    cmd.set_defaults(handler=run_init)
 
 
 def _add_rules(sub):
@@ -151,27 +180,51 @@ def run_stamp(args):
 def run_verify(args):
     """Check stamps in the sources or in a JSON certificate."""
     if args.path.endswith(".json"):
-        data = certificate.read(args.path)
-        signer = signing.load(args.key_file)
-        result = verify.verify_certificate(
-            data, args.root or data["root"], signer)
-    else:
-        _, cert = _certify(args)
-        result = verify.verify_inline(cert, cert.root)
+        return _check_certificate(args.path, args)
+    _, cert = _certify(args)
+    result = verify.verify_inline(cert, cert.root)
+    _print_verify(result)
+    return EXIT_OK if result.ok else EXIT_FAILED
+
+
+def run_check(args):
+    """Build check of the sources against the JSON certificate."""
+    return _check_certificate(args.certificate, args)
+
+
+def _check_certificate(path, args):
+    """Check sources against a certificate and print the outcome."""
+    data = certificate.read(path)
+    root = Path(getattr(args, "root", None) or
+                certificate.sources_root(path, data))
+    project = config.load(root, args.config)
+    sources = certifier.discover(root, project)
+    result = check(data, sources, signing.load(args.key_file),
+                   getattr(args, "min_level", None) or project.min_level)
     _print_verify(result)
     return EXIT_OK if result.ok else EXIT_FAILED
 
 
 def _print_verify(result):
     """Print the outcome of a verification."""
+    for note in result.notes:
+        print(f"note: {note}")
     if not result.certificate_ok:
         print("CERTIFICATE ID DOES NOT MATCH ITS CONTENT")
-    for name in result.invalid:
-        print(f"INVALID   {name}")
-    for name in result.missing:
-        print(f"MISSING   {name}")
-    print(f"Valid stamps: {result.valid}, invalid: {len(result.invalid)}, "
-          f"missing: {len(result.missing)}")
+    for kind, names in result.problems.items():
+        for name in names:
+            print(f"{kind.upper():<12} {name}")
+    counts = ", ".join(f"{kind}: {len(names)}"
+                       for kind, names in result.problems.items())
+    status = "OK" if result.ok else "FAILED"
+    print(f"Certification check {status}. Valid: {result.valid}, {counts}")
+
+
+def run_init(args):
+    """Add configuration and agent instructions to a project."""
+    for path, action in init_project(Path(args.path), args.min_level):
+        print(f"{action:<8} {path}")
+    return EXIT_OK
 
 
 def run_rules(args):

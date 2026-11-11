@@ -1,6 +1,14 @@
 name: USES Certifier
 description: Stamps methods, classes and source files using the uses-rules rules
 inputs:
+  mode:
+    description: >
+      certify (analyse with the rules and report) or check (fast check of
+      the sources against the committed certificate; no rules needed)
+    default: certify
+  certificate:
+    description: Committed certificate used by check mode
+    default: uses-certificate.json
   path:
     description: Folder or file to certify
     default: "."
@@ -18,12 +26,13 @@ inputs:
     default: ${{ github.token }}
 outputs:
   certificate:
-    description: Path of the JSON certificate
-    value: uses-certificate.json
+    description: Path of the certificate issued in certify mode
+    value: ${{ runner.temp }}/uses-certificate.json
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
+    - if: inputs.mode == 'certify'
+      uses: actions/checkout@v4
       with:
         repository: manvalan/uses-rules
         ref: ${{ inputs.rules-ref }}
@@ -31,7 +40,8 @@ runs:
         path: .uses-rules
     - shell: bash
       run: pip install --quiet "${{ github.action_path }}"
-    - shell: bash
+    - if: inputs.mode == 'certify'
+      shell: bash
       env:
         MIN_LEVEL: ${{ inputs.min-level }}
         USES_CERT_KEY: ${{ inputs.key }}
@@ -40,10 +50,19 @@ runs:
         set +e
         uses-certifier certify "$TARGET" --rules .uses-rules \
           --format markdown --output "$RUNNER_TEMP/uses-report.md" \
-          --certificate uses-certificate.json \
+          --certificate "$RUNNER_TEMP/uses-certificate.json" \
           ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}
         status=$?
         if [ -f "$RUNNER_TEMP/uses-report.md" ]; then
           cat "$RUNNER_TEMP/uses-report.md" >> "$GITHUB_STEP_SUMMARY"
         fi
         exit $status
+    - if: inputs.mode == 'check'
+      shell: bash
+      env:
+        MIN_LEVEL: ${{ inputs.min-level }}
+        USES_CERT_KEY: ${{ inputs.key }}
+        CERTIFICATE: ${{ inputs.certificate }}
+      run: |
+        uses-certifier check "$CERTIFICATE" \
+          ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}

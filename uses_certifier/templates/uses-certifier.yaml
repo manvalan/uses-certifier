@@ -1,0 +1,11 @@
+# uses-certifier configuration. See
+# https://github.com/manvalan/uses-certifier#project-configuration
+
+# Level required by the build and by agents.
+min_level: {min_level}
+
+# Paths excluded from certification (fnmatch syntax).
+exclude: []
+
+# Rules folder, when USES_RULES_PATH is not set.
+# rules_path: ../uses-rules

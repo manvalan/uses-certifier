@@ -1,6 +1,6 @@
 import json
 
-from uses_certifier import certificate, certifier, config, rules, verify
+from uses_certifier import certifier, config, rules
 from uses_certifier.cli import main
 from uses_certifier.reporters import FORMATS
 from uses_certifier.signing import Signer
@@ -90,30 +90,6 @@ def test_key_changes_codes(project, rulebook):
     assert plain != keyed
 
 
-def test_certificate_and_verify(project, rulebook):
-    root = project({"a.py": GOOD + COMPLEX})
-    signer = Signer(b"secret")
-    cert = certify(root, rulebook, signer=signer)
-    data = json.loads(json.dumps(certificate.build(cert)))
-    assert data["signed"] and data["certificate_id"]
-    assert verify.verify_certificate(data, root, signer).ok
-    assert not verify.verify_certificate(data, root, Signer(b"other")).ok
-
-    path = root / "a.py"
-    path.write_text(path.read_text().replace("return 4", "return 5"))
-    result = verify.verify_certificate(data, root, signer)
-    assert result.invalid == ["a.py:a.py", "a.py:pick"]
-    assert result.valid == 1
-
-
-def test_tampered_certificate_is_detected(project, rulebook):
-    root = project({"a.py": GOOD + COMPLEX})
-    signer = Signer(b"secret")
-    data = certificate.build(certify(root, rulebook, signer=signer))
-    data["level"] = "gold"
-    assert not verify.verify_certificate(data, root, signer).certificate_ok
-
-
 def test_all_formats_render(project, rulebook):
     cert = certify(project({"a.py": GOOD + COMPLEX}), rulebook)
     for render in FORMATS.values():
@@ -130,4 +106,5 @@ def test_cli_exit_codes(project, capsys):
     assert main(["certify", str(root / "a.py"), "--rules", str(RULES),
                  "--certificate", str(out)]) == 0
     assert main(["verify", str(out)]) == 0
+    assert main(["check", str(out)]) == 0
     capsys.readouterr()

@@ -24,7 +24,7 @@ jobs:
           python-version: "3.12"
       - uses: ./
         with:
-          path: uses_certifier
+          path: .
           min-level: gold
           # Temporary: the rules still live in manvalan/uses-rules#1.
           # Switch back to "main" once that pull request is merged.
@@ -32,4 +32,17 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: uses-certificate
-          path: uses-certificate.json
+          path: ${{ runner.temp }}/uses-certificate.json
+
+  certificate-check:
+    # The committed certificate must match the code, as in any project
+    # that adopts the certifier.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: ./
+        with:
+          mode: check

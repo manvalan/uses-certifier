@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uses-certifier"
-version = "0.2.0"
+version = "0.3.0"
 description = "Stamps methods, classes and source files using YAML rules (Code That Fits in Your Head, Clean Code)"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,3 +18,6 @@ uses-certifier = "uses_certifier.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["uses_certifier*"]
+
+[tool.setuptools.package-data]
+uses_certifier = ["templates/*"]
