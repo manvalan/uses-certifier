@@ -16,6 +16,14 @@ from . import markers
 COMMENTS = {"python": "#", "ruby": "#", "perl": "#", "gdscript": "#",
             "lua": "--", "fortran": "!", "erlang": "%"}
 HEADER = re.compile(r"^(#!|#.*coding[:=])")
+# A line comment among JSX children is rendered as page text, so these
+# sources keep no stamps; the JSON certificate still covers them.
+UNSTAMPED_SUFFIXES = (".tsx", ".jsx")
+
+
+def keeps_stamps(module):
+    """False for sources where a stamp comment could change the program."""
+    return not module.path.endswith(UNSTAMPED_SUFFIXES)
 
 
 def comment_for(language):
@@ -72,7 +80,10 @@ def write(path, module):
     """Rewrite a source with fresh stamps; True when the file changed."""
     path = Path(path)
     original = path.read_text(encoding="utf-8")
-    updated = stamped_text(original, module)
+    if keeps_stamps(module):
+        updated = stamped_text(original, module)
+    else:
+        updated = markers.strip_stamps(original)
     if updated == original:
         return False
     path.write_text(updated, encoding="utf-8")

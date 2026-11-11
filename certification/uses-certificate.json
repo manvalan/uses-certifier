@@ -24,7 +24,7 @@
       "gold": 32
     },
     "function": {
-      "gold": 224
+      "gold": 225
     },
     "class": {
       "gold": 17
@@ -7264,11 +7264,11 @@
       "language": "python",
       "lines": [
         1,
-        79
+        90
       ],
-      "sha256": "35f5420e866816a108470fbf192ab89f3c8bd83250440ebaebc333971c3bb9f3",
+      "sha256": "0ab051b5cff58e4903f92588d8507e50a54deec4f26d768f6069d01675392844",
       "metrics": {
-        "length_lines": 78,
+        "length_lines": 89,
         "max_line_width": 77,
         "todo_count": 0,
         "has_docstring": true,
@@ -7278,16 +7278,46 @@
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "E031-748F-4802-DCF5",
+      "stamp": "45C1-DB28-C288-E9E7",
       "children": [
+        {
+          "kind": "function",
+          "name": "keeps_stamps",
+          "path": "uses_certifier/stamper.py",
+          "language": "python",
+          "lines": [
+            24,
+            26
+          ],
+          "sha256": "4f9115058ce440f86722f66a0c307dbf894c12df3fe0321b98c843e088f62a53",
+          "metrics": {
+            "cyclomatic_complexity": 1,
+            "parameter_count": 1,
+            "boolean_parameters": 0,
+            "max_nesting": 0,
+            "activated_objects": 1,
+            "return_count": 1,
+            "bare_except_count": 0,
+            "has_docstring": true,
+            "length_lines": 3,
+            "max_line_width": 75,
+            "duplicate_count": 0
+          },
+          "violations": [],
+          "score": 100,
+          "level": "gold",
+          "certified": true,
+          "stamp": "58DB-C9A4-FE2C-7561",
+          "children": []
+        },
         {
           "kind": "function",
           "name": "comment_for",
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            21,
-            23
+            29,
+            31
           ],
           "sha256": "97eb6b3da867058d8390472bdfbad92c1006ec1fa9abee7cdeb3d1a0a5569cdd",
           "metrics": {
@@ -7316,8 +7346,8 @@
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            26,
-            30
+            34,
+            38
           ],
           "sha256": "9367574361740d3e96091087616f0a3c4cbe1fa2967d9e91f40d0dc2bbbaa7a8",
           "metrics": {
@@ -7346,8 +7376,8 @@
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            33,
-            46
+            41,
+            54
           ],
           "sha256": "15c5a8d0d924fc76cac571afc2e317d7a988ef618b9c00e4fc45042e1b15ec8b",
           "metrics": {
@@ -7376,8 +7406,8 @@
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            49,
-            54
+            57,
+            62
           ],
           "sha256": "1ea038504bd3fa8142838dd9e03241cabfdfada4538def9fa9cf555fd41e3840",
           "metrics": {
@@ -7402,7 +7432,7 @@
               "value": 4,
               "threshold": 3,
               "operator": "<=",
-              "line": 49,
+              "line": 57,
               "suppressed": false
             }
           ],
@@ -7418,8 +7448,8 @@
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            57,
-            60
+            65,
+            68
           ],
           "sha256": "1ac2f0773c91ec369fb2be3a7b61c5c79ac2972a479c1c7f94338e7d9dfa4e92",
           "metrics": {
@@ -7448,8 +7478,8 @@
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            63,
-            68
+            71,
+            76
           ],
           "sha256": "33af86363c1e056b7452c8f348a649b9abcd82f4b6ba5132ac8326ca8a7503d6",
           "metrics": {
@@ -7478,12 +7508,12 @@
           "path": "uses_certifier/stamper.py",
           "language": "python",
           "lines": [
-            71,
-            79
+            79,
+            90
           ],
-          "sha256": "673367998fcf117b814f7da05d3348f11ee507edac3165159ce6b28e675ae762",
+          "sha256": "2907e8de2a4ce484db5b7996513820333cd7d8c52c8a157c133a6d448a6663f3",
           "metrics": {
-            "cyclomatic_complexity": 2,
+            "cyclomatic_complexity": 3,
             "parameter_count": 2,
             "boolean_parameters": 0,
             "max_nesting": 1,
@@ -7491,7 +7521,7 @@
             "return_count": 2,
             "bare_except_count": 0,
             "has_docstring": true,
-            "length_lines": 9,
+            "length_lines": 12,
             "max_line_width": 73,
             "duplicate_count": 0
           },
@@ -7499,7 +7529,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "3BFB-6446-38E5-CA75",
+          "stamp": "9F76-B4A0-CF45-5A60",
           "children": []
         }
       ]
@@ -7688,7 +7718,7 @@
         1,
         126
       ],
-      "sha256": "fd7ff0bd796e47aecbf1062bad7c1cc9b397b532eeb96d13855f3c3df8528937",
+      "sha256": "3bc93010ad4024868f8a96084ddc82c7a7266ba6aeb3634f1dcaaaeb532a3268",
       "metrics": {
         "length_lines": 126,
         "max_line_width": 74,
@@ -7700,7 +7730,7 @@
       "score": 100,
       "level": "gold",
       "certified": true,
-      "stamp": "3F4A-09D3-CDFA-39CC",
+      "stamp": "1727-B1AE-3EB0-F38C",
       "children": [
         {
           "kind": "function",
@@ -7916,7 +7946,7 @@
             66,
             72
           ],
-          "sha256": "e02b0060e140f03b35deae9adf2174d68eac147602b4a2a6fb435265c30e8ea4",
+          "sha256": "6a08a40a31e02cf5f18d18bc791c9be1813aa1c6b9fb20a8ac201571cabfe0ac",
           "metrics": {
             "cyclomatic_complexity": 2,
             "parameter_count": 2,
@@ -7934,7 +7964,7 @@
           "score": 100,
           "level": "gold",
           "certified": true,
-          "stamp": "6400-DFE1-EB03-AA32",
+          "stamp": "E1CC-3FF4-1948-3FFE",
           "children": []
         },
         {
@@ -8090,5 +8120,5 @@
       ]
     }
   ],
-  "certificate_id": "EE2E-18F6-9C49-1570"
+  "certificate_id": "1C21-C4FA-345C-6ECC"
 }

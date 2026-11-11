@@ -110,3 +110,30 @@ def test_cli_stamp_and_verify(project, capsys):
     (root / "a.py").write_text((root / "a.py").read_text() + "\nX = 1\n")
     assert main(["verify", str(root)] + args) == 1
     capsys.readouterr()
+
+
+TSX = '''export function List({ items }) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+'''
+
+
+def test_jsx_sources_are_not_stamped(project, rulebook):
+    """A line comment among JSX children would render as page text."""
+    root = project({"List.tsx": TSX})
+    stamp(root, rulebook)
+    assert (root / "List.tsx").read_text() == TSX
+    assert verify.verify_inline(certify(root, rulebook), root).ok
+
+
+def test_old_stamps_are_removed_from_jsx_sources(project, rulebook):
+    marked = "// uses-cert: stamp GOLD 0000-0000-0000-0000\n" + TSX
+    root = project({"List.tsx": marked})
+    stamp(root, rulebook)
+    assert (root / "List.tsx").read_text() == TSX
