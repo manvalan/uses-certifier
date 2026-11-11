@@ -1,0 +1,70 @@
+name: USES Certifier
+description: Stamps methods, classes and source files using the uses-rules rules
+inputs:
+  mode:
+    description: >
+      certify (analyse with the rules and report) or check (fast check of
+      the sources against the committed certificate; no rules needed)
+    default: certify
+  certificate:
+    description: >
+      Committed certificate used by check mode (default: the project's,
+      certification/uses-certificate.json)
+    default: ""
+  path:
+    description: Folder or file to certify
+    default: "."
+  min-level:
+    description: Minimum required level (gold, silver, bronze)
+    default: ""
+  rules-ref:
+    description: Branch, tag or commit of manvalan/uses-rules
+    default: main
+  key:
+    description: Secret key that signs the stamps (pass a repository secret)
+    default: ""
+  token:
+    description: Token with read access to manvalan/uses-rules
+    default: ${{ github.token }}
+outputs:
+  certificate:
+    description: Path of the certificate issued in certify mode
+    value: ${{ runner.temp }}/uses-certificate.json
+runs:
+  using: composite
+  steps:
+    - if: inputs.mode == 'certify'
+      uses: actions/checkout@v4
+      with:
+        repository: manvalan/uses-rules
+        ref: ${{ inputs.rules-ref }}
+        token: ${{ inputs.token }}
+        path: .uses-rules
+    - shell: bash
+      run: pip install --quiet "${{ github.action_path }}"
+    - if: inputs.mode == 'certify'
+      shell: bash
+      env:
+        MIN_LEVEL: ${{ inputs.min-level }}
+        USES_CERT_KEY: ${{ inputs.key }}
+        TARGET: ${{ inputs.path }}
+      run: |
+        set +e
+        uses-certifier certify "$TARGET" --rules .uses-rules \
+          --format markdown --output "$RUNNER_TEMP/uses-report.md" \
+          --certificate "$RUNNER_TEMP/uses-certificate.json" \
+          ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}
+        status=$?
+        if [ -f "$RUNNER_TEMP/uses-report.md" ]; then
+          cat "$RUNNER_TEMP/uses-report.md" >> "$GITHUB_STEP_SUMMARY"
+        fi
+        exit $status
+    - if: inputs.mode == 'check'
+      shell: bash
+      env:
+        MIN_LEVEL: ${{ inputs.min-level }}
+        USES_CERT_KEY: ${{ inputs.key }}
+        CERTIFICATE: ${{ inputs.certificate }}
+      run: |
+        uses-certifier check ${CERTIFICATE:+"$CERTIFICATE"} \
+          ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}

@@ -1,0 +1,15 @@
+# uses-certifier configuration. See
+# https://github.com/manvalan/uses-certifier#project-configuration
+
+# Level required by the build and by agents.
+min_level: gold
+
+# Paths excluded from certification (fnmatch syntax).
+exclude:
+  - "tests/*"
+
+# Where the JSON certificate is written and read, relative to the project.
+certificate: certification/uses-certificate.json
+
+# Rules folder, when USES_RULES_PATH is not set.
+# rules_path: ../uses-rules
