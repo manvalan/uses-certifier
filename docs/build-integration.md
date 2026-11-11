@@ -1,7 +1,7 @@
 # Build integration
 
 `uses-certifier check` compares the sources with the committed
-`uses-certificate.json`. It needs no rules and no network, runs in well
+`certification/uses-certificate.json`. It needs no rules and no network, runs in well
 under a second on typical projects, and exits with code 1 when:
 
 - a method, class or file changed after it was certified (`INVALID`),
@@ -41,7 +41,7 @@ build: certification
 
 ```cmake
 add_custom_target(certification ALL
-  COMMAND uses-certifier check ${CMAKE_SOURCE_DIR}/uses-certificate.json
+  COMMAND uses-certifier check ${CMAKE_SOURCE_DIR}/certification/uses-certificate.json
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   COMMENT "Checking code certification")
 add_dependencies(my_target certification)
@@ -121,7 +121,7 @@ Whoever changes the code (a person or an agent, see `AGENTS.md`) issues
 the certificate from the project root and commits it with the code:
 
 ```bash
-uses-certifier certify . --certificate uses-certificate.json --min-level silver
+uses-certifier certify . --certificate --min-level silver
 uses-certifier check
 ```
 

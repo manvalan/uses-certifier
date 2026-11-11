@@ -6,8 +6,8 @@
 Every method, class and source file in this project is certified with
 [uses-certifier](https://github.com/manvalan/uses-certifier) against the
 rules in [uses-rules](https://github.com/manvalan/uses-rules). The
-certificate `uses-certificate.json` sits next to the sources and must
-always match the code. The build fails when it does not.
+certificate `certification/uses-certificate.json` is committed with the
+sources and must always match the code. The build fails when it does not.
 
 Required level: **gold**. These instructions apply whenever you
 write or change code in this project, and whenever you are asked for
@@ -65,11 +65,11 @@ you touched.
 1. Run `uses-certifier certify . --verbose` and fix every violation in
    the code you touched until the project reaches **gold**.
 2. Regenerate the certificate:
-   `uses-certifier certify . --certificate uses-certificate.json --min-level gold`
+   `uses-certifier certify . --certificate --min-level gold`
 3. If the project keeps stamps in the sources, refresh them:
    `uses-certifier stamp .`
 4. Run `uses-certifier check`. It must print `Certification check OK`.
-5. Commit `uses-certificate.json` (and the stamps) in the same commit as
+5. Commit `certification/` (and the stamps) in the same commit as
    the code they certify.
 
 ### Existing programs being migrated
@@ -89,7 +89,7 @@ at **gold**) and checks strictly the *migrated* ones.
 
 ### Never
 
-- Edit `uses-certificate.json` or `uses-cert: stamp` comments by hand.
+- Edit the files in `certification/` or `uses-cert: stamp` comments by hand.
 - Lower thresholds, disable rules or remove files from certification in
   `.uses-certifier.yaml` to make the check pass.
 - Add `uses-cert: ignore[...]` without a concrete reason on the same

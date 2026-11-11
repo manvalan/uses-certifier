@@ -65,7 +65,7 @@ case, and list every one in your report.
 ## 5. Issue the certificate
 
 ```bash
-uses-certifier certify . --certificate uses-certificate.json --min-level silver
+uses-certifier certify . --certificate --min-level silver
 uses-certifier check
 ```
 
@@ -83,7 +83,7 @@ Gradle, Maven, Python, pre-commit, GitHub Actions).
 ## 7. Commit and report
 
 Commit `.uses-certifier.yaml`, `AGENTS.md`, `CLAUDE.md`,
-`uses-certificate.json`, the build change and the refactors. Then report:
+`certification/`, the build change and the refactors. Then report:
 the project level, what you changed to get there, every element still
 below Gold, every exclusion and suppression with its reason, the design
 principles the code still does not follow, and how the build now runs

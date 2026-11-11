@@ -1,6 +1,6 @@
 - id: uses-certifier-check
   name: uses-certifier check
-  description: Fail when the sources do not match uses-certificate.json
+  description: Fail when the sources do not match their certificate
   entry: uses-certifier check
   language: python
   pass_filenames: false

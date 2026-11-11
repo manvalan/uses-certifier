@@ -11,12 +11,14 @@ DEFAULT_EXCLUDE = [
     "*/__pycache__/*", "*venv/*", "build/*", "dist/*", "*.min.js",
 ]
 STRICT, MIGRATION = "strict", "migration"
+CERTIFICATE = "certification/uses-certificate.json"
 
 
 class ConfigError(ValueError):
     """The project configuration is not valid."""
 
 
+# uses-cert: ignore[CC-008] one field per key of .uses-certifier.yaml
 @dataclass
 class ProjectConfig:
     """Project choices: rulesets, exclusions, thresholds, minimum level
@@ -28,12 +30,17 @@ class ProjectConfig:
     min_level: str = ""
     rules_path: str = ""
     mode: str = STRICT
+    certificate: str = CERTIFICATE
     migration_min_coverage: float = 0
 
     def __post_init__(self):
         if self.mode not in (STRICT, MIGRATION):
             raise ConfigError(f"unknown mode {self.mode!r}: use "
                              f"{STRICT} or {MIGRATION}")
+
+    def certificate_path(self, root):
+        """Where the project's certificate lives, under root."""
+        return Path(root) / self.certificate
 
     @property
     def migrating(self):
@@ -48,6 +55,16 @@ class ProjectConfig:
     def apply_overrides(self, rules):
         """Apply the per-id rule changes."""
         return [replace(r, **self.overrides.get(r.id, {})) for r in rules]
+
+
+def find_root(folder):
+    """The nearest folder, from folder upwards, with a configuration;
+    folder itself when there is none."""
+    folder = Path(folder).resolve()
+    for candidate in [folder, *folder.parents]:
+        if (candidate / FILENAME).is_file():
+            return candidate
+    return folder
 
 
 def load(root, explicit=None):

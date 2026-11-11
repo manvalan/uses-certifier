@@ -7,8 +7,10 @@ inputs:
       the sources against the committed certificate; no rules needed)
     default: certify
   certificate:
-    description: Committed certificate used by check mode
-    default: uses-certificate.json
+    description: >
+      Committed certificate used by check mode (default: the project's,
+      certification/uses-certificate.json)
+    default: ""
   path:
     description: Folder or file to certify
     default: "."
@@ -64,5 +66,5 @@ runs:
         USES_CERT_KEY: ${{ inputs.key }}
         CERTIFICATE: ${{ inputs.certificate }}
       run: |
-        uses-certifier check "$CERTIFICATE" \
+        uses-certifier check ${CERTIFICATE:+"$CERTIFICATE"} \
           ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}

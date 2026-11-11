@@ -14,9 +14,9 @@ contains, the project its worst file.
 
 Each stamp code is bound to the file path, the element, the SHA-256 of its
 code, the rules in force and its level: it is valid for that element only.
-The certificate `uses-certificate.json` lists the code of every element
-and `uses-certifier check` fails the build when the code no longer
-matches it.
+The certificate `certification/uses-certificate.json` lists the code of
+every element and `uses-certifier check` fails the build when the code
+no longer matches it.
 """
 
 

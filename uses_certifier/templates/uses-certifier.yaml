@@ -18,5 +18,8 @@ migration_min_coverage: 0
 # Paths excluded from certification (fnmatch syntax).
 exclude: []
 
+# Where the JSON certificate is written and read, relative to the project.
+certificate: certification/uses-certificate.json
+
 # Rules folder, when USES_RULES_PATH is not set.
 # rules_path: ../uses-rules

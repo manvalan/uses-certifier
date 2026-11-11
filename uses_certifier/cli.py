@@ -51,7 +51,9 @@ def _add_certify(sub):
     _common_options(cmd)
     cmd.add_argument("--format", choices=sorted(FORMATS), default="console")
     cmd.add_argument("--output", help="write the report to a file")
-    cmd.add_argument("--certificate", help="write the JSON certificate")
+    cmd.add_argument("--certificate", nargs="?", const="",
+                     help="write the JSON certificate (default path: "
+                          f"{config.CERTIFICATE} in the project)")
     cmd.add_argument("--min-level", help="minimum required level")
     cmd.add_argument("--verbose", action="store_true",
                      help="also show elements without violations")
@@ -81,8 +83,8 @@ def _add_check(sub):
         "check", help="fast build check of the sources against the JSON "
                       "certificate (no rules needed)")
     cmd.add_argument("certificate", nargs="?",
-                     default=certificate.DEFAULT_NAME,
-                     help=f"certificate (default: {certificate.DEFAULT_NAME})")
+                     help="certificate (default: the project's, "
+                          f"{config.CERTIFICATE})")
     cmd.add_argument("--min-level", help="also require this level")
     cmd.add_argument("--config", help="project configuration file")
     cmd.add_argument("--key-file", help="secret key that signs the stamps "
@@ -159,11 +161,23 @@ def _common_options(cmd, target="file or folder to process"):
 
 def _load(args):
     """Project configuration and active rules."""
-    root = Path(args.path)
-    base = root if root.is_dir() else root.parent
-    project = config.load(base, args.config)
+    project = config.load(_project_root(args), args.config)
     path = rules.resolve_path(args.rules or project.rules_path)
     return project, rules.load(path, project)
+
+
+def _project_root(args):
+    """Folder of the project being certified."""
+    root = Path(args.path)
+    return root if root.is_dir() else root.parent
+
+
+def _certificate_path(args, project):
+    """Certificate to write: the given path, the project's default when
+    --certificate has no value, None when it is absent."""
+    if args.certificate is None:
+        return None
+    return args.certificate or project.certificate_path(_project_root(args))
 
 
 def _certify(args):
@@ -179,11 +193,11 @@ def run_certify(args):
     select = everything if args.verbose else with_violations
     _emit(FORMATS[args.format](cert, select), args.output)
     policy = migration.Policy.of(project, args.min_level)
+    path = _certificate_path(args, project)
     if policy.migration:
-        return _certify_migration(cert, policy, args.certificate)
-    if args.certificate:
-        _write_certificate(certificate.build_for(cert, args.certificate),
-                           args.certificate)
+        return _certify_migration(cert, policy, path)
+    if path:
+        _write_certificate(certificate.build_for(cert, path), path)
     return _exit_code(cert, policy.min_level)
 
 
@@ -196,7 +210,7 @@ def _write_certificate(data, path):
 
 def _certify_migration(cert, policy, path):
     """Migration mode: report the progress, refuse regressions."""
-    data = certificate.build_for(cert, path or certificate.DEFAULT_NAME)
+    data = certificate.build_for(cert, path or cert.root)
     if _report_regressions(path, data, policy):
         print("Certificate not written: fix the regressions first",
               file=sys.stderr)
@@ -293,7 +307,10 @@ def run_verify(args):
 
 def run_check(args):
     """Build check of the sources against the JSON certificate."""
-    return _check_certificate(args.certificate, args)
+    path = args.certificate
+    if path is None:
+        path = config.load(".", args.config).certificate_path(".")
+    return _check_certificate(path, args)
 
 
 def _check_certificate(path, args):
@@ -312,7 +329,7 @@ def _check_certificate(path, args):
 def _read_certificate(path, root=None):
     """(certificate data, or None when there is none yet; sources root)."""
     if not Path(path).is_file():
-        return None, Path(root or Path(path).parent)
+        return None, Path(root or config.find_root(Path(path).parent))
     data = certificate.read(path)
     return data, Path(root or certificate.sources_root(path, data))
 
@@ -392,12 +409,11 @@ Next steps:
   2. See what to fix: uses-certifier certify . --verbose
   3. Refactor until the project reaches {level}.
   4. Issue the certificate:
-     uses-certifier certify . --certificate uses-certificate.json \\
-         --min-level {level}
+     uses-certifier certify . --certificate --min-level {level}
   5. Add `uses-certifier check` as the first build step
      (see docs/build-integration.md in manvalan/uses-certifier)
   6. Commit .uses-certifier.yaml, AGENTS.md, CLAUDE.md,
-     uses-certificate.json and the build change."""
+     certification/ and the build change."""
 
 
 def run_rules(args):

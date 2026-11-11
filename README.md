@@ -42,8 +42,7 @@ uses-certifier stamp src/
 uses-certifier verify src/
 
 # Write the JSON certificate and fail when the project is below Silver
-uses-certifier certify . \
-    --certificate uses-certificate.json --min-level silver
+uses-certifier certify . --certificate --min-level silver
 
 # Build check: do the sources still match the committed certificate?
 uses-certifier check
@@ -139,8 +138,11 @@ stamps must prove that the official pipeline issued them.
 
 ### The JSON certificate
 
-`--certificate` writes `uses-certificate.json`, meant to be committed next
-to the sources. For every file, class and method it records metrics,
+`--certificate` writes `certification/uses-certificate.json`: all the
+certification files live in the `certification/` folder of the project,
+committed with the sources, never scattered among them (the location can
+be changed with `certificate:` in `.uses-certifier.yaml`, or by giving
+`--certificate` a path). For every file, class and method it records metrics,
 violations, score, level, SHA-256 fingerprint and stamp code. The
 certificate itself has a `certificate_id` that binds every stamp, the
 rules and the level: changing anything in the file breaks it.
@@ -278,7 +280,7 @@ one). If uses-rules is private, pass a `token` with read access to it.
 ## The certifier certifies itself
 
 CI runs the certifier on its own code and requires the Gold level, and
-checks the committed `uses-certificate.json` like any adopting project.
+checks the committed `certification/uses-certificate.json` like any adopting project.
 
 ## Development
 

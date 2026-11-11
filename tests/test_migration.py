@@ -2,6 +2,8 @@ import json
 
 from uses_certifier.cli import main
 
+from uses_certifier.config import CERTIFICATE as CERT
+
 from conftest import RULES
 
 GOOD = 'def add(a, b):\n    """Sum."""\n    return a + b\n'
@@ -16,7 +18,7 @@ def migrating(project, files, coverage=0):
 
 
 def certify(root):
-    path = root / "uses-certificate.json"
+    path = root / CERT
     code = main(["certify", str(root), "--rules", str(RULES),
                  "--certificate", str(path)])
     return code, path
@@ -24,14 +26,14 @@ def certify(root):
 
 def test_build_without_certificate(project, capsys):
     root = migrating(project, {"a.py": LEGACY})
-    assert main(["check", str(root / "uses-certificate.json")]) == 0
+    assert main(["check", str(root / CERT)]) == 0
     out = capsys.readouterr().out
     assert "no certificate" in out and "0 of 1" in out
 
 
 def test_strict_build_needs_a_certificate(project):
     root = project({"a.py": GOOD})
-    assert main(["check", str(root / "uses-certificate.json")]) == 2
+    assert main(["check", str(root / CERT)]) == 2
 
 
 def test_only_migrated_files_are_checked(project, capsys):
@@ -83,5 +85,5 @@ def test_init_migration(tmp_path):
 
 def test_unknown_mode(project):
     root = project({".uses-certifier.yaml": "mode: lax\n", "a.py": GOOD})
-    assert main(["check", str(root / "uses-certificate.json")]) == 2
+    assert main(["check", str(root / CERT)]) == 2
     assert json is not None

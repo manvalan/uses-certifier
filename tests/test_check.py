@@ -28,7 +28,8 @@ def issue(root, rulebook, signer=None):
     """Certify root and write its certificate inside it."""
     cert = certifier.certify(root, rulebook, config.ProjectConfig(),
                              signer or Signer())
-    path = root / certificate.DEFAULT_NAME
+    path = root / config.CERTIFICATE
+    path.parent.mkdir(exist_ok=True)
     certificate.write(cert, path)
     return path
 
@@ -53,7 +54,7 @@ def test_certificate_lists_every_element(project, rulebook):
     data = certificate.read(issue(project({"a.py": CODE}), rulebook))
     names = [i["name"] for i in certificate.walk(data["files"][0])]
     assert names == ["a.py", "add", "Box", "Box.size"]
-    assert data["root"] == "."
+    assert data["root"] == ".."
     assert all(i["stamp"] for i in certificate.walk(data["files"][0]))
 
 
@@ -172,3 +173,14 @@ def test_removed_inline_stamp_is_missing(project, rulebook):
     del lines[index - 1]
     (root / "a.py").write_text("".join(lines))
     assert run_check(path).missing == ["a.py:Box (inline stamp)"]
+
+
+def test_default_certificate_location(project, monkeypatch):
+    root = project({"a.py": CODE})
+    monkeypatch.chdir(root)
+    assert main(["certify", ".", "--rules", str(RULES),
+                 "--certificate"]) == 0
+    assert (root / "certification" / "uses-certificate.json").is_file()
+    assert not (root / "uses-certificate.json").exists()
+    assert json.loads((root / config.CERTIFICATE).read_text())["root"] == ".."
+    assert main(["check"]) == 0

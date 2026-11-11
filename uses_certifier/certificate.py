@@ -12,7 +12,6 @@ from . import __version__
 from .model import NOT_CERTIFIED
 
 FORMAT_VERSION = 3
-DEFAULT_NAME = "uses-certificate.json"
 
 
 def build(cert, root="."):
@@ -86,6 +85,7 @@ def build_for(cert, path):
 
 def save(data, path):
     """Write certificate data to a file; return it."""
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
