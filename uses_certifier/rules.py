@@ -22,9 +22,10 @@ class RulesError(Exception):
 class RuleBook:
     """Active rules and level settings."""
 
-    def __init__(self, rules, certification):
+    def __init__(self, rules, certification, principles=()):
         self.rules = rules
         self.certification = certification
+        self.principles = list(principles)
 
     @property
     def digest(self):
@@ -59,7 +60,20 @@ def load(root, config):
         rules += _load_ruleset(file, config.rulesets)
     rules = config.apply_overrides(rules)
     certification = _read_yaml(Path(root) / "certification.yaml")
-    return RuleBook([r for r in rules if r.enabled], certification)
+    return RuleBook([r for r in rules if r.enabled], certification,
+                    load_principles(root))
+
+
+def load_principles(root):
+    """Design principles of every file in principles/ (may be none).
+
+    They are guidance for people and agents: they are not measured and
+    do not take part in the rules fingerprint.
+    """
+    found = []
+    for file in sorted((Path(root) / "principles").glob("*.y*ml")):
+        found += _read_yaml(file).get("principles", [])
+    return found
 
 
 def _load_ruleset(file, wanted):

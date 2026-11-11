@@ -30,6 +30,18 @@ Required level: **gold**.
   long or deeply nested code.
 - List every active rule with `uses-certifier rules .`.
 
+### Follow the design principles
+
+Besides the measured rules, apply the design principles listed by
+`uses-certifier guide .` (DP-001 and following): command query
+separation, parse don't validate, objects that protect their invariants,
+functional core and imperative shell, fractal architecture,
+intention-revealing names, single responsibility, dependencies pointing
+inward, explicit dependencies, tell don't ask, composition over
+inheritance, explicit errors, the rule of three, tests first, small safe
+steps. The certifier cannot measure them: answer each check question for
+the code you touched.
+
 ### After every change
 
 1. Run `uses-certifier certify . --verbose` and fix every violation in
@@ -54,5 +66,7 @@ Required level: **gold**.
 ### Report
 
 When you finish, state the project level, every element below Gold that
-you touched, and every suppression you added, with its reason.
+you touched, every suppression you added with its reason, and every
+design principle you did not follow in the code you touched, with the
+reason.
 <!-- uses-certifier:end -->

@@ -1,0 +1,10 @@
+set: sample
+version: 1.0.0
+principles:
+  - id: DP-001
+    name: cqs
+    title: Command Query Separation
+    summary: Change state or answer, never both.
+    apply: [Split methods that do both.]
+    check: Does a method both change state and return a value?
+    example: {avoid: "def pop(self)", prefer: "def peek(self)"}

@@ -33,8 +33,10 @@ uses-certifier guide .
 ```
 
 Read the whole output. It explains scoring, levels, stamp codes and the
-certificate, lists every rule in force with its limit and its reason, and
-repeats the workflow you must follow from now on. The same workflow is in
+certificate, lists every rule in force with its limit and its reason,
+presents the design principles (which the certifier cannot measure, but
+you must apply and report on), and repeats the workflow you must follow
+from now on. The same workflow is in
 the project's `AGENTS.md`.
 
 ## 4. Reach the required level
@@ -45,7 +47,7 @@ uses-certifier certify . --verbose
 
 Refactor the code until the project reaches the required level: extract
 methods, introduce parameter objects, flatten nesting with guard clauses,
-split large classes. Keep behaviour unchanged and run the project's tests
+split large classes. Let the design principles guide each refactoring. Keep behaviour unchanged and run the project's tests
 after each step.
 
 If the project is large, fix one file at a time and tell the user how far
@@ -77,5 +79,6 @@ Gradle, Maven, Python, pre-commit, GitHub Actions).
 Commit `.uses-certifier.yaml`, `AGENTS.md`, `CLAUDE.md`,
 `uses-certificate.json`, the build change and the refactors. Then report:
 the project level, what you changed to get there, every element still
-below Gold, every exclusion and suppression with its reason, and how the
-build now runs the check.
+below Gold, every exclusion and suppression with its reason, the design
+principles the code still does not follow, and how the build now runs
+the check.

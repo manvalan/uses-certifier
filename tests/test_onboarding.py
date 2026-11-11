@@ -52,6 +52,20 @@ def test_guide_lists_rules_and_workflow(rulebook):
     assert "| Gold | 95 | 0 | 0 |" in text
     assert "uses-certifier check" in text and "**gold**" in text
     assert "uses-certifier:start" not in text
+    assert "### DP-001 Command Query Separation" in text
+    assert "**Check:** Does a method both change state" in text
+
+
+def test_principles_do_not_change_the_rules_digest(tmp_path):
+    import shutil
+    from uses_certifier import config, rules
+    copy = tmp_path / "rules"
+    shutil.copytree(RULES, copy)
+    before = rules.load(copy, config.ProjectConfig())
+    shutil.rmtree(copy / "principles")
+    after = rules.load(copy, config.ProjectConfig())
+    assert before.principles and not after.principles
+    assert before.digest == after.digest
 
 
 def test_cli_guide(project, capsys):

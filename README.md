@@ -161,6 +161,15 @@ element is below the required level, or when the certificate was edited.
 See [docs/build-integration.md](docs/build-integration.md) for Make,
 CMake, npm, Gradle, Maven, Python, pre-commit and GitHub Actions.
 
+## Design principles
+
+Besides the measured rules, uses-rules holds design principles in
+`principles/` (command query separation, parse don't validate, functional
+core / imperative shell, dependency rule and more). The certifier does not
+measure them; `uses-certifier guide` presents them with how to apply them,
+a check question and examples, and the agent instructions require agents
+to apply them and report where they did not.
+
 ## Instructions for agents
 
 `uses-certifier init` adds to a project:

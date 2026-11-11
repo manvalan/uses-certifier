@@ -23,7 +23,7 @@ matches it.
 def render(rulebook, min_level):
     """Markdown guide for the given rules and required level."""
     parts = [INTRO, _levels(rulebook.certification), _rules(rulebook),
-             _workflow(min_level)]
+             _principles(rulebook.principles), _workflow(min_level)]
     return "\n".join(parts)
 
 
@@ -55,6 +55,38 @@ def _rules(rulebook):
                    f"| {rule.title} | {rule.metric} {rule.operator} "
                    f"{rule.threshold} | {rule.severity} | {why} |")
     return "\n".join(out + [""])
+
+
+PRINCIPLES_INTRO = """## Design principles
+
+These are not measured by the certifier. Apply them whenever you write or
+change code, answer each check question for the code you touched, and
+report every case where you did not follow one, with the reason.
+"""
+
+
+def _principles(principles):
+    """Every design principle with how to apply and check it."""
+    if not principles:
+        return ""
+    out = [PRINCIPLES_INTRO]
+    for item in principles:
+        out += _principle(item)
+    return "\n".join(out)
+
+
+def _principle(item):
+    """Markdown block of one design principle."""
+    summary = " ".join(item["summary"].split())
+    out = [f"### {item['id']} {item['title']}", "", summary, ""]
+    out += [f"- {' '.join(step.split())}" for step in item.get("apply", [])]
+    out += ["", f"**Check:** {item['check']}"]
+    example = item.get("example")
+    if example:
+        out += ["", f"- Avoid: `{example['avoid']}`",
+                f"- Prefer: `{example['prefer']}`"]
+    source = f"Source: {item['source']}" if item.get("source") else ""
+    return out + ["", source, ""] if source else out + [""]
 
 
 def _workflow(min_level):
