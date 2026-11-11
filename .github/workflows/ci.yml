@@ -26,6 +26,9 @@ jobs:
         with:
           path: uses_certifier
           min-level: gold
+          # Provvisorio: le regole sono ancora nella PR manvalan/uses-rules#1.
+          # Tornare a "main" quando quella PR è unita.
+          rules-ref: claude/certificatore-v1
       - uses: actions/upload-artifact@v4
         with:
           name: uses-certificate

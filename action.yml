@@ -39,5 +39,7 @@ runs:
           --certificate uses-certificate.json \
           ${MIN_LEVEL:+--min-level "$MIN_LEVEL"}
         status=$?
-        cat "$RUNNER_TEMP/uses-report.md" >> "$GITHUB_STEP_SUMMARY"
+        if [ -f "$RUNNER_TEMP/uses-report.md" ]; then
+          cat "$RUNNER_TEMP/uses-report.md" >> "$GITHUB_STEP_SUMMARY"
+        fi
         exit $status
