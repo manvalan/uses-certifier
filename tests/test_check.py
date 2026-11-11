@@ -184,3 +184,41 @@ def test_default_certificate_location(project, monkeypatch):
     assert not (root / "uses-certificate.json").exists()
     assert json.loads((root / config.CERTIFICATE).read_text())["root"] == ".."
     assert main(["check"]) == 0
+
+
+TS_CALLBACKS = '''
+test('first', () => {
+    run(1);
+});
+
+test('second', () => {
+    run(2);
+});
+'''
+
+
+def test_anonymous_functions_keep_their_own_stamps(project, rulebook):
+    path = stamp_and_issue(project({"a.test.ts": TS_CALLBACKS}), rulebook)
+    result = run_check(path)
+    assert result.ok, result.problems
+
+
+def test_duplicate_names_get_an_ordinal(project, rulebook):
+    root = project({"a.test.ts": TS_CALLBACKS})
+    module = certifier.analyze_file(root / "a.test.ts", "a.test.ts")
+    names = [e.qualname for e in module.walk()][1:]
+    assert names == ["(anonymous)", "(anonymous)#2"]
+
+
+TS_SAME_LINE = '''
+test('hex', () => {
+    const hex = (c) => c.map((v) => v.toString(16)).join("");
+    run(hex([1]));
+});
+'''
+
+
+def test_elements_on_the_same_line_keep_their_stamps(project, rulebook):
+    path = stamp_and_issue(project({"a.test.ts": TS_SAME_LINE}), rulebook)
+    result = run_check(path)
+    assert result.ok, result.problems
