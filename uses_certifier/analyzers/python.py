@@ -49,11 +49,11 @@ def _children(node, src, prefix):
     """Function and class elements defined directly under a node."""
     found = []
     for child in ast.iter_child_nodes(node):
-        qualname = prefix + getattr(child, "name", "")
         if isinstance(child, DEFS):
-            found.append(_function(child, src, qualname, bool(prefix)))
+            found.append(_function(child, src, prefix + child.name,
+                                   bool(prefix)))
         elif isinstance(child, ast.ClassDef):
-            found.append(_class(child, src, qualname))
+            found.append(_class(child, src, prefix + child.name))
     return found
 
 

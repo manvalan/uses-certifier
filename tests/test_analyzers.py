@@ -47,6 +47,13 @@ def test_python_tree():
     assert (total.first_line, total.start_line) == (8, 9)
 
 
+def test_python_type_alias_statement_is_skipped():
+    text = "type Logger = int | None\n\n\ndef log():\n    pass\n"
+    module = analyzers.analyze("alias.py", text, "alias.py")
+    names = [(e.kind, e.qualname) for e in module.walk()]
+    assert names == [("module", "alias.py"), ("function", "log")]
+
+
 def test_java_methods_grouped_by_class():
     module = analyzers.analyze("Cart.java", JAVA, "Cart.java")
     assert module.language == "java"
