@@ -27,8 +27,10 @@ creates `.uses-certifier.yaml`, adds a certification section to
 once to show where it stands.
 
 For a program written before certification, add `--migration`: the
-build then accepts the files not yet certified and the project is
-migrated file by file (see "Migrating existing programs" in the README).
+project is migrated file by file (see "Migrating existing programs" in
+the README). The files not yet certified build only while a person
+authorizes them in `certification/authorizations.yaml`; never add or
+extend an authorization yourself.
 In that case step 4 applies to the files you create or change, not to
 the whole project.
 

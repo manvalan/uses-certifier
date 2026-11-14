@@ -7,7 +7,9 @@ sources and, for signed certificates, the key. Without the key the
 fingerprints are still compared, but the signatures cannot be checked.
 
 In migration mode only the files already certified at the required level
-are checked; the others are legacy (see migration.py).
+are compared with the certificate; the others are reported as legacy.
+Every problem fails the build unless a person authorized it (see
+authorization.py).
 """
 from . import certifier, migration
 from .certificate import certificate_id, walk
@@ -49,11 +51,13 @@ class _Checker:
         self.result.certificate_ok = expected == self.data["certificate_id"]
 
     def _check_source(self, path, relpath, entry):
-        """Check one source, unless it is legacy code being migrated."""
-        if self.policy.migration and not self._migrated(entry):
-            return
+        """Check one source; legacy code being migrated is only
+        reported, not compared."""
         if entry is None:
             self.result.add("uncertified", relpath)
+            return
+        if self.policy.migration and not self._migrated(entry):
+            self.result.add("legacy", relpath)
             return
         self.result.files_checked += 1
         self._compare(_Source(path, relpath), entry)
@@ -62,8 +66,8 @@ class _Checker:
     def _migrated(self, entry):
         """True when a certificate entry reached the wanted level."""
         levels = self.data["levels"]
-        return entry is not None and migration.at_level(
-            entry["level"], self.policy.wanted(levels), levels)
+        return migration.at_level(entry["level"],
+                                  self.policy.wanted(levels), levels)
 
     def _compare(self, source, entry):
         """Compare the elements of one source with its certificate entry."""

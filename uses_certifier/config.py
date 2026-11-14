@@ -12,6 +12,7 @@ DEFAULT_EXCLUDE = [
 ]
 STRICT, MIGRATION = "strict", "migration"
 CERTIFICATE = "certification/uses-certificate.json"
+AUTHORIZATIONS = "certification/authorizations.yaml"
 
 
 class ConfigError(ValueError):
@@ -21,8 +22,9 @@ class ConfigError(ValueError):
 # uses-cert: ignore[CC-008] one field per key of .uses-certifier.yaml
 @dataclass
 class ProjectConfig:
-    """Project choices: rulesets, exclusions, thresholds, minimum level
-    and mode (strict, or migration for existing programs)."""
+    """Project choices: rulesets, exclusions, thresholds, minimum level,
+    mode (strict, or migration for existing programs) and where the
+    certificate and the authorizations live."""
 
     rulesets: list = field(default_factory=list)
     exclude: list = field(default_factory=list)
@@ -32,6 +34,7 @@ class ProjectConfig:
     mode: str = STRICT
     certificate: str = CERTIFICATE
     migration_min_coverage: float = 0
+    authorizations: str = AUTHORIZATIONS
 
     def __post_init__(self):
         if self.mode not in (STRICT, MIGRATION):
@@ -41,6 +44,10 @@ class ProjectConfig:
     def certificate_path(self, root):
         """Where the project's certificate lives, under root."""
         return Path(root) / self.certificate
+
+    def authorizations_path(self, root):
+        """Where the project's authorizations live, under root."""
+        return Path(root) / self.authorizations
 
     @property
     def migrating(self):

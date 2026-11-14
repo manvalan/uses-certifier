@@ -12,19 +12,66 @@ under a second on typical projects, and exits with code 1 when:
 - a stamp written in a source does not match the JSON certificate, is
   missing from a stamped source or belongs to no element,
 - the certificate was edited by hand,
-- in migration mode, the share of migrated files is below
-  `migration_min_coverage`.
+- in migration mode, a file is not yet at `min_level` (`LEGACY`), or
+  the share of migrated files is below `migration_min_coverage`.
 
-In migration mode (`mode: migration` in `.uses-certifier.yaml`) the build
-also passes without a certificate, and only the files already certified
-at `min_level` are checked; the others are legacy code waiting to be
-migrated.
+Nothing passes by default. The only way to build code that fails the
+check is an explicit authorization written by a person in
+`certification/authorizations.yaml`, with a reason, an author and an
+optional expiry (see "Authorizations" in the README and
+`uses-certifier authorize`). Authorized problems are printed as
+`AUTHORIZED` on every build. Certificate tampering and the migration
+coverage cannot be authorized.
 
 Add it as the first step of the build so that uncertified code never
 compiles. Every example assumes `uses-certifier` is installed
 (`pip install git+https://github.com/manvalan/uses-certifier`). For
 signed certificates, provide the key through `USES_CERT_KEY`; without it
 the check still compares fingerprints and says so.
+
+## CMake (C and C++)
+
+The package ships a CMake module (CMake 3.19 or later). Add these lines
+to the top-level `CMakeLists.txt`, after `project()`:
+
+```cmake
+execute_process(COMMAND uses-certifier cmake-module
+                OUTPUT_VARIABLE USES_CERTIFIER_MODULE
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                COMMAND_ERROR_IS_FATAL ANY)
+include(${USES_CERTIFIER_MODULE})
+uses_certifier_check()
+```
+
+`uses_certifier_check()` adds the `uses_certification` target, which runs
+`uses-certifier check` on every build, and at the end of the
+configuration makes every executable and library of the project (in all
+subdirectories, including the targets defined after the call) depend on
+it. When the check fails nothing compiles, whatever the generator. Configuration fails when `uses-certifier` is not
+installed, so the check cannot be skipped by accident; there is no
+option to turn it off.
+
+Optional arguments:
+
+| Argument | Default |
+|---|---|
+| `TARGET name` | `uses_certification` |
+| `PROJECT_DIR dir` | `CMAKE_CURRENT_SOURCE_DIR` |
+| `CERTIFICATE file` | the project's configured certificate |
+| `AUTHORIZATIONS file` | the project's configured authorizations |
+| `MIN_LEVEL level` | the project's `min_level` |
+| `GUARD targets...` | every executable and library |
+
+Instead of `execute_process`, the module can be vendored (copy
+`uses_certifier/cmake/UsesCertifier.cmake`) or fetched with
+`FetchContent`; `USES_CERTIFIER_EXECUTABLE` points it to a
+`uses-certifier` outside the `PATH`. A failing build prints, for example:
+
+```text
+INVALID      src/parser.cpp:Parser::parse
+UNCERTIFIED  src/new_feature.cpp
+Certification check FAILED. Valid: 412, invalid: 1, ...
+```
 
 ## Make
 
@@ -35,16 +82,6 @@ certification:
 
 build: certification
 	$(CC) ...
-```
-
-## CMake
-
-```cmake
-add_custom_target(certification ALL
-  COMMAND uses-certifier check ${CMAKE_SOURCE_DIR}/certification/uses-certificate.json
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  COMMENT "Checking code certification")
-add_dependencies(my_target certification)
 ```
 
 ## npm
