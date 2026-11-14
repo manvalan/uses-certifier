@@ -14,6 +14,8 @@ PROBLEMS = {
     "missing": "certified element no longer present, or stamp missing",
     "uncertified": "element not covered by the certificate",
     "below_level": "certified below the required level",
+    "legacy": "file of a program being migrated, not yet at the "
+              "required level",
 }
 
 
@@ -32,10 +34,12 @@ class VerifyResult:
     coverage_ok: bool = True
     files_checked: int = 0
     notes: list = field(default_factory=list)
+    authorized: list = field(default_factory=list)
 
     @property
     def ok(self):
-        """True when every stamp is valid and nothing is uncovered."""
+        """True when every stamp is valid and nothing is uncovered,
+        apart from the explicitly authorized problems."""
         return (self.certificate_ok and self.coverage_ok
                 and not any(self.problems.values()))
 

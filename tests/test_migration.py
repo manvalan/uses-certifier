@@ -2,6 +2,7 @@ import json
 
 from uses_certifier.cli import main
 
+from uses_certifier.config import AUTHORIZATIONS as AUTH
 from uses_certifier.config import CERTIFICATE as CERT
 
 from conftest import RULES
@@ -24,11 +25,22 @@ def certify(root):
     return code, path
 
 
-def test_build_without_certificate(project, capsys):
+def authorize(root, *paths):
+    """Authorize the given files of root to build uncertified."""
+    entries = "".join(f"  - path: {p}\n    reason: legacy\n"
+                      f"    authorized_by: Ann\n" for p in paths)
+    (root / "certification").mkdir(exist_ok=True)
+    (root / AUTH).write_text("authorizations:\n" + entries)
+
+
+def test_build_without_certificate_needs_authorization(project, capsys):
     root = migrating(project, {"a.py": LEGACY})
-    assert main(["check", str(root / CERT)]) == 0
+    assert main(["check", str(root / CERT)]) == 1
     out = capsys.readouterr().out
-    assert "no certificate" in out and "0 of 1" in out
+    assert "no certificate" in out and "UNCERTIFIED  a.py" in out
+    authorize(root, "a.py")
+    assert main(["check", str(root / CERT)]) == 0
+    assert "AUTHORIZED   uncertified a.py: legacy" in capsys.readouterr().out
 
 
 def test_strict_build_needs_a_certificate(project):
@@ -36,14 +48,31 @@ def test_strict_build_needs_a_certificate(project):
     assert main(["check", str(root / CERT)]) == 2
 
 
-def test_only_migrated_files_are_checked(project, capsys):
+def test_legacy_files_build_only_when_authorized(project, capsys):
     root = migrating(project, {"a.py": GOOD, "b.py": LEGACY})
     code, path = certify(root)
     assert code == 0
     (root / "b.py").write_text(LEGACY + "\nX = 1\n")
-    (root / "c.py").write_text("Y = 2\n")
+    assert main(["check", str(path)]) == 1
+    assert "LEGACY       b.py" in capsys.readouterr().out
+    authorize(root, "b.py")
     assert main(["check", str(path)]) == 0
-    assert "1 of 3" in capsys.readouterr().out
+    assert "1 of 2" in capsys.readouterr().out
+
+
+def test_new_files_are_never_legacy(project, capsys):
+    root = migrating(project, {"a.py": GOOD, "b.py": LEGACY})
+    _, path = certify(root)
+    authorize(root, "b.py")
+    (root / "c.py").write_text("Y = 2\n")
+    assert main(["check", str(path)]) == 1
+    assert "UNCERTIFIED  c.py" in capsys.readouterr().out
+
+
+def test_migrated_files_are_checked(project):
+    root = migrating(project, {"a.py": GOOD, "b.py": LEGACY})
+    _, path = certify(root)
+    authorize(root, "b.py")
     (root / "a.py").write_text(GOOD + "\nX = 1\n")
     assert main(["check", str(path)]) == 1
 

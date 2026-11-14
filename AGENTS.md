@@ -75,8 +75,10 @@ you touched.
 ### Existing programs being migrated
 
 When `.uses-certifier.yaml` says `mode: migration`, the program is
-being certified file by file. The build accepts *legacy* files (not yet
-at **gold**) and checks strictly the *migrated* ones.
+being certified file by file. *Legacy* files (not yet at
+**gold**) build only while a person authorizes them in
+`certification/authorizations.yaml`; the *migrated* ones are checked
+strictly.
 
 - Every new file you create must reach **gold**.
 - Every file you change should leave your hands at **gold** (the
@@ -90,6 +92,9 @@ at **gold**) and checks strictly the *migrated* ones.
 ### Never
 
 - Edit the files in `certification/` or `uses-cert: stamp` comments by hand.
+- Add, extend or renew an authorization (`uses-certifier authorize`,
+  `certification/authorizations.yaml`): only a person may. When code
+  cannot reach the level, say so in your report and let them decide.
 - Lower thresholds, disable rules or remove files from certification in
   `.uses-certifier.yaml` to make the check pass.
 - Add `uses-cert: ignore[...]` without a concrete reason on the same

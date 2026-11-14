@@ -1,11 +1,12 @@
-"""Command line interface: certify, stamp, verify, rules."""
+"""Command line interface: certify, stamp, verify, check, rules."""
 import argparse
 import os
 import sys
+from datetime import date
 from pathlib import Path
 
 from . import __version__, certificate, certifier, config, rules, signing
-from . import guide, migration, rules_cache, stamper, verify
+from . import authorization, guide, migration, rules_cache, stamper, verify
 from .check import check, empty_certificate
 from .init import init_project
 from .model import NOT_CERTIFIED
@@ -39,6 +40,7 @@ def _parser():
     _add_stamp(sub)
     _add_verify(sub)
     _add_check(sub)
+    _add_authorize(sub)
     _add_rules(sub)
     _add_init(sub)
     _add_onboarding(sub)
@@ -85,11 +87,35 @@ def _add_check(sub):
     cmd.add_argument("certificate", nargs="?",
                      help="certificate (default: the project's, "
                           f"{config.CERTIFICATE})")
+    _check_options(cmd)
+    cmd.set_defaults(handler=run_check)
+
+
+def _check_options(cmd):
+    """Options shared by check and authorize."""
     cmd.add_argument("--min-level", help="also require this level")
     cmd.add_argument("--config", help="project configuration file")
     cmd.add_argument("--key-file", help="secret key that signs the stamps "
                                         f"(or ${signing.KEY_ENV})")
-    cmd.set_defaults(handler=run_check)
+    cmd.add_argument("--authorizations",
+                     help="code allowed to build without a valid "
+                          f"certificate (default: {config.AUTHORIZATIONS})")
+
+
+def _add_authorize(sub):
+    """Arguments of the authorize command."""
+    cmd = sub.add_parser(
+        "authorize", help="let the files that fail the check build anyway, "
+                          "with a reason (for people, never for agents)")
+    cmd.add_argument("certificate", nargs="?",
+                     help=f"certificate (default: {config.CERTIFICATE})")
+    cmd.add_argument("--reason", required=True,
+                     help="why these files may build uncertified")
+    cmd.add_argument("--by", required=True, help="who authorizes them")
+    cmd.add_argument("--expires", type=date.fromisoformat,
+                     help="last day of validity (YYYY-MM-DD)")
+    _check_options(cmd)
+    cmd.set_defaults(handler=run_authorize)
 
 
 def _add_init(sub):
@@ -127,6 +153,9 @@ def _add_onboarding(sub):
     _level_and_mode(setup)
     setup.add_argument("--ref", default="main", help="uses-rules branch")
     setup.set_defaults(handler=run_setup)
+    module = sub.add_parser("cmake-module",
+                            help="print the path of UsesCertifier.cmake")
+    module.set_defaults(handler=run_cmake_module)
 
 
 def _project_options(cmd):
@@ -307,14 +336,34 @@ def run_verify(args):
 
 def run_check(args):
     """Build check of the sources against the JSON certificate."""
-    path = args.certificate
-    if path is None:
-        path = config.load(".", args.config).certificate_path(".")
-    return _check_certificate(path, args)
+    return _check_certificate(_default_certificate(args), args)
+
+
+def _default_certificate(args):
+    """The certificate given on the command line, or the project's."""
+    if args.certificate is not None:
+        return args.certificate
+    return config.load(".", args.config).certificate_path(".")
 
 
 def _check_certificate(path, args):
     """Check sources against a certificate and print the outcome."""
+    result, _ = _checked(path, args)
+    _print_verify(result)
+    return EXIT_OK if result.ok else EXIT_FAILED
+
+
+def _checked(path, args):
+    """(check result with the authorizations applied, their file)."""
+    result, project, root = _unauthorized_check(path, args)
+    granted = (getattr(args, "authorizations", None)
+               or project.authorizations_path(root))
+    gate = authorization.Gate(authorization.load(granted), date.today())
+    return gate.admit(result), granted
+
+
+def _unauthorized_check(path, args):
+    """(check result before the authorizations, project, sources root)."""
     data, root = _read_certificate(path, getattr(args, "root", None))
     project = config.load(root, args.config)
     if data is None:
@@ -322,8 +371,20 @@ def _check_certificate(path, args):
     policy = migration.Policy.of(project, getattr(args, "min_level", None))
     result = check(data, certifier.discover(root, project),
                    signing.load(args.key_file), policy)
-    _print_verify(result)
-    return EXIT_OK if result.ok else EXIT_FAILED
+    return result, project, root
+
+
+def run_authorize(args):
+    """Authorize the files that fail the check, with a reason."""
+    result, path = _checked(_default_certificate(args), args)
+    files = authorization.problem_files(result)
+    grants = [authorization.Authorization(f, args.reason, args.by,
+                                          args.expires) for f in files]
+    authorization.save(path, authorization.load(path) + grants)
+    for grant in grants:
+        print(f"authorized {grant.path}: {grant.describe()}")
+    print(f"{len(grants)} file(s) authorized in {path}")
+    return EXIT_OK
 
 
 def _read_certificate(path, root=None):
@@ -339,7 +400,8 @@ def _no_certificate(path, project):
     strict project."""
     if not project.migrating:
         raise FileNotFoundError(f"certificate {path} not found")
-    print(f"note: no certificate {path} yet: every file is legacy")
+    print(f"note: no certificate {path} yet: every file is uncertified "
+          "and builds only when authorized")
     return empty_certificate()
 
 
@@ -356,13 +418,16 @@ def _print_notes(result):
 def _print_verify(result):
     """Print the outcome of a verification."""
     _print_notes(result)
+    for kind, name, grant in result.authorized:
+        print(f"AUTHORIZED   {kind} {name}: {grant.describe()}")
     for kind, names in result.problems.items():
         for name in names:
             print(f"{kind.upper():<12} {name}")
     counts = ", ".join(f"{kind}: {len(names)}"
                        for kind, names in result.problems.items())
     status = "OK" if result.ok else "FAILED"
-    print(f"Certification check {status}. Valid: {result.valid}, {counts}")
+    print(f"Certification check {status}. Valid: {result.valid}, {counts}, "
+          f"authorized: {len(result.authorized)}")
 
 
 def run_init(args):
@@ -388,6 +453,12 @@ def run_guide(args):
     """Print the guide for the rules in force."""
     project, rulebook = _load(args)
     print(guide.render(rulebook, project.min_level or "silver"))
+    return EXIT_OK
+
+
+def run_cmake_module(_args):
+    """Print the path of the bundled CMake module."""
+    print(Path(__file__).parent / "cmake" / "UsesCertifier.cmake")
     return EXIT_OK
 
 

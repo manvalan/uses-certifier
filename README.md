@@ -47,6 +47,12 @@ uses-certifier certify . --certificate --min-level silver
 # Build check: do the sources still match the committed certificate?
 uses-certifier check
 
+# Let the files that fail the check build anyway (people only)
+uses-certifier authorize --reason "legacy, migration planned" --by Ann
+
+# Path of the CMake module that runs the check on every build
+uses-certifier cmake-module
+
 # Add configuration and agent instructions to a project
 uses-certifier init . --min-level silver
 
@@ -162,8 +168,32 @@ new code is not certified, when certified code disappeared, when an
 element is below the required level, or when the certificate was edited.
 When a source carries stamps, every stamp must also match the code
 recorded in the JSON certificate: a stamp edited by hand, removed or left
-over from deleted code fails the build. See [docs/build-integration.md](docs/build-integration.md) for Make,
-CMake, npm, Gradle, Maven, Python, pre-commit and GitHub Actions.
+over from deleted code fails the build. See [docs/build-integration.md](docs/build-integration.md) for
+CMake (C and C++), Make, npm, Gradle, Maven, Python, pre-commit and
+GitHub Actions.
+
+## Authorizations
+
+Code that fails the check does not build by default. A person can let
+it build, file by file, in `certification/authorizations.yaml` (the
+`authorizations` key of `.uses-certifier.yaml` moves it):
+
+```yaml
+authorizations:
+  - path: src/legacy/*.cpp        # fnmatch pattern, relative to the root
+    reason: legacy parser, rewrite planned for Q1
+    authorized_by: Ann
+    expires: 2027-03-31           # optional
+```
+
+Every entry needs a reason and an author. `uses-certifier authorize
+--reason ... --by ... [--expires YYYY-MM-DD]` appends one entry for each
+file that currently fails the check, so new files stay blocked. On every
+build `check` prints each authorized problem as `AUTHORIZED`, reports
+expired entries (which stop working) and entries no longer needed. The
+certificate tampering and migration coverage checks cannot be
+authorized. Agents never add or extend authorizations: the file is
+reviewed like code.
 
 ## Migrating existing programs
 
@@ -175,11 +205,13 @@ uses-certifier init . --min-level gold --migration
 
 writes `mode: migration` in `.uses-certifier.yaml`. In this mode:
 
-- the build passes even without a certificate (every file is *legacy*);
 - a source file certified at `min_level` is *migrated*, and from then on
   `check` verifies it as strictly as in a normal project;
-- legacy files are recorded in the certificate but not enforced, and
-  `stamp` leaves them untouched;
+- the other files are *legacy*: they are recorded in the certificate,
+  `stamp` leaves them untouched and `check` reports them as `LEGACY`.
+  They build only while they are authorized (see "Authorizations";
+  `uses-certifier authorize` lists all of them at once when the
+  migration starts). New files are never legacy: they must be certified;
 - `certify` refuses to write the certificate when a migrated file falls
   back below `min_level`, so the migration only moves forward;
 - `check` and `certify` print the coverage (migrated files out of all

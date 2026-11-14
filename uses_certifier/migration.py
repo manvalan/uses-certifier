@@ -1,12 +1,12 @@
 """Gradual migration of existing programs to certified code.
 
-In migration mode a project builds even when it is not fully certified.
 A source file that reaches the required level is *migrated*: from then
 on the build checks it like in a strict project, and certify refuses to
 let it fall back below the level. The other files are *legacy*: they are
-recorded in the certificate, but the build does not enforce them. The
-share of migrated files is the coverage, and the project can require a
-minimum coverage that is raised over time.
+recorded in the certificate and the build reports them; they build only
+while a person authorizes them (see authorization.py). The share of
+migrated files is the coverage, and the project can require a minimum
+coverage that is raised over time.
 """
 from dataclasses import dataclass
 
@@ -68,4 +68,4 @@ def coverage_note(done, total, policy, wanted):
                 if policy.min_coverage else "")
     return (f"migration: {done} of {total} source files at {wanted} or "
             f"better ({coverage(done, total):.0f}%{required}); the others "
-            f"are legacy and not enforced")
+            f"build only when authorized")
